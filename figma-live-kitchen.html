@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Live Kitchen Card (Figma)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <style>
+    *{box-sizing:border-box;}
+    body{margin:0;background:#f4efe4;font-family:'Inter',system-ui,sans-serif;color:var(--support-heading);
+      -webkit-font-smoothing:antialiased;padding:48px;}
+    .wrap{max-width:960px;margin:0 auto;}
+    .page-h{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--neutral-400);margin:0 0 6px;}
+    .page-t{font-size:22px;font-weight:700;letter-spacing:-.02em;margin:0 0 4px;color:var(--support-heading);}
+    .page-s{font-size:13px;color:var(--neutral-800);opacity:.75;margin:0 0 28px;}
+    .demo-label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--neutral-400);margin:26px 0 10px;}
+
+    /* ===== Live Kitchen company card — exact Figma reproduction (node 1284:33977) ===== */
+    .lkc{
+      background:var(--support-background);
+      border:1px solid var(--support-border);
+      border-radius:12px;
+      padding:10px 16px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+    }
+    .lkc-row{display:flex;gap:12px;align-items:center;width:100%;}
+    .lkc-av{width:32px;height:32px;border-radius:9999px;flex:none;object-fit:cover;display:block;}
+    .lkc-mid{display:flex;flex:1 0 0;flex-direction:column;gap:2px;align-items:flex-start;min-width:0;}
+    .lkc-name{color:var(--support-heading);margin:0;word-break:break-word;}
+    .lkc-meta{display:flex;gap:12px;align-items:flex-start;}
+    .lkc-item{display:flex;gap:4px;align-items:center;width:80px;}
+    .lkc-ic{width:18px;height:18px;flex:none;display:block;}
+    .lkc-txt{color:var(--neutral-800);white-space:nowrap;margin:0;}
+    .lkc-txt.ellip{overflow:hidden;text-overflow:ellipsis;}
+    .lkc-txt.num{text-align:right;}
+    .lkc-right{display:flex;gap:4px;align-items:center;width:80px;}
+
+    /* fixed-width frame to match the 417px Figma frame */
+    .frame-417{width:417px;}
+    .stack{display:flex;flex-direction:column;gap:10px;max-width:520px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-h">Figma · node 1284:33977</div>
+    <h1 class="page-t">Live Kitchen — Company Card</h1>
+    <p class="page-s">Rebuilt 1:1 from the Figma file using the same design tokens (--support-background #fffdf8, --support-border #ebe5d7, --support-heading #2d2d2d, neutral/800 #262626), the Inter type scale (Label-2 / Body-4), and the exported icon assets.</p>
+
+    <div class="demo-label">Exact node (417 px frame)</div>
+    <div class="frame-417">
+      <div class="lkc">
+        <div class="lkc-row">
+          <img class="lkc-av" src="assets/figma/avatar-acme.png" alt="">
+          <div class="lkc-mid">
+            <p class="lkc-name t-label-2">Acme Corp</p>
+            <div class="lkc-meta">
+              <div class="lkc-item">
+                <img class="lkc-ic" src="assets/figma/map-pin.svg" alt="">
+                <p class="lkc-txt t-body-4">Austin, US</p>
+              </div>
+              <div class="lkc-item">
+                <img class="lkc-ic" src="assets/figma/tools-kitchen.svg" alt="">
+                <p class="lkc-txt t-body-4 ellip">Items</p>
+                <p class="lkc-txt t-body-4 num">16</p>
+              </div>
+            </div>
+          </div>
+          <div class="lkc-right">
+            <img class="lkc-ic" src="assets/figma/clock.svg" alt="">
+            <p class="lkc-txt t-body-4">12:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-label">As a reusable list component</div>
+    <div class="stack">
+      <div class="lkc">
+        <div class="lkc-row">
+          <img class="lkc-av" src="assets/figma/avatar-acme.png" alt="">
+          <div class="lkc-mid">
+            <p class="lkc-name t-label-2">Acme Corp</p>
+            <div class="lkc-meta">
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/map-pin.svg" alt=""><p class="lkc-txt t-body-4">Austin, US</p></div>
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/tools-kitchen.svg" alt=""><p class="lkc-txt t-body-4 ellip">Items</p><p class="lkc-txt t-body-4 num">16</p></div>
+            </div>
+          </div>
+          <div class="lkc-right"><img class="lkc-ic" src="assets/figma/clock.svg" alt=""><p class="lkc-txt t-body-4">12:00 PM</p></div>
+        </div>
+      </div>
+      <div class="lkc">
+        <div class="lkc-row">
+          <img class="lkc-av" src="assets/figma/avatar-acme.png" alt="">
+          <div class="lkc-mid">
+            <p class="lkc-name t-label-2">Google Inc.</p>
+            <div class="lkc-meta">
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/map-pin.svg" alt=""><p class="lkc-txt t-body-4">Boston, US</p></div>
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/tools-kitchen.svg" alt=""><p class="lkc-txt t-body-4 ellip">Items</p><p class="lkc-txt t-body-4 num">24</p></div>
+            </div>
+          </div>
+          <div class="lkc-right"><img class="lkc-ic" src="assets/figma/clock.svg" alt=""><p class="lkc-txt t-body-4">1:00 PM</p></div>
+        </div>
+      </div>
+      <div class="lkc">
+        <div class="lkc-row">
+          <img class="lkc-av" src="assets/figma/avatar-acme.png" alt="">
+          <div class="lkc-mid">
+            <p class="lkc-name t-label-2">Microsoft HQ</p>
+            <div class="lkc-meta">
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/map-pin.svg" alt=""><p class="lkc-txt t-body-4">Cambridge</p></div>
+              <div class="lkc-item"><img class="lkc-ic" src="assets/figma/tools-kitchen.svg" alt=""><p class="lkc-txt t-body-4 ellip">Items</p><p class="lkc-txt t-body-4 num">9</p></div>
+            </div>
+          </div>
+          <div class="lkc-right"><img class="lkc-ic" src="assets/figma/clock.svg" alt=""><p class="lkc-txt t-body-4">11:30 AM</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

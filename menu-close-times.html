@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Menu Close Times · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="set-wrap">
+        <div class="set-head">
+          <h1>Menu Close Times</h1>
+          <div class="sub">See when each corporation's menu closes for same-day orders — all in one place. Tap a corporation to open its page.</div>
+        </div>
+
+        <div class="set-card">
+          <div class="set-cardhead">
+            <div><h2>Corporations</h2><div class="desc">Sorted by soonest close. Corporations with multiple meals show each window's close &amp; delivery time.</div></div>
+            <div class="mcx-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="mcxSearch" type="text" placeholder="Search corporation"></div>
+          </div>
+          <div class="mcx-banner"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Next to close: <b>Vantage Group · Lunch</b> at <b>9:00 AM PT</b>. Corporations with multiple meals show each window's close &amp; delivery time.</span></div>
+
+          <div class="mcx-list" id="mcxList">
+            <div class="mcx-card soon" data-corp="Vantage Group">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#7C3AED">VG</span>
+                <div class="mcx-info"><div class="mcx-name">Vantage Group</div><div class="mcx-sub">Tier 2 · 34 employees</div></div>
+                <span class="mcx-meals-tag">1 meal</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🥗</span><span class="mcx-meal-name">Lunch</span><span class="mcx-meal-times">Closes <b>9:00 AM</b><i>·</i>Delivers <b>12:00 PM</b></span><span class="mcx-status soon">Closing soon · 22 min</span></div>
+              </div>
+            </div>
+
+            <div class="mcx-card" data-corp="Acme Corp">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#E0562E">AC</span>
+                <div class="mcx-info"><div class="mcx-name">Acme Corp</div><div class="mcx-sub">Tier 1 · 28 employees</div></div>
+                <span class="mcx-meals-tag multi">2 meals</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🍳</span><span class="mcx-meal-name">Breakfast</span><span class="mcx-meal-times">Closes <b>7:30 AM</b><i>·</i>Delivers <b>8:30 AM</b></span><span class="mcx-status closed">Closed</span></div>
+                <div class="mcx-meal"><span class="mcx-meal-ic">🍽️</span><span class="mcx-meal-name">Dinner</span><span class="mcx-meal-times">Closes <b>4:00 PM</b><i>·</i>Delivers <b>6:00 PM</b></span><span class="mcx-status open">Open</span></div>
+              </div>
+            </div>
+
+            <div class="mcx-card" data-corp="Bright Digital">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#1F7A47">BD</span>
+                <div class="mcx-info"><div class="mcx-name">Bright Digital</div><div class="mcx-sub">Tier 1 · 12 employees</div></div>
+                <span class="mcx-meals-tag multi">2 meals</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🍳</span><span class="mcx-meal-name">Breakfast</span><span class="mcx-meal-times">Closes <b>7:00 AM</b><i>·</i>Delivers <b>8:00 AM</b></span><span class="mcx-status closed">Closed</span></div>
+                <div class="mcx-meal"><span class="mcx-meal-ic">🥗</span><span class="mcx-meal-name">Lunch</span><span class="mcx-meal-times">Closes <b>10:30 AM</b><i>·</i>Delivers <b>1:00 PM</b></span><span class="mcx-status open">Open</span></div>
+              </div>
+            </div>
+
+            <div class="mcx-card" data-corp="Google Inc.">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#2563EB">GI</span>
+                <div class="mcx-info"><div class="mcx-name">Google Inc.</div><div class="mcx-sub">Tier 3 · 65 employees</div></div>
+                <span class="mcx-meals-tag">1 meal</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🥗</span><span class="mcx-meal-name">Lunch</span><span class="mcx-meal-times">Closes <b>9:30 AM</b><i>·</i>Delivers <b>12:30 PM</b></span><span class="mcx-status open">Open</span></div>
+              </div>
+            </div>
+
+            <div class="mcx-card" data-corp="Northline Labs">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#B26A00">NL</span>
+                <div class="mcx-info"><div class="mcx-name">Northline Labs</div><div class="mcx-sub">Tier 2 · 16 employees</div></div>
+                <span class="mcx-meals-tag">1 meal</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🥗</span><span class="mcx-meal-name">Lunch</span><span class="mcx-meal-times">Closes <b>11:30 AM</b><i>·</i>Delivers <b>1:30 PM</b></span><span class="mcx-status open">Open</span></div>
+              </div>
+            </div>
+
+            <div class="mcx-card closed" data-corp="Meridian LLC">
+              <div class="mcx-chead" role="button">
+                <span class="mcx-av" style="background:#9b958a">ML</span>
+                <div class="mcx-info"><div class="mcx-name">Meridian LLC</div><div class="mcx-sub">Tier 1 · 8 employees</div></div>
+                <span class="mcx-meals-tag">1 meal</span>
+                <svg class="mcx-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+              <div class="mcx-meals">
+                <div class="mcx-meal"><span class="mcx-meal-ic">🍳</span><span class="mcx-meal-name">Breakfast</span><span class="mcx-meal-times">Closes <b>6:30 AM</b><i>·</i>Delivers <b>7:30 AM</b></span><span class="mcx-status closed">Closed for today</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="mcx-empty" id="mcxEmpty">No corporations match your search.</div>
+          <div class="ntf-note" style="margin-top:16px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Each corporation sets its own menu close time. Employees can still order up to <b>5 days ahead</b> via the platform calendar.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="set-toast" id="setToast"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span id="setToastMsg"></span></div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      var toast=document.getElementById('setToast'), tmsg=document.getElementById('setToastMsg'), tt;
+      function showToast(m){ tmsg.textContent=m; toast.classList.add('on'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('on');},2200); }
+      var mcxList=document.getElementById('mcxList');
+      var cards=[].slice.call(mcxList.querySelectorAll('.mcx-card'));
+      var search=document.getElementById('mcxSearch'), empty=document.getElementById('mcxEmpty');
+      search.oninput=function(){
+        var q=search.value.trim().toLowerCase(), shown=0;
+        cards.forEach(function(c){ var ok=c.textContent.toLowerCase().indexOf(q)>-1; c.style.display=ok?'':'none'; if(ok)shown++; });
+        empty.classList.toggle('on',shown===0);
+      };
+      cards.forEach(function(c){ c.querySelector('.mcx-chead').onclick=function(){ showToast('Opening '+c.getAttribute('data-corp')+"'s page…"); }; });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Order #OG-10482</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="ordman.css">
+</head>
+<body data-nav="orders">
+  <div class="app">
+    <aside class="rail" id="rail"></aside>
+    <div class="main">
+      <header class="pg-top">
+        <a class="filter-btn" href="orders.html" style="text-decoration:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Orders</a>
+        <div class="spacer"></div>
+        <button class="filter-btn" id="printSummary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4v-6h16v6h-2M8 14h8v7H8z"/></svg>Print Kitchen Summary</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+      </header>
+
+      <div class="pg-content">
+        <!-- OVERVIEW -->
+        <section class="overview">
+          <div class="ov-head">
+            <div class="ov-logo">🏢</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <h1 class="tnum">Order #OG-10482</h1>
+                <span class="pill" id="ovStatus"><i></i>—</span>
+              </div>
+              <div class="ohm">Placed Jul 10, 2026 at 4:12 PM by <b>Sarah Lee</b> (Office Manager) · <b>Acme Corp</b></div>
+            </div>
+          </div>
+          <div class="ov-meta">
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M17 8h5"/></svg>Contact</div><div class="ov">Sarah Lee · (617) 555-0142</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Delivery Date &amp; Time</div><div class="ov">Fri, Jul 11 · 12:00–12:30 PM</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Delivery Address</div><div class="ov">200 State St, Floor 8, Boston</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v4H4zM6 7v13h12V7"/></svg>Assigned Menu</div><div class="ov">Mediterranean — Sofia's</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/></svg>Total Employees</div><div class="ov big tnum" id="ovEmp">—</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12l2 6H4z"/><path d="M5 8v12h14V8"/></svg>Total Items</div><div class="ov big tnum" id="ovItems">—</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Order Deadline</div><div class="ov">10:30 AM</div></div>
+            <div class="ovm"><div class="ol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.8 1.8 0 010 3.5h-3a1.8 1.8 0 000 3.5h4"/></svg>Gross Order Total</div><div class="ov big money tnum" id="ovTotal">—</div></div>
+          </div>
+          <div class="act-bar" id="actBar"></div>
+        </section>
+
+        <div class="det-grid">
+          <!-- LEFT: employee orders -->
+          <div style="min-width:0;display:flex;flex-direction:column;gap:20px">
+            <section class="card">
+              <div class="card-h" style="justify-content:space-between"><h2>Employee Orders</h2><span style="font-size:12px;color:var(--ink-3)" id="empCount">—</span></div>
+              <div class="emp-tools" style="padding:14px 20px 4px">
+                <label class="searchbar" style="flex:1">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                  <input type="text" id="empSearch" placeholder="Search employee, item…">
+                </label>
+              </div>
+              <div class="emp-list" id="empList"></div>
+            </section>
+          </div>
+
+          <!-- RIGHT rail -->
+          <div class="rail-col">
+            <section class="rc">
+              <div class="rc-h"><h3>Kitchen Summary</h3><span class="rc-act" id="printKitchen">Print</span></div>
+              <div class="rc-b"><div class="ksum" id="ksum"></div><div class="ksum-tot"><span>Total items to prepare</span><span class="tnum" id="ksumTotal">—</span></div></div>
+            </section>
+
+            <section class="rc">
+              <div class="rc-h"><h3>Packaging Summary</h3></div>
+              <div class="rc-b">
+                <div class="pack-grid">
+                  <div class="pack-tile"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h4"/></svg></div><div><div class="pv tnum" id="pkLabels">—</div><div class="pl">Labels</div></div></div>
+                  <div class="pack-tile"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16v11a1 1 0 01-1 1H5a1 1 0 01-1-1zM4 8l2-4h12l2 4M9 12h6"/></svg></div><div><div class="pv tnum" id="pkContainers">—</div><div class="pl">Containers</div></div></div>
+                  <div class="pack-tile"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l-1 12H7zM9 8V5a3 3 0 016 0v3"/></svg></div><div><div class="pv tnum" id="pkBags">—</div><div class="pl">Bags</div></div></div>
+                  <div class="pack-tile"><div class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10l-1 12H8zM7 8l1-3h8l1 3M10 3v2M14 3v2"/></svg></div><div><div class="pv tnum" id="pkDrinks">—</div><div class="pl">Drinks</div></div></div>
+                </div>
+                <div style="margin-top:12px;font-size:11.5px;color:var(--ink-3)">One label &amp; bag per employee. Containers per hot food item.</div>
+              </div>
+            </section>
+
+            <section class="rc">
+              <div class="rc-h"><h3>Delivery Information</h3></div>
+              <div class="rc-b">
+                <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b class="il">Acme Corp HQ</b><br>Building C, Floor 5 · Reception Desk<br>200 State Street, Boston, MA 02109</span></div>
+                <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="il">Driver: D. Okafor · Route B</span></div>
+                <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="il">Pickup by 11:15 AM · deliver 12:00 PM</span></div>
+                <button class="btn mapbtn" id="mapBtn">View on Map</button>
+              </div>
+            </section>
+
+            <section class="rc">
+              <div class="rc-h"><h3>Order Timeline</h3></div>
+              <div class="rc-b"><div class="tl" id="timeline"></div></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="pg-foot">© 2026 Office Grubb · Restaurant Portal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+  <script src="nav.js"></script>
+  <script src="order.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>

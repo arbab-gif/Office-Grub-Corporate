@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Settings · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="set-wrap">
+        <div class="set-head">
+          <h1>Settings</h1>
+          <div class="sub">Manage your restaurant profile, account, and preferences.</div>
+        </div>
+
+        <div class="set-layout">
+          <!-- left menu -->
+          <div class="set-menu" id="setMenu">
+            <button class="set-mitem on" data-p="profile"><svg viewBox="0 0 24 24"><path d="M3 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="10" cy="7" r="4"/></svg>Restaurant Profile</button>
+            <button class="set-mitem" data-p="account"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Account &amp; Security</button>
+            <button class="set-mitem" data-p="notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>Notifications</button>
+            <button class="set-mitem" data-p="integrations"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>Integrations</button>
+            <button class="set-mitem" data-p="legal"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Legal &amp; Policies</button>
+            <div class="set-mdiv"></div>
+            <button class="set-mitem danger" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Log out</button>
+          </div>
+
+          <!-- content -->
+          <div class="set-body">
+
+            <!-- ===== PROFILE ===== -->
+            <section class="set-panel on" data-panel="profile">
+              <div class="set-card viewing" id="profileCard">
+                <div class="set-cover"><span class="cov-btn"><button class="set-btn" data-toast="Cover photo — choose a file to upload">Change cover</button></span><span class="set-logo"></span></div>
+                <div class="set-cardhead">
+                  <div><h2>Restaurant Profile</h2><div class="desc">This is what corporate clients and employees see on your storefront.</div></div>
+                  <button type="button" class="set-btn" data-edit><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:-2px"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Edit profile</button>
+                </div>
+                <form class="set-form" data-form>
+                  <div class="set-grid">
+                    <div class="fld"><label>Restaurant name</label><input type="text" value="Sofia's Kitchen"></div>
+                    <div class="fld"><label>Tagline</label><input type="text" value="Fresh Mediterranean, made for the office."></div>
+                    <div class="fld full"><label>Description</label><textarea>Family-run Mediterranean kitchen serving fresh bowls, wraps and salads for workplace lunches and events. Halal options available.</textarea></div>
+                    <div class="fld full"><label>Cuisine categories</label>
+                      <div class="chip-set" data-chips>
+                        <button type="button" class="chip-tog on">Mediterranean</button>
+                        <button type="button" class="chip-tog on">Healthy</button>
+                        <button type="button" class="chip-tog on">Salads</button>
+                        <button type="button" class="chip-tog on">Wraps</button>
+                        <button type="button" class="chip-tog">Vegan</button>
+                        <button type="button" class="chip-tog">Grill</button>
+                        <button type="button" class="chip-tog">Desserts</button>
+                      </div>
+                    </div>
+                    <div class="fld"><label>Contact phone</label><input type="tel" value="(415) 555-0132"></div>
+                    <div class="fld"><label>Contact email</label><input type="email" value="hello@sofiaskitchen.com"></div>
+                    <div class="fld full"><label>Address</label><input type="text" value="418 Market Street, San Francisco, CA 94105"></div>
+                    <div class="fld"><label>Store / location code</label><input type="text" value="SK-SF-01"></div>
+                    <div class="fld"><label>Seating capacity</label><input type="text" value="Indoor 40 · Outdoor 12"></div>
+                  </div>
+                  <div class="set-foot">
+                    <span class="set-dirty" data-dirty>Unsaved changes</span>
+                    <button type="button" class="set-btn" data-reset>Cancel</button>
+                    <button type="button" class="set-btn primary" data-save>Save changes</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="set-card">
+                <h2>Operating Hours</h2>
+                <div class="desc">When your kitchen accepts Office Grubb orders.</div>
+                <div class="hours">
+                  <div class="hrow"><span class="day">Monday</span><span class="time">10:00 AM – 3:00 PM</span></div>
+                  <div class="hrow"><span class="day">Tuesday</span><span class="time">10:00 AM – 3:00 PM</span></div>
+                  <div class="hrow"><span class="day">Wednesday</span><span class="time">10:00 AM – 3:00 PM</span></div>
+                  <div class="hrow"><span class="day">Thursday</span><span class="time">10:00 AM – 3:00 PM</span></div>
+                  <div class="hrow"><span class="day">Friday</span><span class="time">10:00 AM – 3:00 PM</span></div>
+                  <div class="hrow"><span class="day">Saturday</span><span class="closed">Closed</span></div>
+                  <div class="hrow"><span class="day">Sunday</span><span class="closed">Closed</span></div>
+                </div>
+                <div class="set-foot"><button class="set-btn" data-toast="Opening hours editor…">Edit hours</button></div>
+              </div>
+
+
+              <div class="set-card">
+                <h2>Restaurant Setup</h2>
+                <div class="desc">Re-run the guided onboarding wizard to update your branding, documents or store details.</div>
+                <div class="wiz-card">
+                  <span class="ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+                  <div class="tx"><div class="t">8-step setup wizard</div><div class="s">Info · Cuisine · Location · Seating · Branding · Hours · Documents · Review</div></div>
+                  <button class="set-btn" data-toast="Onboarding wizard — coming soon">Open wizard</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== ACCOUNT & SECURITY ===== -->
+            <section class="set-panel" data-panel="account">
+              <div class="set-card">
+                <h2>Login Email</h2>
+                <div class="desc">Used to sign in and to receive account notices.</div>
+                <div class="set-grid">
+                  <div class="fld"><label>Email address</label><input type="email" value="owner@sofiaskitchen.com"></div>
+                  <div class="fld" style="align-self:end"><button class="set-btn" data-toast="Verification email sent">Update email</button></div>
+                </div>
+              </div>
+
+              <div class="set-card">
+                <h2>Change Password</h2>
+                <div class="desc">Use at least 8 characters with a mix of letters and numbers.</div>
+                <form class="set-grid" id="pwForm" autocomplete="off">
+                  <div class="fld full" style="max-width:420px"><label>Current password</label><input type="password" id="pwCur" placeholder="••••••••"></div>
+                  <div class="fld"><label>New password</label><input type="password" id="pwNew" placeholder="New password"><span class="hint" id="pwHintLen">At least 8 characters</span></div>
+                  <div class="fld"><label>Confirm new password</label><input type="password" id="pwConf" placeholder="Re-enter new password"><span class="hint" id="pwHintMatch">&nbsp;</span></div>
+                </form>
+                <div class="set-foot"><button class="set-btn primary" id="pwSave">Update password</button></div>
+              </div>
+
+              <div class="set-card">
+                <h2>Two-Factor Authentication</h2>
+                <div class="desc">Add an extra layer of security when signing in.</div>
+                <div class="tog-row"><div class="tl"><div class="t">Require a code at login</div><div class="s">We'll text a 6-digit code to your phone on file.</div></div><div class="switch" data-switch></div></div>
+              </div>
+            </section>
+
+            <!-- ===== NOTIFICATIONS ===== -->
+            <section class="set-panel" data-panel="notifications">
+              <div class="set-card" id="ntfCard">
+                <h2>Notifications</h2>
+                <div class="desc">Choose what Office Grubb alerts you about, and how you'd like to receive each one — <b>Email</b>, <b>SMS</b> (to your phone), or both.</div>
+                <div class="ntf-head"><span>Notification</span><span class="ntf-ch-h">Email</span><span class="ntf-ch-h">SMS</span></div>
+                <div class="ntf-row"><div class="tl"><div class="t">New orders</div><div class="s">Alert me when a new order comes in.</div></div><button class="ch-chip on" data-ch="email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</button><button class="ch-chip on" data-ch="sms"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>SMS</button></div>
+                <div class="ntf-row"><div class="tl"><div class="t">Order changes &amp; cancellations</div><div class="s">Changes to orders you've accepted.</div></div><button class="ch-chip on" data-ch="email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</button><button class="ch-chip on" data-ch="sms"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>SMS</button></div>
+                <div class="ntf-row"><div class="tl"><div class="t">Payouts</div><div class="s">When a payout is scheduled or sent.</div></div><button class="ch-chip on" data-ch="email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</button><button class="ch-chip" data-ch="sms"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>SMS</button></div>
+                <div class="ntf-row"><div class="tl"><div class="t">Reviews &amp; feedback</div><div class="s">New customer reviews and rating changes.</div></div><button class="ch-chip on" data-ch="email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</button><button class="ch-chip" data-ch="sms"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>SMS</button></div>
+                <div class="ntf-row"><div class="tl"><div class="t">Product updates &amp; tips</div><div class="s">Occasional news from Office Grubb.</div></div><button class="ch-chip" data-ch="email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</button><button class="ch-chip" data-ch="sms"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>SMS</button></div>
+                <div class="ntf-note"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>SMS alerts go to <b>(415) 555-0132</b>. Turn off both channels to mute a notification entirely.</span></div>
+                <div class="set-foot"><button class="set-btn primary" data-toast="Notification preferences saved">Save preferences</button></div>
+              </div>
+            </section>
+
+            <!-- ===== INTEGRATIONS ===== -->
+            <section class="set-panel" data-panel="integrations">
+              <div class="set-card">
+                <div class="set-cardhead">
+                  <div><h2>Integrations</h2><div class="desc">Connect your restaurant tools to automate orders, menus, payments, and operations.</div></div>
+                  <button class="set-btn" data-toast="How integrations work — help guide"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:-2px"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4M12 17h.01"/></svg>How Integrations Work</button>
+                </div>
+
+                <div class="intg-h">Connected Integrations <span class="intg-count">2</span></div>
+                <div class="intg-conn">
+                  <div class="intg-card" data-intg="Toast POS">
+                    <div class="intg-top">
+                      <span class="intg-logo" style="background:#ff5a2c">◐</span>
+                      <div class="intg-name"><div class="n">Toast POS <span class="intg-badge ok">Connected ✓</span></div><div class="d">Sync orders, menu items, and availability seamlessly.</div></div>
+                      <div class="intg-kebab"><button class="kebab-btn" aria-label="Options">⋯</button><div class="kebab-menu"><button data-toast="Toast POS settings">Manage settings</button><button class="disc" data-disc>Disconnect</button></div></div>
+                    </div>
+                    <div class="intg-mid">
+                      <div class="intg-sync"><span class="l">Last sync</span><span class="v">Today, 10:30 AM</span></div>
+                      <div class="intg-data"><span class="l">Synced data</span><div class="dl"><span>✓ Orders</span><span>✓ Menu Items</span><span>✓ Availability</span></div></div>
+                    </div>
+                    <div class="intg-foot"><button class="set-btn" data-toast="Manage Toast POS">Manage</button><button class="set-btn primary" data-toast="Syncing Toast POS…">Sync Now</button></div>
+                  </div>
+                  <div class="intg-card" data-intg="Stripe Connect">
+                    <div class="intg-top">
+                      <span class="intg-logo" style="background:#635bff">S</span>
+                      <div class="intg-name"><div class="n">Stripe Connect <span class="intg-badge ok">Connected ✓</span></div><div class="d">Manage payouts, payments, and billing easily.</div></div>
+                      <div class="intg-kebab"><button class="kebab-btn" aria-label="Options">⋯</button><div class="kebab-menu"><button data-toast="Stripe Connect settings">Manage settings</button><button class="disc" data-disc>Disconnect</button></div></div>
+                    </div>
+                    <div class="intg-mid">
+                      <div class="intg-sync"><span class="l">Last sync</span><span class="v">Today, 9:45 AM</span></div>
+                      <div class="intg-data"><span class="l">Synced data</span><div class="dl"><span>✓ Payouts</span><span>✓ Transactions</span></div></div>
+                    </div>
+                    <div class="intg-foot"><button class="set-btn" data-toast="Manage Stripe Connect">Manage</button><button class="set-btn primary" data-toast="Opening Stripe payouts…">View Payouts</button></div>
+                  </div>
+                </div>
+
+                <div class="intg-avail-head">
+                  <div class="intg-h" style="margin:0">Available Integrations <span class="intg-count">10</span></div>
+                  <div class="intg-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="intgSearch" type="text" placeholder="Search integrations"></div>
+                </div>
+                <div class="intg-cats" id="intgCats">
+                  <button class="intg-cat on" data-c="all">All</button>
+                  <button class="intg-cat" data-c="POS & Orders">POS &amp; Orders</button>
+                  <button class="intg-cat" data-c="Payments">Payments</button>
+                  <button class="intg-cat" data-c="Accounting">Accounting</button>
+                  <button class="intg-cat" data-c="Calendar">Calendar</button>
+                  <button class="intg-cat" data-c="Legal">Legal</button>
+                </div>
+                <div class="intg-legend"><span class="lg-dot launch"></span>Available now <span class="lg-dot p2"></span>Phase 2 <span class="lg-dot p3"></span>Phase 3</div>
+                <div class="intg-grid" id="intgGrid">
+                  <div class="intg-av" data-c="POS & Orders" data-phase="launch"><span class="intg-phase launch">Available</span><span class="intg-logo lg" style="background:#1a1a1a">◼</span><div class="an">Square POS</div><div class="ad">Push orders to Square and sync menu items and sales data.</div><span class="intg-tag pos">POS &amp; Orders</span><button class="set-btn ghost-primary">Connect</button></div>
+                  <div class="intg-av" data-c="POS & Orders" data-phase="launch"><span class="intg-phase launch">Available</span><span class="intg-logo lg" style="background:#334155">&lt;/&gt;</span><div class="an">Webhook / API</div><div class="ad">No supported POS? Receive orders at your own endpoint.</div><span class="intg-tag pos">POS &amp; Orders</span><button class="set-btn ghost-primary">Connect</button></div>
+                  <div class="intg-av" data-c="Payments" data-phase="launch"><span class="intg-phase launch">Available</span><span class="intg-logo lg" style="background:#1F7A47">$</span><div class="an">ACH / Direct Deposit</div><div class="ad">Receive your net payouts straight to your bank account.</div><span class="intg-tag pay">Payments</span><button class="set-btn ghost-primary">Connect</button></div>
+                  <div class="intg-av" data-c="Legal" data-phase="launch"><span class="intg-phase launch">Available</span><span class="intg-logo lg" style="background:#ffcf00;color:#3a2f00">✒</span><div class="an">DocuSign</div><div class="ad">E-sign your partner agreement and store it in your account.</div><span class="intg-tag legal">Legal</span><button class="set-btn ghost-primary">Connect</button></div>
+                  <div class="intg-av" data-c="POS & Orders" data-phase="p2"><span class="intg-phase p2">Phase 2</span><span class="intg-logo lg" style="background:#6ea24a">C</span><div class="an">Clover POS</div><div class="ad">Popular with mid-size restaurant operations.</div><span class="intg-tag pos">POS &amp; Orders</span><button class="set-btn soon">Coming soon</button></div>
+                  <div class="intg-av" data-c="POS & Orders" data-phase="p2"><span class="intg-phase p2">Phase 2</span><span class="intg-logo lg" style="background:#1b2a4a">R</span><div class="an">Revel Systems</div><div class="ad">Enterprise POS for larger restaurant chains.</div><span class="intg-tag pos">POS &amp; Orders</span><button class="set-btn soon">Coming soon</button></div>
+                  <div class="intg-av" data-c="Accounting" data-phase="p2"><span class="intg-phase p2">Phase 2</span><span class="intg-logo lg" style="background:#2ca01c">qb</span><div class="an">QuickBooks Online</div><div class="ad">Sync invoices, payouts, and commissions for tax time.</div><span class="intg-tag acct">Accounting</span><button class="set-btn soon">Coming soon</button></div>
+                  <div class="intg-av" data-c="Accounting" data-phase="p2"><span class="intg-phase p2">Phase 2</span><span class="intg-logo lg" style="background:#13b5ea">X</span><div class="an">Xero</div><div class="ad">Alternative accounting sync for invoices and payouts.</div><span class="intg-tag acct">Accounting</span><button class="set-btn soon">Coming soon</button></div>
+                  <div class="intg-av" data-c="Calendar" data-phase="p2"><span class="intg-phase p2">Phase 2</span><span class="intg-logo lg" style="background:#fff;border:1px solid var(--neutral-200);color:#4285f4">31</span><div class="an">Google Calendar</div><div class="ad">Sync Live Kitchen events and team lunch bookings.</div><span class="intg-tag cal">Calendar</span><button class="set-btn soon">Coming soon</button></div>
+                  <div class="intg-av" data-c="POS & Orders" data-phase="p3"><span class="intg-phase p3">Phase 3</span><span class="intg-logo lg" style="background:#e2412e">L</span><div class="an">Lightspeed</div><div class="ad">For specialty and boutique food operations.</div><span class="intg-tag pos">POS &amp; Orders</span><button class="set-btn soon">Coming soon</button></div>
+                </div>
+                <div class="intg-empty" id="intgEmpty">No integrations match your search.</div>
+
+                <div class="intg-request">
+                  <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 6.3L21 10l-5 4 1.6 7L12 17l-5.6 4L8 14l-5-4 6.6-.7z"/></svg></span>
+                  <div class="tx"><div class="t">Don't see the integration you need?</div><div class="s">We're always adding new integrations. Let us know what tools you use.</div></div>
+                  <button class="set-btn ghost-primary" data-toast="Integration request sent — thank you!">Request Integration</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== LEGAL ===== -->
+            <section class="set-panel" data-panel="legal">
+              <div class="set-card">
+                <h2>Legal &amp; Policies</h2>
+                <div class="desc">Your agreements with Office Grubb. Read anytime.</div>
+
+                <div class="acc" data-acc>
+                  <div class="acc-h" data-acc-h>Terms &amp; Conditions <span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+                  <div class="acc-b">
+                    <p>These Terms govern your use of the Office Grubb restaurant platform. By accepting orders through Office Grubb, you agree to prepare and package food to the standards described in your onboarding, to honor confirmed pickup times, and to keep your menu and availability accurate.</p>
+                    <p>Office Grubb charges a permanent 10% platform fee plus a performance-based commission on gross food sales, and a 20% commission on Live Kitchen event revenue. Fees are itemized on every payout statement. Payouts are made by direct deposit on the 15th of each month for the prior month's earnings.</p>
+                    <p>Either party may end this agreement with written notice. Outstanding balances remain payable. Full terms are available on request.</p>
+                    <div class="acc-meta"><span class="ok">✓ Accepted</span> · Version 2.1 · Jan 12, 2026</div>
+                  </div>
+                </div>
+
+                <div class="acc" data-acc>
+                  <div class="acc-h" data-acc-h>Privacy Policy <span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+                  <div class="acc-b">
+                    <p>We collect the information you provide to run your restaurant on Office Grubb — business details, menu, order and payout records — and use it to operate the service, process payments, and calculate performance and commission.</p>
+                    <p>We don't sell your data. We share it only with the partners needed to deliver orders and process payouts. You can request a copy or deletion of your data at any time.</p>
+                    <div class="acc-meta"><span class="ok">✓ Acknowledged</span> · Jan 12, 2026</div>
+                  </div>
+                </div>
+
+                <div class="acc" data-acc>
+                  <div class="acc-h" data-acc-h>Payment &amp; Commission Agreement <span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></div>
+                  <div class="acc-b">
+                    <p>Details how your commission tier changes with performance (starting at 25% total and lowering as you maintain strong scores), the $15,000 lifetime milestone that unlocks the long-term partner rate, reservation fees ($0.95/guest, Net-30), and refund adjustments.</p>
+                    <div class="acc-meta"><span class="ok">✓ Accepted</span> · Version 2.1 · Jan 12, 2026</div>
+                  </div>
+                </div>
+
+                <div class="set-foot"><button class="set-btn" data-toast="Downloading agreements (PDF)">Download all (PDF)</button></div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- logout modal -->
+  <div class="set-overlay" id="logoutModal">
+    <div class="set-modal">
+      <div class="m-ic"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+      <h3>Log out of Office Grubb?</h3>
+      <p>You'll need to sign in again to manage your orders and menu. Any unsaved changes will be lost.</p>
+      <div class="m-row">
+        <button class="set-btn" id="logoutCancel">Cancel</button>
+        <button class="set-btn danger" id="logoutConfirm">Log out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- connect integration modal -->
+  <div class="set-overlay" id="intgModal">
+    <div class="set-modal wide">
+      <button class="modal-x" id="intgClose" aria-label="Close">✕</button>
+      <div class="cm-head">
+        <span class="intg-logo lg" id="cmLogo"></span>
+        <div><h3 id="cmName">Connect</h3><p id="cmDesc" style="margin-top:4px"></p></div>
+      </div>
+      <div class="cm-perms">
+        <div class="cm-perms-t">This integration will be able to:</div>
+        <ul id="cmPerms"></ul>
+      </div>
+      <div class="cm-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>You'll be securely redirected to authorize. You can disconnect anytime from Settings.</span></div>
+      <div class="m-row">
+        <button class="set-btn" id="cmCancel">Cancel</button>
+        <button class="set-btn primary" id="cmConnect">Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- disconnect integration modal -->
+  <div class="set-overlay" id="discModal">
+    <div class="set-modal">
+      <div class="m-ic"><svg viewBox="0 0 24 24"><path d="M18.4 5.6a9 9 0 11-12.8 0M12 3v9"/></svg></div>
+      <h3 id="discTitle">Disconnect integration?</h3>
+      <p id="discMsg">This will stop syncing data with Office Grubb. You can reconnect it anytime from Available Integrations.</p>
+      <div class="m-row">
+        <button class="set-btn" id="discCancel">Keep connected</button>
+        <button class="set-btn danger" id="discConfirm">Disconnect</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="set-toast" id="setToast"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span id="setToastMsg"></span></div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      // left-menu panel switching
+      var menu=document.getElementById('setMenu');
+      var panels=document.querySelectorAll('.set-panel');
+      menu.addEventListener('click',function(e){
+        var b=e.target.closest('.set-mitem[data-p]'); if(!b) return;
+        menu.querySelectorAll('.set-mitem').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        var p=b.getAttribute('data-p');
+        panels.forEach(function(pn){ pn.classList.toggle('on', pn.getAttribute('data-panel')===p); });
+        try{ location.hash=p; window.scrollTo(0,0); }catch(_){}
+      });
+      if(location.hash){ var t=menu.querySelector('.set-mitem[data-p="'+location.hash.slice(1)+'"]'); if(t) t.click(); }
+
+      // toast
+      var toast=document.getElementById('setToast'), tmsg=document.getElementById('setToastMsg'), tt;
+      function showToast(msg){ tmsg.textContent=msg; toast.classList.add('on'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('on');},2400); }
+      document.addEventListener('click',function(e){
+        var b=e.target.closest('[data-toast]'); if(b) showToast(b.getAttribute('data-toast'));
+      });
+
+      // toggle switches
+      document.querySelectorAll('[data-switch]').forEach(function(s){ s.onclick=function(){ s.classList.toggle('on'); }; });
+
+      // cuisine chips
+      document.querySelectorAll('[data-chips] .chip-tog').forEach(function(c){ c.onclick=function(){ c.classList.toggle('on'); markDirty(); }; });
+
+      // profile: view <-> edit state with snapshot revert
+      var card=document.getElementById('profileCard');
+      var form=card&&card.querySelector('[data-form]');
+      var dirty=form&&form.querySelector('[data-dirty]');
+      var snapshot=null;
+      function markDirty(){ if(dirty) dirty.classList.add('on'); }
+      function takeSnapshot(){
+        snapshot={fields:{},chips:[]};
+        form.querySelectorAll('input,textarea').forEach(function(el,i){ snapshot.fields[i]=el.value; });
+        form.querySelectorAll('.chip-tog').forEach(function(c,i){ snapshot.chips[i]=c.classList.contains('on'); });
+      }
+      function restoreSnapshot(){
+        if(!snapshot) return;
+        form.querySelectorAll('input,textarea').forEach(function(el,i){ el.value=snapshot.fields[i]; });
+        form.querySelectorAll('.chip-tog').forEach(function(c,i){ c.classList.toggle('on', snapshot.chips[i]); });
+      }
+      function setEditing(on){
+        card.classList.toggle('editing', on);
+        card.classList.toggle('viewing', !on);
+        if(dirty) dirty.classList.remove('on');
+      }
+      if(form){
+        form.querySelectorAll('input,textarea').forEach(function(el){ el.addEventListener('input',markDirty); });
+        var editBtn=card.querySelector('[data-edit]');
+        if(editBtn) editBtn.addEventListener('click',function(){ takeSnapshot(); setEditing(true); });
+        var saveBtn=form.querySelector('[data-save]');
+        if(saveBtn) saveBtn.addEventListener('click',function(){ setEditing(false); showToast('Profile saved'); });
+        var resetBtn=form.querySelector('[data-reset]');
+        if(resetBtn) resetBtn.addEventListener('click',function(){ restoreSnapshot(); setEditing(false); });
+      }
+
+      // password validation (design-only, no data leaves the page)
+      var pwNew=document.getElementById('pwNew'), pwConf=document.getElementById('pwConf'), pwCur=document.getElementById('pwCur');
+      var hLen=document.getElementById('pwHintLen'), hMatch=document.getElementById('pwHintMatch');
+      function pwCheck(){
+        var okLen=pwNew.value.length>=8;
+        hLen.textContent = pwNew.value ? (okLen?'✓ Strong enough':'At least 8 characters') : 'At least 8 characters';
+        hLen.className='hint'+(pwNew.value?(okLen?' ok':' err'):'');
+        if(pwConf.value){ var m=pwConf.value===pwNew.value; hMatch.textContent=m?'✓ Passwords match':'Passwords don\'t match'; hMatch.className='hint'+(m?' ok':' err'); }
+        else { hMatch.innerHTML='&nbsp;'; hMatch.className='hint'; }
+      }
+      [pwNew,pwConf].forEach(function(el){ if(el) el.addEventListener('input',pwCheck); });
+      document.getElementById('pwSave').onclick=function(){
+        if(!pwCur.value){ showToast('Enter your current password'); return; }
+        if(pwNew.value.length<8){ showToast('New password is too short'); return; }
+        if(pwNew.value!==pwConf.value){ showToast('Passwords don\'t match'); return; }
+        pwCur.value=pwNew.value=pwConf.value=''; pwCheck(); showToast('Password updated');
+      };
+
+      // legal accordions
+      document.querySelectorAll('[data-acc-h]').forEach(function(h){ h.onclick=function(){ h.closest('[data-acc]').classList.toggle('open'); }; });
+
+      // notification channel chips (Email / SMS / both)
+      var ntfCard=document.getElementById('ntfCard');
+      if(ntfCard){ ntfCard.querySelectorAll('.ch-chip').forEach(function(c){ c.onclick=function(){ c.classList.toggle('on'); }; }); }
+
+      // menu close times — per-corporation glance view
+      var mcxList=document.getElementById('mcxList');
+      if(mcxList){
+        var mcxCards=[].slice.call(mcxList.querySelectorAll('.mcx-card'));
+        var mcxSearch=document.getElementById('mcxSearch'), mcxEmpty=document.getElementById('mcxEmpty');
+        mcxSearch.oninput=function(){
+          var q=mcxSearch.value.trim().toLowerCase(), shown=0;
+          mcxCards.forEach(function(c){ var ok=c.textContent.toLowerCase().indexOf(q)>-1; c.style.display=ok?'':'none'; if(ok)shown++; });
+          mcxEmpty.classList.toggle('on',shown===0);
+        };
+        mcxCards.forEach(function(c){ c.querySelector('.mcx-chead').onclick=function(){ showToast('Opening '+c.getAttribute('data-corp')+"'s page…"); }; });
+      }
+
+      // menu close time — live preview
+      var mct=document.getElementById('menuCloseTime'), mtz=document.getElementById('menuCloseTz'), mctPrev=document.getElementById('mctPreview');
+      if(mct&&mctPrev){
+        function fmt12(t){
+          var p=(t||'').split(':'); if(p.length<2) return t;
+          var h=parseInt(p[0],10), m=p[1], ap=h>=12?'PM':'AM';
+          h=h%12; if(h===0) h=12;
+          return h+':'+m+' '+ap;
+        }
+        function updMct(){ mctPrev.innerHTML='Menu closes at <b>'+fmt12(mct.value)+'</b> · '+mtz.value; }
+        mct.addEventListener('input',updMct); mtz.addEventListener('change',updMct); updMct();
+      }
+
+      // integrations: category + search filter
+      var cats=document.getElementById('intgCats');
+      if(cats){
+        var av=[].slice.call(document.querySelectorAll('#intgGrid .intg-av'));
+        var iSearch=document.getElementById('intgSearch');
+        var iEmpty=document.getElementById('intgEmpty');
+        var iState={c:'all', q:''};
+        function applyIntg(){
+          var shown=0;
+          av.forEach(function(card){
+            var okC=iState.c==='all'||card.getAttribute('data-c')===iState.c;
+            var okQ=!iState.q||card.textContent.toLowerCase().indexOf(iState.q)>-1;
+            var vis=okC&&okQ; card.style.display=vis?'':'none'; if(vis)shown++;
+          });
+          iEmpty.classList.toggle('on',shown===0);
+        }
+        cats.addEventListener('click',function(e){
+          var b=e.target.closest('.intg-cat'); if(!b) return;
+          cats.querySelectorAll('.intg-cat').forEach(function(x){x.classList.remove('on');});
+          b.classList.add('on'); iState.c=b.getAttribute('data-c'); applyIntg();
+        });
+        iSearch.oninput=function(){ iState.q=iSearch.value.trim().toLowerCase(); applyIntg(); };
+
+        // connect modal
+        var PERMS={
+          'Square POS':['Push incoming orders in real time','Import your menu items','Read daily sales data'],
+          'Webhook / API':['Receive new orders at your endpoint','Push order status back to Office Grubb','Read menu availability'],
+          'ACH / Direct Deposit':['Deposit your net payouts to your bank','Verify your bank account','Set your settlement schedule'],
+          'DocuSign':['E-sign partner and service agreements','Store signed documents in your account','Notify you of pending signatures']
+        };
+        var imodal=document.getElementById('intgModal');
+        var cmLogo=document.getElementById('cmLogo'), cmName=document.getElementById('cmName'), cmDesc=document.getElementById('cmDesc'), cmPerms=document.getElementById('cmPerms');
+        var pending=null;
+        function openConnect(card){
+          var name=card.querySelector('.an').textContent.trim();
+          var desc=card.querySelector('.ad').textContent.trim();
+          var logo=card.querySelector('.intg-logo');
+          pending=name;
+          cmName.textContent='Connect '+name;
+          cmDesc.textContent=desc;
+          cmLogo.textContent=logo.textContent;
+          cmLogo.setAttribute('style', logo.getAttribute('style')||'');
+          cmPerms.innerHTML=(PERMS[name]||['Access your restaurant data']).map(function(p){return '<li>'+p+'</li>';}).join('');
+          imodal.classList.add('on');
+        }
+        document.getElementById('intgGrid').addEventListener('click',function(e){
+          var b=e.target.closest('.set-btn'); if(!b) return;
+          e.stopPropagation();          // prevent the global toast handler
+          var card=b.closest('.intg-av');
+          if(b.classList.contains('soon')){
+            var ph=card.getAttribute('data-phase');
+            showToast(card.querySelector('.an').textContent.trim()+' arrives in '+(ph==='p3'?'Phase 3':'Phase 2'));
+            return;
+          }
+          openConnect(card);
+        });
+        function closeCm(){ imodal.classList.remove('on'); }
+        document.getElementById('cmCancel').onclick=closeCm;
+        document.getElementById('intgClose').onclick=closeCm;
+        imodal.addEventListener('click',function(e){ if(e.target===imodal) closeCm(); });
+        document.getElementById('cmConnect').onclick=function(){ closeCm(); showToast((pending||'Integration')+' connected'); };
+
+        // kebab menus on connected cards
+        document.querySelectorAll('.intg-kebab').forEach(function(k){
+          var btn=k.querySelector('.kebab-btn');
+          btn.onclick=function(e){
+            e.stopPropagation();
+            var wasOpen=k.classList.contains('open');
+            document.querySelectorAll('.intg-kebab.open').forEach(function(o){o.classList.remove('open');});
+            if(!wasOpen) k.classList.add('open');
+          };
+        });
+        document.addEventListener('click',function(){ document.querySelectorAll('.intg-kebab.open').forEach(function(o){o.classList.remove('open');}); });
+
+        // disconnect flow
+        var discModal=document.getElementById('discModal');
+        var discCard=null;
+        document.querySelectorAll('[data-disc]').forEach(function(b){
+          b.addEventListener('click',function(e){
+            e.stopPropagation();
+            b.closest('.intg-kebab').classList.remove('open');
+            discCard=b.closest('.intg-card');
+            var nm=discCard.getAttribute('data-intg');
+            document.getElementById('discTitle').textContent='Disconnect '+nm+'?';
+            document.getElementById('discMsg').textContent='This will stop syncing data between '+nm+' and Office Grubb. You can reconnect it anytime from Available Integrations.';
+            discModal.classList.add('on');
+          });
+        });
+        function closeDisc(){ discModal.classList.remove('on'); }
+        document.getElementById('discCancel').onclick=closeDisc;
+        discModal.addEventListener('click',function(e){ if(e.target===discModal) closeDisc(); });
+        document.getElementById('discConfirm').onclick=function(){
+          if(discCard){
+            var nm=discCard.getAttribute('data-intg');
+            discCard.remove();
+            var cnt=document.querySelector('.intg-conn').children.length;
+            var badge=document.querySelector('.intg-h .intg-count'); if(badge) badge.textContent=cnt;
+            if(cnt===0){ document.querySelector('.intg-conn').innerHTML='<div class="intg-none">No integrations connected yet. Connect a tool below to get started.</div>'; }
+            showToast(nm+' disconnected');
+          }
+          closeDisc();
+        };
+      }
+
+      // logout modal
+      var modal=document.getElementById('logoutModal');
+      document.getElementById('logoutBtn').onclick=function(){ modal.classList.add('on'); };
+      document.getElementById('logoutCancel').onclick=function(){ modal.classList.remove('on'); };
+      modal.addEventListener('click',function(e){ if(e.target===modal) modal.classList.remove('on'); });
+      document.getElementById('logoutConfirm').onclick=function(){ modal.classList.remove('on'); showToast('Signed out — redirecting to login…'); };
+    })();
+  </script>
+</body>
+</html>

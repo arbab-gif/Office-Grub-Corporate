@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Live Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="live.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <div class="brand-mark">🍽️</div>
+        <div><div class="brand-name">Office Grubb</div><div class="brand-sub">Restaurant</div></div>
+      </div>
+      <div class="nav-label">Overview</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Dashboard</a>
+      <div class="nav-label">Kitchen</div>
+      <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>Orders <span class="badge tnum">6</span></a>
+      <a class="nav-item" href="menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v4H4zM6 7v13h12V7"/><path d="M9 11h6"/></svg>Menu</a>
+      <a class="nav-item" href="labels.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h5"/></svg>Labels</a>
+      <a class="nav-item" href="calendar.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Calendar</a>
+      <div class="nav-label">Programs</div>
+      <a class="nav-item active" href="live.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18l.9-5.5-4-3.9L9.5 8z"/></svg>Live Kitchen</a>
+      <a class="nav-item" href="reservations.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v6H4z"/><path d="M4 11c0 5 4 8 8 8s8-3 8-8"/></svg>Reservations</a>
+      <a class="nav-item" href="offers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Special Offers</a>
+      <div class="nav-label">Business</div>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Payouts</a>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4l3 2"/></svg>Notifications</a>
+      <div class="rail-foot"><div class="avatar">SK</div><div><div class="who">Sofia's Kitchen</div><div class="role">Owner · Boston, MA</div></div></div>
+    </aside>
+
+    <div class="main">
+      <header class="lk-top">
+        <div><h1>Live Kitchen</h1><div class="sub">On-site pop-up dining at your partner companies · Sofia's Kitchen</div></div>
+        <div class="spacer"></div>
+        <button class="btn" id="howBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>How it works</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+      </header>
+
+      <div class="lk-content">
+        <div class="lk-banner">
+          <div class="lk-banner-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18l.9-5.5-4-3.9L9.5 8z"/></svg></div>
+          <div><b>You bring the kitchen to them.</b> Office Grubb schedules you to set up on-site at a partner company. Bring your warmers, serving setup &amp; POS — employees order and pay you directly. Office Grubb handles logistics and has a rep on-site. A <b>20% commission</b> on event revenue is billed <b>after</b> each event (<b>$800/day minimum</b>, shortfall covered by the client).</div>
+        </div>
+
+        <div class="lk-stats">
+          <div class="lk-stat hi"><div class="sl">Upcoming events</div><div class="sv tnum" id="stUpcoming">—</div><div class="sd" id="stNext">—</div></div>
+          <div class="lk-stat"><div class="sl">Needs confirmation</div><div class="sv tnum" id="stPending">—</div><div class="sd">respond to accept</div></div>
+          <div class="lk-stat"><div class="sl">Est. covers booked</div><div class="sv tnum" id="stCovers">—</div><div class="sd">across upcoming events</div></div>
+          <div class="lk-stat"><div class="sl">Fees due</div><div class="sv tnum" id="stFees">—</div><div class="sd">20% of revenue · billed after each event</div></div>
+        </div>
+
+        <div class="lk-tabs-row">
+          <div class="lk-tabs" id="tabs"></div>
+        </div>
+
+        <div class="lk-split">
+          <div class="lk-list" id="list"></div>
+          <aside class="lk-detail" id="detail"></aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- confirm event modal -->
+  <div class="modal-ov" id="confModal">
+    <div class="modal-av lk-conf">
+      <div class="lk-conf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h3 id="confTitle">Confirm this Live Kitchen event?</h3>
+      <p class="lk-conf-sub" id="confSub">By confirming, you commit to setting up on-site for this event.</p>
+      <ul class="lk-conf-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Bring your own warmers, serving setup &amp; POS system</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Employees order and pay you directly on-site</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>A 20% commission on event revenue is billed after the event — not before</li>
+      </ul>
+      <div class="lk-conf-note">An Office Grubb representative will be on-site as your point of contact.</div>
+      <div class="lk-conf-actions">
+        <button class="btn" id="confCancel">Not now</button>
+        <button class="btn primary" id="confOk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Confirm event</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- decline modal -->
+  <div class="modal-ov" id="decModal">
+    <div class="modal-av lk-conf">
+      <div class="lk-conf-ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L14.4 3.9a2 2 0 00-3.4 0z"/></svg></div>
+      <h3 id="decTitle">Decline this event?</h3>
+      <p class="lk-conf-sub">Let Office Grubb know why so they can reschedule another restaurant.</p>
+      <div class="lk-reasons" id="decReasons"></div>
+      <textarea class="lk-note" id="decNote" placeholder="Add a note for the Office Grubb team (optional)…"></textarea>
+      <div class="lk-conf-actions">
+        <button class="btn" id="decCancel">Keep event</button>
+        <button class="btn danger-solid" id="decOk">Decline event</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- settle fee modal -->
+  <div class="modal-ov" id="feeModal">
+    <div class="modal-av lk-conf">
+      <div class="lk-conf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+      <h3>Settle event fee</h3>
+      <p class="lk-conf-sub" id="feeSub">Settle the 20% Office Grubb commission for this completed event.</p>
+      <div class="lk-fee-box"><span>Gross event revenue</span><b class="tnum" id="feeGross">$0</b></div>
+      <div class="lk-fee-box"><span>Office Grubb fee <small style="color:var(--ink-3)">(20%)</small></span><b class="tnum" id="feeAmt">$0</b></div>
+      <div class="lk-conf-note">20% of your gross on-site revenue, collected after the event. A $800/day minimum applies — any shortfall is billed to the company, not to you.</div>
+      <div class="lk-conf-actions">
+        <button class="btn" id="feeCancel">Cancel</button>
+        <button class="btn primary" id="feeOk">Pay fee</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- how it works modal -->
+  <div class="modal-ov" id="howModal">
+    <div class="modal-av lk-how">
+      <div class="mh"><div><h3>How Live Kitchen works</h3><p>A premium on-site dining experience, coordinated end-to-end by Office Grubb.</p></div><button class="mclose" id="howClose" aria-label="Close">×</button></div>
+      <div class="mb" id="howBody"></div>
+      <div class="mf"><button class="btn primary" id="howDone">Got it</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+  <script src="live.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>

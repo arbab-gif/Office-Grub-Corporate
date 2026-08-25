@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Office Grubb — Choose Your Plan</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+  <style>
+    /* Site plan chooser — priced on BILLABLE HEADCOUNT (badged employees at the served
+       location), never on total company headcount. Tokens match the restaurant portal. */
+    :root{
+      --bg:#fffdf8; --card:#fff; --line:#e5e5e5; --line-soft:#f0eee9;
+      --ink:#171717; --ink-2:#525252; --muted:#737373;
+      --brand:#ff4f2f; --brand-600:#fe2c11; --brand-tint:#fff2ed;
+      --ok:#186a3b; --ok-bg:#e9f7ef;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+      background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+      min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:36px 20px;
+    }
+    .scrim{position:fixed;inset:0;background:rgba(23,23,23,.28);z-index:0}
+    .modal{position:relative;z-index:1;width:100%;max-width:1340px;background:#faf9f7;
+      border-radius:22px;padding:38px 40px 28px;box-shadow:0 24px 60px rgba(23,23,23,.16);
+      transition:max-width .18s ease}
+    .modal.narrow{max-width:520px;padding:34px 34px 30px}
+    .close{position:absolute;top:20px;right:22px;width:34px;height:34px;border:0;border-radius:50%;
+      background:none;color:var(--muted);cursor:pointer;font-size:19px;line-height:1}
+    .close:hover{background:#efedea;color:var(--ink)}
+
+    .mhead{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+    .mhead h1{margin:0;font-size:32px;font-weight:700;letter-spacing:-.03em}
+    .mhead .sub{font-size:13.5px;color:var(--muted);margin-top:8px;max-width:56ch;line-height:1.55}
+    .scale{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);
+      border-radius:999px;padding:8px 8px 8px 18px}
+    .scale label{font-size:13.5px;font-weight:600;white-space:nowrap}
+    .scale input{width:104px;height:38px;border:1px solid var(--line);border-radius:999px;text-align:center;
+      font:700 15px 'Inter',sans-serif;color:var(--ink);outline:none;background:#fafafa}
+    .scale input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,79,47,.12)}
+
+    /* the rule the whole model rests on — stated, not buried */
+    .rulebar{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+      border-left:3px solid var(--brand);border-radius:12px;padding:14px 18px;margin-bottom:26px;
+      font-size:13px;line-height:1.6;color:var(--ink-2)}
+    .rulebar b{color:var(--ink)}
+    .rulebar svg{width:17px;height:17px;flex:none;margin-top:2px;stroke:var(--brand-600);stroke-width:1.9;fill:none}
+
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+    .plan{background:var(--card);border-radius:16px;padding:28px 24px 26px;display:flex;flex-direction:column;
+      border:1px solid transparent;position:relative}
+    .plan.fit{border-color:var(--brand);border-width:2px;padding:27px 23px 25px;
+      box-shadow:0 8px 24px rgba(255,79,47,.13)}
+    .ribbon{position:absolute;left:-2px;right:-2px;top:-30px;height:30px;background:var(--brand);
+      border-radius:16px 16px 0 0;color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+    .plan h2{margin:0;font-size:25px;font-weight:700;letter-spacing:-.025em}
+    .plan .tag{margin-top:6px;font-size:13px;color:var(--ink-2);min-height:36px;line-height:1.4}
+    .rule{height:1px;background:var(--line);margin:18px 0 16px}
+    .band{font-size:12.5px;color:var(--muted);font-weight:600}
+    .amt{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.1}
+    .amt small{font-size:13px;font-weight:500;color:var(--muted)}
+    .eff{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.5}
+    .eff b{color:var(--ink)}
+    .bandlink{margin-top:14px;align-self:flex-start;border:0;background:none;padding:0;cursor:pointer;
+      font:700 12.5px 'Inter',sans-serif;color:var(--brand-600);text-decoration:underline;text-underline-offset:3px}
+    .bandlink:hover{color:var(--ink)}
+    .cta{margin-top:22px;height:50px;border-radius:10px;border:1px solid var(--ink);background:#fff;
+      color:var(--ink);font:600 14.5px 'Inter',sans-serif;cursor:pointer;width:100%}
+    .cta:hover{background:#fafafa}
+    .plan.fit .cta{background:#231f1e;border-color:#231f1e;color:#fff}
+    .plan.fit .cta:hover{background:#0f0d0c}
+
+    /* one shared includes panel — the service is identical at every tier */
+    #inc{margin-top:26px}
+    .inc-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .inc-head h3{margin:0;font-size:13.5px;font-weight:700}
+    .inc-note{font-size:12.5px;color:var(--muted)}
+    .inc-grid{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 20px 16px;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:0 26px}
+    .inc-item{display:flex;gap:10px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line-soft)}
+    .inc-grid .inc-item:nth-child(-n+4){border-top:0}
+    .inc-item svg{width:14px;height:14px;flex:none;margin-top:3px;stroke:var(--brand-600);stroke-width:2.6;fill:none}
+    .inc-item b{display:block;font-size:13px;font-weight:700}
+    .inc-item em{display:block;font-style:normal;font-size:12px;line-height:1.5;color:var(--muted);margin-top:3px}
+
+    /* Tier 4 band detail — same card + row treatment as every other panel */
+    .t4{margin-top:26px}
+    .t4-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .t4-head h3{margin:0;font-size:13.5px;font-weight:700}
+    .t4-chip{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:var(--brand-tint);
+      color:var(--brand-600);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700}
+    .t4-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    table{width:100%;border-collapse:collapse}
+    th,td{text-align:left;padding:12px 18px;font-size:13px;border-top:1px solid var(--line-soft)}
+    th{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+      border-top:0;background:#fafafa}
+    td{color:var(--ink-2)}
+    td:first-child{font-weight:700;color:var(--ink)}
+    td b{font-weight:700;color:var(--ink)}
+    tr.on td{background:#fff8f5;color:var(--ink)}
+    tr.on td:first-child{box-shadow:inset 3px 0 0 var(--brand);color:var(--brand-600)}
+    tr.on td b{color:var(--brand-600)}
+    .floor{margin-top:12px;display:flex;gap:10px;align-items:flex-start;background:var(--brand-tint);
+      border-radius:12px;padding:13px 15px;font-size:12.5px;line-height:1.6;color:#9a3412;font-weight:600}
+    .floor svg{width:16px;height:16px;flex:none;margin-top:1px;stroke:var(--brand-600);stroke-width:1.9;fill:none}
+
+    .foot{margin-top:22px}
+    .billnote{background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:14px 18px;
+      font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+    .billnote b{color:var(--ink)}
+
+    /* ---------- enterprise quote request ---------- */
+    .qhead{margin-bottom:24px}
+    .backlink{border:0;background:none;padding:0;cursor:pointer;font:600 13px 'Inter',sans-serif;
+      color:var(--muted);margin-bottom:14px;display:block}
+    .backlink:hover{color:var(--ink)}
+    .qhead h1{margin:0;font-size:30px;font-weight:700;letter-spacing:-.03em}
+    .qhead .sub{font-size:13.5px;color:var(--muted);margin-top:8px}
+    .qgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;align-items:start}
+    .qlabel{font-size:13px;font-weight:700;margin-bottom:10px}
+    .qbands{display:flex;flex-direction:column;gap:10px}
+    .qband{display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;
+      background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font:inherit}
+    .qband:hover{border-color:#d4d4d4}
+    .qband.on{border-color:var(--brand);border-width:2px;padding:15px 17px;background:#fff8f5}
+    .qradio{width:19px;height:19px;border-radius:50%;border:1.5px solid #c8c8c8;flex:none;display:grid;place-items:center}
+    .qband.on .qradio{border-color:var(--brand)}
+    .qband.on .qradio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand)}
+    .qb-main{flex:1;min-width:0}
+    .qb-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+    .qb-top b{font-size:14.5px;font-weight:700}
+    .qb-tag{font-style:normal;font-size:10.5px;font-weight:700;background:var(--ok-bg);color:var(--ok);
+      border-radius:999px;padding:3px 8px}
+    .qb-sub{display:block;font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+    .qb-amt{font-size:16px;font-weight:700;white-space:nowrap}
+    .qb-amt em{font-style:normal;font-size:12px;font-weight:500;color:var(--muted)}
+    .qwarn{margin-top:12px;background:#fff4e5;border-radius:12px;padding:13px 15px;
+      font-size:12.5px;line-height:1.6;color:#a35b00}
+    .qwarn b{font-weight:700}
+
+    .qsum{background:#231f1e;color:#fff;border-radius:16px;padding:22px 22px 20px;margin-bottom:16px}
+    .qsum-h{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+    .qsum-amt{font-size:34px;font-weight:700;letter-spacing:-.03em;margin:6px 0 16px}
+    .qsum-amt em{font-style:normal;font-size:14px;font-weight:500;opacity:.7}
+    .qsum-r{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:7px 0;
+      border-top:1px solid rgba(255,255,255,.12)}
+    .qsum-r span{opacity:.72}
+    .qsum-note{margin-top:14px;font-size:11.5px;line-height:1.55;opacity:.66}
+
+    .qform{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+    .qf{margin-bottom:14px}
+    .qf label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+    .qf label span{font-weight:400;color:var(--muted)}
+    .qf input,.qf textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:0 13px;height:46px;
+      font:400 14px 'Inter',sans-serif;color:var(--ink);outline:none;background:#fff}
+    .qf textarea{height:78px;padding:11px 13px;line-height:1.5;resize:vertical}
+    .qf input:focus,.qf textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,79,47,.12)}
+    .qsend{background:#231f1e;border-color:#231f1e;color:#fff;margin-top:4px}
+    .qsend:hover{background:#0f0d0c}
+    .qsend:disabled{background:#d4d0cd;border-color:#d4d0cd;cursor:not-allowed}
+    .qfoot{margin-top:12px;font-size:11.5px;line-height:1.55;color:var(--muted)}
+
+    .qsent{max-width:520px;margin:40px auto 30px;text-align:center}
+    .qsent-mark{width:64px;height:64px;margin:0 auto 18px;border-radius:20px;background:var(--ok-bg);
+      display:grid;place-items:center}
+    .qsent-mark svg{width:28px;height:28px;stroke:var(--ok);stroke-width:2.6;fill:none}
+    .qsent h1{margin:0 0 12px;font-size:25px;font-weight:700;letter-spacing:-.02em}
+    .qsent p{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--muted)}
+    .qsent p b{color:var(--ink)}
+    .qsent-eta{margin-top:16px;display:inline-block;background:var(--brand-tint);color:var(--brand-600);
+      border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700}
+
+    /* welcome — subscription confirmed. Deliberately minimal: confirm, orient, one exit. */
+    .welcome{max-width:430px}
+    .qsent-mark.ok{background:var(--brand-tint)}
+    .qsent-mark.ok svg{stroke:var(--brand-600)}
+    .wgo{background:#231f1e;border-color:#231f1e;color:#fff;margin-top:26px;max-width:280px;
+      margin-left:auto;margin-right:auto}
+    .wgo:hover{background:#0f0d0c}
+
+    @media (max-width:900px){ .qgrid{grid-template-columns:1fr} }
+    @media (max-width:1100px){ .grid{grid-template-columns:repeat(2,1fr)}
+      .inc-grid{grid-template-columns:repeat(2,1fr)} .inc-grid .inc-item:nth-child(-n+4){border-top:1px solid var(--line-soft)}
+      .inc-grid .inc-item:nth-child(-n+2){border-top:0} }
+    @media (max-width:700px){ .grid{grid-template-columns:1fr} .modal{padding:30px 20px 22px}
+      .inc-grid{grid-template-columns:1fr} .inc-grid .inc-item:nth-child(-n+2){border-top:1px solid var(--line-soft)}
+      .inc-grid .inc-item:first-child{border-top:0}
+      .ribbon{position:static;height:auto;padding:6px 0;margin:-6px 0 14px;border-radius:8px} }
+  </style>
+</head>
+<body>
+  <div class="scrim"></div>
+  <div class="modal">
+    <button class="close" aria-label="Close">✕</button>
+
+    <div id="plansView">
+    <div class="mhead">
+      <div style="flex:1;min-width:300px">
+        <h1>Choose your plan</h1>
+        <div class="sub">Pricing is set per served site. Enter the badged headcount at the location we deliver to and the matching tier is selected for you.</div>
+      </div>
+      <div class="scale">
+        <label for="hc">Badged at this site</label>
+        <input id="hc" type="number" min="0" value="220">
+      </div>
+    </div>
+
+    <div class="rulebar">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      <div><b>Billable headcount = badged employees at the served location</b> — not total company headcount.
+      A 4,000-person company with one 220-person Boston office is a <b>Tier 3 site</b>. This keeps pricing tied
+      to the population we actually feed, and lets a national company start at a site-level price without a
+      national-level negotiation.</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div id="inc"></div>
+    <div id="t4"></div>
+
+    <div class="foot">
+      <div class="billnote">
+        <b>Employees pay nothing toward the subscription.</b> It is the corporation's access fee to the platform,
+        the restaurant rotation and the dispatch service. Billing runs on three invoices a month — subscription on
+        the 1st, delivery for days 1–15 on the 15th, delivery for days 16–30 on the 30th.
+      </div>
+    </div>
+    </div><!-- /plansView -->
+
+    <div id="quoteView" hidden></div>
+  </div>
+
+<script>
+(function(){
+  var CHECK = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+
+  // Tiers differ ONLY by site headcount and price. Every tier buys the same access —
+  // do not reintroduce a per-tier feature ladder.
+  var TIERS = [
+    { n:1, name:'Tier 1', lo:0,   hi:75,       price:119.99, eff:'$1.60 – $3.00', tag:'A single floor or suite' },
+    { n:2, name:'Tier 2', lo:76,  hi:180,      price:299.99, eff:'$1.67 – $3.95', tag:'A full office' },
+    { n:3, name:'Tier 3', lo:181, hi:499,      price:499.99, eff:'$1.00 – $2.76', tag:'A whole building' },
+    { n:4, name:'Tier 4', lo:500, hi:Infinity, price:null,   eff:'$1.25 – $1.50', tag:'Enterprise site — banded quote' }
+  ];
+
+  var INCLUDED = [
+    ['Platform access','Every feature of the corporate portal, for every employee at the site.'],
+    ['Restaurant rotation','A different restaurant each day, curated from your cuisine preferences.'],
+    ['Dispatch service','Drivers, routing, manifests and delivery confirmation on every delivery day.'],
+    ['Employee app','Daily menu, advance ordering on the calendar, order editing and cancellation.'],
+    ['Live Kitchen','Chef on site, included at $0 setup. Only an $800/day event shortfall can reach an invoice.'],
+    ['Office Feed','Company bulletin board with clickable menu recommendations.'],
+    ['Analytics','Spend by department, ordering patterns, participation rate and subsidy ROI.'],
+    ['Support &amp; onboarding','Account manager, setup of your ordering window and restaurant assignment.']
+  ];
+
+  // Every 500+ site lands in a defined band; the floor is the band minimum × its rate.
+  var BANDS = [
+    { id:'4A', lo:500,  hi:999,  rate:1.50, floor:750 },
+    { id:'4B', lo:1000, hi:2499, rate:1.40, floor:1400 },
+    { id:'4C', lo:2500, hi:4999, rate:1.30, floor:3250 },
+    { id:'4D', lo:5000, hi:Infinity, rate:1.25, floor:6250 }
+  ];
+  var HARD_FLOOR = 1.25;
+
+  function tierFor(h){ for (var i=0;i<TIERS.length;i++) if (h >= TIERS[i].lo && h <= TIERS[i].hi) return TIERS[i]; return null; }
+  function bandFor(h){ for (var i=0;i<BANDS.length;i++) if (h >= BANDS[i].lo && h <= BANDS[i].hi) return BANDS[i]; return null; }
+  function usd(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2}); }
+  function usd0(n){ return '$' + n.toLocaleString('en-US'); }
+  function quoteFor(h){ var b = bandFor(h); if(!b) return null;
+    return { band:b, price: Math.max(b.floor, h * b.rate) }; }
+
+  var bandsOpen = false;   // Tier 4 bands are reachable at any headcount, not only 500+
+
+  function render(){
+    var h = parseInt(document.getElementById('hc').value, 10) || 0;
+    var fit = tierFor(h), q = h >= 500 ? quoteFor(h) : null;
+    var showBands = h >= 500 || bandsOpen;
+
+    document.getElementById('grid').innerHTML = TIERS.map(function(t){
+      var isFit = fit && fit.n === t.n;
+      var range = t.n === 4 ? '500+ employees'
+                : (t.lo === 0 ? '0' : t.lo) + ' – ' + t.hi + ' employees';
+      var priceHTML, effHTML;
+      if (t.n === 4){
+        priceHTML = q ? usd(q.price) + ' <small>/ mo</small>' : 'Banded quote';
+        effHTML = q
+          ? 'Band <b>' + q.band.id + '</b> · ' + usd(q.band.rate) + '/employee · floor ' + usd0(q.band.floor)
+          : 'Effective <b>' + t.eff + '</b> per employee';
+      } else {
+        priceHTML = usd(t.price) + ' <small>/ mo</small>';
+        effHTML = isFit && h > 0
+          ? 'Works out at <b>' + usd(t.price / h) + '</b> per employee'
+          : 'Effective <b>' + t.eff + '</b> per employee';
+      }
+      return '<div class="plan' + (isFit ? ' fit' : '') + '">'
+        + (isFit ? '<div class="ribbon">Your site headcount</div>' : '')
+        + '<h2>' + t.name + '</h2><div class="tag">' + t.tag + '</div>'
+        + '<div class="rule"></div>'
+        + '<div class="band">' + range + '</div>'
+        + '<div class="amt">' + priceHTML + '</div>'
+        + '<div class="eff">' + effHTML + '</div>'
+        + (t.n === 4 && h < 500
+            ? '<button class="bandlink" data-bands="1">' + (bandsOpen ? 'Hide the four bands' : 'See the four bands') + '</button>'
+            : '')
+        + '<button class="cta"' + (t.n === 4 ? ' data-quote="1"' : ' data-choose="' + t.n + '"') + '>'
+          + (t.n === 4 ? 'Request a quote' : (isFit ? 'Continue with ' + t.name : 'Choose ' + t.name)) + '</button>'
+        + '</div>';
+    }).join('');
+
+    document.getElementById('inc').innerHTML =
+      '<div class="inc-head"><h3>Included at every tier</h3>'
+      + '<span class="inc-note">Tiers differ by site headcount and price only — the service is identical.</span></div>'
+      + '<div class="inc-grid">'
+      + INCLUDED.map(function(f){
+          return '<div class="inc-item">' + CHECK + '<span><b>' + f[0] + '</b><em>' + f[1] + '</em></span></div>';
+        }).join('')
+      + '</div>';
+
+    // band table appears only when it is relevant to the entered headcount
+    document.getElementById('t4').innerHTML = !showBands ? '' :
+      '<div class="t4"><div class="t4-head"><h3>Tier 4 — Enterprise bands</h3>'
+      + (q ? '<span class="t4-chip">' + h.toLocaleString('en-US') + ' badged · Band ' + q.band.id + ' · ' + usd(q.price) + '/mo</span>'
+           : '<span class="inc-note">Every 500+ site falls into one of these four bands, so a quote is produced and signed the same day it is requested.</span>')
+      + '</div>'
+      + '<div class="t4-card">'
+      + '<table><thead><tr><th>Band</th><th>Site headcount</th><th>Rate / employee / mo</th><th>Monthly floor</th>'
+        + (q ? '<th>At ' + h.toLocaleString('en-US') + '</th>' : '<th>Example</th>') + '</tr></thead><tbody>'
+      + BANDS.map(function(b){
+          var at = Math.max(b.floor, h * b.rate);
+          var inBand = q && q.band.id === b.id;
+          // with no live headcount, show what the band's smallest site pays
+          var eg = usd(Math.max(b.floor, b.lo * b.rate)) + ' at ' + b.lo.toLocaleString('en-US');
+          return '<tr class="' + (inBand ? 'on' : '') + '"><td><b>' + b.id + '</b></td>'
+            + '<td>' + b.lo.toLocaleString('en-US') + (b.hi === Infinity ? '+' : ' – ' + b.hi.toLocaleString('en-US')) + '</td>'
+            + '<td>' + usd(b.rate) + '</td><td>' + usd0(b.floor) + '</td>'
+            + '<td>' + (q ? (inBand ? '<b>' + usd(at) + '</b>' + (at === b.floor ? ' (floor applies)' : '') : '—') : eg) + '</td></tr>';
+        }).join('')
+      + '</tbody></table></div>'
+      + '<div class="floor"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">'
+        + '<rect x="4.5" y="10" width="15" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>'
+        + '<span>' + usd(HARD_FLOOR) + ' per employee per month is the hard floor. No quote goes below it at any volume, under any circumstance.</span></div>'
+      + '</div>';
+  }
+
+  /* ---------------- enterprise quote request ---------------- */
+  var Q = { view:'plans', band:null, tier:null, site:'', contact:'', email:'', notes:'' };
+
+  function headcount(){ return parseInt(document.getElementById('hc').value, 10) || 0; }
+
+  function renderQuote(){
+    var h = headcount();
+    var natural = bandFor(h);                        // the band their headcount actually lands in
+    var b = Q.band || (natural ? natural.id : '4A');
+    var band = BANDS.filter(function(x){ return x.id === b; })[0];
+    var price = Math.max(band.floor, h * band.rate);
+    var mismatch = natural && natural.id !== band.id;
+
+    var html = '<div class="qhead">'
+      + '<button class="backlink" data-back="1">← Back to plans</button>'
+      + '<h1>Request an enterprise quote</h1>'
+      + '<div class="sub">Pick the band for this site. We produce and sign the quote the same day it is requested.</div>'
+      + '</div>'
+
+      + '<div class="qgrid">'
+      + '<div class="qcol">'
+        + '<div class="qlabel">Select a band</div>'
+        + '<div class="qbands">'
+        + BANDS.map(function(x){
+            var on = x.id === band.id, isNatural = natural && natural.id === x.id;
+            var at = Math.max(x.floor, h * x.rate);
+            return '<button class="qband' + (on ? ' on' : '') + '" data-pick="' + x.id + '">'
+              + '<span class="qradio"></span>'
+              + '<span class="qb-main"><span class="qb-top"><b>Band ' + x.id + '</b>'
+                + (isNatural ? '<em class="qb-tag">Matches ' + h.toLocaleString('en-US') + ' badged</em>' : '') + '</span>'
+              + '<span class="qb-sub">' + x.lo.toLocaleString('en-US')
+                + (x.hi === Infinity ? '+' : ' – ' + x.hi.toLocaleString('en-US')) + ' employees · '
+                + usd(x.rate) + '/employee · floor ' + usd0(x.floor) + '</span></span>'
+              + '<span class="qb-amt">' + usd(at) + '<em>/mo</em></span>'
+              + '</button>';
+          }).join('')
+        + '</div>'
+        + (mismatch
+            ? '<div class="qwarn">Band ' + band.id + ' applies from ' + band.lo.toLocaleString('en-US')
+              + ' badged employees. At ' + h.toLocaleString('en-US') + ' this site lands in <b>Band ' + natural.id
+              + '</b> — we verify badged headcount before the quote is issued.</div>'
+            : '')
+      + '</div>'
+
+      + '<div class="qcol qside">'
+        + '<div class="qsum">'
+          + '<div class="qsum-h">Your quote</div>'
+          + '<div class="qsum-amt">' + usd(price) + '<em>/mo</em></div>'
+          + '<div class="qsum-r"><span>Badged at this site</span><b>' + h.toLocaleString('en-US') + '</b></div>'
+          + '<div class="qsum-r"><span>Band</span><b>' + band.id + '</b></div>'
+          + '<div class="qsum-r"><span>Rate</span><b>' + usd(band.rate) + ' / employee</b></div>'
+          + '<div class="qsum-r"><span>Monthly floor</span><b>' + usd0(band.floor) + '</b></div>'
+          + (price === band.floor
+              ? '<div class="qsum-note">The floor applies at this headcount — ' + h.toLocaleString('en-US')
+                + ' × ' + usd(band.rate) + ' is below ' + usd0(band.floor) + '.</div>'
+              : '<div class="qsum-note">' + h.toLocaleString('en-US') + ' × ' + usd(band.rate)
+                + ' is above the ' + usd0(band.floor) + ' floor, so the calculated rate applies.</div>')
+        + '</div>'
+
+        + '<div class="qform">'
+          + qfield('site','Site name or address','Boston Headquarters, 100 Federal St')
+          + qfield('contact','Contact name','Dana Reyes')
+          + qfield('email','Work email','dana@northwind.com','email')
+          + '<div class="qf"><label for="q-notes">Anything we should know <span>(optional)</span></label>'
+            + '<textarea id="q-notes" data-q="notes" placeholder="Target start date, security or badging requirements, multiple floors…">'
+            + Q.notes.replace(/[&<>"]/g,'') + '</textarea></div>'
+          + '<button class="cta qsend"' + (Q.email ? '' : ' disabled') + ' data-send="1">Send quote request</button>'
+          + '<div class="qfoot">Nothing is charged and nothing is committed. An account manager replies the same day with a signable quote.</div>'
+        + '</div>'
+      + '</div></div>';
+
+    document.getElementById('quoteView').innerHTML = html;
+  }
+
+  function qfield(key,label,ph,type){
+    return '<div class="qf"><label for="q-' + key + '">' + label + '</label>'
+      + '<input id="q-' + key + '" type="' + (type||'text') + '" data-q="' + key + '" placeholder="' + ph + '" value="'
+      + String(Q[key]).replace(/"/g,'&quot;') + '"></div>';
+  }
+
+  function renderSent(){
+    var h = headcount();
+    var band = BANDS.filter(function(x){ return x.id === (Q.band || bandFor(h).id); })[0];
+    var price = Math.max(band.floor, h * band.rate);
+    document.getElementById('quoteView').innerHTML =
+      '<div class="qsent">'
+      + '<div class="qsent-mark">' + CHECK + '</div>'
+      + '<h1>Quote request sent</h1>'
+      + '<p>We have your request for <b>' + (Q.site || 'this site') + '</b> — ' + h.toLocaleString('en-US')
+        + ' badged employees, <b>Band ' + band.id + '</b> at <b>' + usd(price) + '/mo</b>.</p>'
+      + '<p>An account manager will confirm your badged headcount and send a signable quote to <b>'
+        + (Q.email || 'your work email') + '</b> today.</p>'
+      + '<div class="qsent-eta">Same-day turnaround · no negotiation required</div>'
+      + '<button class="cta" style="max-width:280px;margin:24px auto 0" data-back="1">Back to plans</button>'
+      + '</div>';
+  }
+
+  // Subscription confirmed on a standard tier — the first thing they see is what
+  // happens next, not a dead end.
+  function renderWelcome(){
+    var h = headcount();
+    var t = TIERS.filter(function(x){ return x.n === Q.tier; })[0];
+    document.getElementById('quoteView').innerHTML =
+      '<div class="qsent welcome">'
+      + '<div class="qsent-mark ok">' + CHECK + '</div>'
+      + '<h1>Welcome to Office Grubb</h1>'
+      + '<p>You\'re on <b>' + t.name + '</b> — ' + usd(t.price) + '/mo for '
+        + h.toLocaleString('en-US') + ' badged employees.</p>'
+      + '<p>We\'ll set your ordering window and restaurant rotation, then invite your team.</p>'
+      + '<button class="cta wgo" data-dash="1">Go to your dashboard</button>'
+      + '</div>';
+  }
+
+  function paint(){
+    var plans = document.getElementById('plansView'), quote = document.getElementById('quoteView');
+    plans.hidden = Q.view !== 'plans';
+    quote.hidden = Q.view === 'plans';
+    // confirmation views carry little content — the shell shrinks to match
+    document.querySelector('.modal').classList.toggle('narrow', Q.view === 'welcome' || Q.view === 'sent');
+    if (Q.view === 'plans') render();
+    else if (Q.view === 'quote') renderQuote();
+    else if (Q.view === 'welcome') renderWelcome();
+    else renderSent();
+  }
+
+  document.getElementById('hc').addEventListener('input', function(){ paint(); });
+  document.addEventListener('input', function(e){
+    var t = e.target;
+    if (t.dataset && t.dataset.q){
+      Q[t.dataset.q] = t.value;
+      // only the email gates the send button, so avoid a re-render that would drop focus
+      var send = document.querySelector('[data-send]');
+      if (send) send.disabled = !Q.email;
+    }
+  });
+  document.addEventListener('click', function(e){
+    var el;
+    if ((el = e.target.closest('[data-bands]'))){
+      bandsOpen = !bandsOpen; paint();
+      if (bandsOpen) document.getElementById('t4').scrollIntoView({behavior:'smooth', block:'nearest'});
+      return;
+    }
+    if ((el = e.target.closest('[data-quote]'))){ Q.view = 'quote'; Q.band = null; paint(); window.scrollTo(0,0); return; }
+    if ((el = e.target.closest('[data-choose]'))){ Q.tier = +el.dataset.choose; Q.view = 'welcome'; paint(); window.scrollTo(0,0); return; }
+    if ((el = e.target.closest('[data-pick]'))){  Q.band = el.dataset.pick; renderQuote(); return; }
+    if ((el = e.target.closest('[data-back]'))){  Q.view = 'plans'; paint(); window.scrollTo(0,0); return; }
+    if ((el = e.target.closest('[data-send]'))){  Q.view = 'sent'; paint(); window.scrollTo(0,0); return; }
+    if ((el = e.target.closest('[data-dash]'))){  location.href = 'index.html'; return; }
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

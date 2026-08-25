@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Calendar</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <div class="brand-mark">🍽️</div>
+        <div><div class="brand-name">Office Grubb</div><div class="brand-sub">Restaurant</div></div>
+      </div>
+      <div class="nav-label">Overview</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Dashboard</a>
+      <div class="nav-label">Kitchen</div>
+      <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>Orders <span class="badge tnum">6</span></a>
+      <a class="nav-item" href="menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v4H4zM6 7v13h12V7"/><path d="M9 11h6"/></svg>Menu</a>
+      <a class="nav-item" href="labels.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h5"/></svg>Labels</a>
+      <a class="nav-item active" href="calendar.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Calendar</a>
+      <div class="nav-label">Programs</div>
+      <a class="nav-item" href="live.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18l.9-5.5-4-3.9L9.5 8z"/></svg>Live Kitchen</a>
+      <a class="nav-item" href="reservations.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v6H4z"/><path d="M4 11c0 5 4 8 8 8s8-3 8-8"/></svg>Reservations</a>
+      <a class="nav-item" href="offers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Special Offers</a>
+      <div class="nav-label">Business</div>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Payouts</a>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4l3 2"/></svg>Notifications</a>
+      <div class="rail-foot"><div class="avatar">SK</div><div><div class="who">Sofia's Kitchen</div><div class="role">Owner · Boston, MA</div></div></div>
+    </aside>
+
+    <div class="main">
+      <header class="cal-top">
+        <div class="cal-titlewrap"><h1>Calendar</h1><div class="sub">Your corporate commitments &amp; Live Kitchen events and Reservation</div></div>
+        <div class="spacer"></div>
+        <div class="cal-legend">
+          <span class="lg lg-order"><i></i>Order</span>
+          <span class="lg lg-resv"><i></i>Reservation</span>
+          <span class="lg lg-live"><i></i>Live Kitchen</span>
+        </div>
+      </header>
+
+      <div class="cal-toolbar">
+        <div class="cal-nav">
+          <h2 class="cal-period" id="period">—</h2>
+          <button class="cal-arrow" id="prevBtn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="cal-arrow" id="nextBtn" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="btn" id="todayBtn">Today</button>
+        </div>
+        <div class="spacer"></div>
+        <div class="cal-views" id="views">
+          <button class="cvt" data-v="week">Weekly</button>
+          <button class="cvt on" data-v="month">Month</button>
+        </div>
+        <button class="btn" id="filtersBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18M6 12h12M10 19h4"/></svg>Filters <span class="fcount" id="fcount" hidden>0</span></button>
+      </div>
+
+      <div class="cal-body" id="body"><!-- rendered by JS --></div>
+    </div>
+  </div>
+
+  <!-- filters popover -->
+  <div class="cal-filters" id="filters">
+    <div class="cf-h"><h3>Filters</h3><button class="cf-clear" id="fClear">Reset</button></div>
+    <div class="cf-sec"><label class="cf-lbl">Event type</label><div class="cf-chips" id="fTypes"></div></div>
+    <div class="cf-sec"><label class="cf-lbl">Corporation</label>
+      <input type="text" class="cf-search" id="fCorpSearch" placeholder="Search companies…">
+      <div class="cf-corps" id="fCorps"></div>
+    </div>
+    <div class="cf-sec"><label class="cf-lbl">Status</label><div class="cf-chips" id="fStatus"></div></div>
+  </div>
+
+  <!-- event detail drawer -->
+  <div class="drawer-ov" id="drawerOv"></div>
+  <aside class="cal-drawer" id="drawer" aria-hidden="true"></aside>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+  <script src="calendar.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>

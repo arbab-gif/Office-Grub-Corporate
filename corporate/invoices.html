@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Invoices and chargeback · Beacon Yards Financial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+<body data-nav="invoices">
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">Billing</div>
+            <h1>Invoices and chargeback</h1>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.7"/><circle cx="17" cy="17" r="1.7"/></svg>3 drop points</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="db-grid">
+          <!-- current period -->
+          <section class="db-card col-5 cx-period">
+            <div class="db-ch">
+              <h2>Current period</h2>
+              <span class="cx-closes">Closes Jul 31</span>
+            </div>
+            <div id="periodRows"></div>
+          </section>
+
+          <!-- invoice history -->
+          <section class="db-card col-7">
+            <div class="db-ch">
+              <h2>Invoice history</h2>
+              <button class="cx-btn ghost sm auto">
+                <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Download all
+              </button>
+            </div>
+            <div class="cx-table flush hist">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Invoice</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Due</th>
+                    <th scope="col" class="ta-r">Amount</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="histRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- department chargeback -->
+        <div class="cx-cb-head">
+          <div>
+            <h2>Department chargeback</h2>
+            <p>Aggregate spend by department, keyed to your GL codes, for allocation back to cost centres.</p>
+          </div>
+          <button class="cx-btn ghost auto">
+            <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h4"/></svg>Payroll tax export
+          </button>
+          <button class="cx-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Export CSV
+          </button>
+        </div>
+
+        <div class="cx-table cb">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Department</th>
+                <th scope="col">GL code</th>
+                <th scope="col" class="ta-r">Orders</th>
+                <th scope="col" class="ta-r">Credit applied</th>
+              </tr>
+            </thead>
+            <tbody id="cbRows"></tbody>
+            <tfoot id="cbFoot"></tfoot>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="corp-nav.js"></script>
+  <script src="invoices.js"></script>
+</body>
+</html>

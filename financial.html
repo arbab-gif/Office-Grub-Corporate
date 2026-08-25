@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Financial · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="financial.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="fin-wrap">
+        <div class="fin-head">
+          <div>
+            <h1>Financial</h1>
+            <div class="sub">Your earnings, fees, payouts and milestones — all in one place.</div>
+          </div>
+          <button class="period"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>July 2026</button>
+        </div>
+
+        <!-- sub navigation -->
+        <div class="fin-subnav" id="finSubnav">
+          <button class="fin-tab on" data-p="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</button>
+          <button class="fin-tab" data-p="payouts"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 10l9-6 9 6M5 10v9h14v-9"/></svg>Payouts</button>
+          <button class="fin-tab" data-p="tier"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8 12l-2 9 6-3 6 3-2-9"/></svg>Commission &amp; Performance</button>
+          <button class="fin-tab" data-p="reservations"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Reservation Fees</button>
+          <button class="fin-tab" data-p="livekitchen"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 00-3.8 2.8A3.5 3.5 0 006 12a3 3 0 003 3h6a3 3 0 003-3 3.5 3.5 0 00-2.2-6.2A4 4 0 0012 3z"/></svg>Live Kitchen</button>
+          <button class="fin-tab" data-p="transactions"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Invoice History</button>
+        </div>
+
+        <!-- ============ OVERVIEW ============ -->
+        <section class="fin-panel on" data-panel="overview">
+          <div class="fin-row">
+            <section class="rev-hero c12">
+              <div class="rh-left">
+                <div class="rh-label"><span class="rh-badge">All streams</span> Total Revenue · This month</div>
+                <div class="rh-big">$18,200</div>
+                <div class="rh-sub"><span class="rh-up">▲ 11%</span> vs last month · before OG fees</div>
+                <div class="rh-life">
+                  <span class="rl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+                  <span class="rl-l">Lifetime revenue</span>
+                  <span class="rl-v">$73,600</span>
+                  <span class="rl-n">before OG fees</span>
+                </div>
+                <div class="rh-chips">
+                  <span class="rh-chip"><i style="background:#fff"></i>Food Sales <b>$10,500</b></span>
+                  <span class="rh-chip"><i style="background:#ffd7a3"></i>Live Kitchen <b>$7,700</b></span>
+                </div>
+              </div>
+              <div class="rh-right">
+                <div class="rh-spark">
+                  <span style="height:60%"><em>Mar</em></span>
+                  <span style="height:70%"><em>Apr</em></span>
+                  <span style="height:80%"><em>May</em></span>
+                  <span style="height:86%"><em>Jun</em></span>
+                  <span style="height:92%"><em>Jul</em></span>
+                  <span class="hi" style="height:100%"><em>Aug</em></span>
+                </div>
+                <div class="rh-spark-cap">6-month revenue trend</div>
+              </div>
+            </section>
+          </div>
+          <div class="fin-row">
+            <section class="rev-hero green c12">
+              <div class="rh-left">
+                <div class="rh-label"><span class="rh-badge">After all fees</span> Lifetime Earnings</div>
+                <div class="rh-big">$62,400</div>
+                <div class="rh-sub">Total take-home paid to you since you joined</div>
+                <div class="rh-life">
+                  <span class="rl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+                  <span class="rl-l">This month</span>
+                  <span class="rl-v">$15,735</span>
+                  <span class="rl-n">▲ 9% take-home</span>
+                </div>
+                <div class="rh-chips">
+                  <span class="rh-chip"><i style="background:#fff"></i>Lifetime revenue <b>$73,600</b></span>
+                  <span class="rh-chip"><i style="background:#ffd7a3"></i>OG fees <b>− $11,200</b></span>
+                </div>
+              </div>
+              <div class="rh-right">
+                <div class="rh-spark">
+                  <span style="height:58%"><em>Mar</em></span>
+                  <span style="height:68%"><em>Apr</em></span>
+                  <span style="height:78%"><em>May</em></span>
+                  <span style="height:85%"><em>Jun</em></span>
+                  <span style="height:91%"><em>Jul</em></span>
+                  <span class="hi" style="height:100%"><em>Aug</em></span>
+                </div>
+                <div class="rh-spark-cap">6-month earnings trend</div>
+              </div>
+            </section>
+          </div>
+          <div class="fin-row">
+            <div class="fin-kpi c3"><span class="k-ic i-green"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 10l9-6 9 6M5 10v9h14v-9"/></svg></span><div class="k-l">Available Balance</div><div class="k-v">$2,450</div><div class="k-sub">Next payout <b>Aug 15</b></div></div>
+            <div class="fin-kpi c3"><span class="k-ic i-brand"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5c0-2-2.2-3.5-5-3.5S7 4.5 7 6.5 9 9.5 12 10s5 1.5 5 4-2.2 3.5-5 3.5-5-1.5-5-3.5"/></svg></span><div class="k-l">Gross Food Sales</div><div class="k-2"><div><div class="lab">This month</div><div class="num">$10,500</div></div><div><div class="lab">Lifetime</div><div class="num">$45,200</div></div></div><div class="k-sub">Calculated <b>before</b> any deductions</div></div>
+            <div class="fin-kpi c3"><span class="k-ic i-amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8 12l-2 9 6-3 6 3-2-9"/></svg></span><div class="k-l">Current Tier</div><div class="k-v">Q3 · 15%</div><div class="k-sub">10% platform + 5% commission</div></div>
+            <div class="fin-kpi c3"><span class="k-ic i-blue"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span><div class="k-l">Upcoming Payout</div><div class="k-v">$2,450</div><div class="k-sub">Aug 15 · <span class="fin-badge sched">Scheduled</span></div></div>
+          </div>
+          <div class="fin-row">
+            <section class="db-card c8">
+              <div class="db-ch"><h2>Total Fees — This Month</h2></div>
+              <div class="fee-list">
+                <div class="fee-row"><span class="dot" style="background:#2563EB"></span><span class="nm">Platform Fee <span style="color:var(--neutral-400)">· 10% of gross</span></span><span class="amt">$1,050</span></div>
+                <div class="fee-row"><span class="dot" style="background:var(--brand-400)"></span><span class="nm">Performance Commission <span style="color:var(--neutral-400)">· Q3, 5%</span></span><span class="amt">$525</span></div>
+                <div class="fee-row"><span class="dot" style="background:#7C3AED"></span><span class="nm">Reservation Fees <span style="color:var(--neutral-400)">· 200 guests</span></span><span class="amt">$190</span></div>
+                <div class="fee-row"><span class="dot" style="background:#E08A00"></span><span class="nm">Live Kitchen Commission <span style="color:var(--neutral-400)">· 20%</span></span><span class="amt">$700</span></div>
+              </div>
+              <div class="fee-total"><span class="nm">Total fees this month</span><span class="amt">$2,465</span></div>
+            </section>
+            <div class="c4" style="display:flex;flex-direction:column;gap:18px;">
+              <section class="db-card">
+                <div class="db-ch"><h2>Restaurant Setup Fee</h2></div>
+                <div class="setup-card"><span class="k-ic i-purple" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.6 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></span><div><div class="amt">$99</div><div class="k-sub">One-time activation</div></div><span class="fin-badge paid" style="margin-left:auto">Paid</span></div>
+                <div class="fin-note ok" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Paid on <b>Jan 12, 2026</b>. This one-time fee activated your restaurant on Office Grubb — nothing further is owed.</span></div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PAYOUTS ============ -->
+        <section class="fin-panel" data-panel="payouts">
+          <div class="fin-row">
+            <section class="db-card c5">
+              <div class="db-ch"><h2>July 2026 Payout</h2><span class="fin-badge sched">Scheduled</span></div>
+              <div class="pay">
+                <div class="pay-line"><span class="k">Gross Food Sales</span><span class="v">$10,000.00</span></div>
+                <div class="pay-line ded"><span class="k">Platform Fee (10%)</span><span class="v">− $1,000.00</span></div>
+                <div class="pay-line ded"><span class="k">Performance Commission (5%)</span><span class="v">− $500.00</span></div>
+                <div class="pay-line ded"><span class="k">Reservation Fees</span><span class="v">− $95.00</span></div>
+                <div class="pay-line ded"><span class="k">Live Kitchen Commission</span><span class="v">− $200.00</span></div>
+                <div class="pay-line ded"><span class="k">Adjustments</span><span class="v">− $20.00</span></div>
+              </div>
+              <div class="pay-adj">
+                <div class="pay-adj-row"><span>Refund · wrong item, order #OG-4790</span><span>− $45.00</span></div>
+                <div class="pay-adj-row"><span>Service credit · goodwill (late delivery)</span><span class="pos">+ $25.00</span></div>
+              </div>
+              <div class="pay-total"><span class="k">Net Payout</span><span class="v">$8,185.00</span></div>
+              <div class="fin-actions">
+                <button class="fin-btn primary" data-toast="Statement downloaded (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download Statement</button>
+                <button class="fin-btn" data-toast="Opening payout details…"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>View Details</button>
+              </div>
+              <div class="fin-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span><b>What are adjustments?</b> Refunds charged to you for order issues, or credits added back in your favor. Each one is listed above so you always know why your payout changed.</span></div>
+            </section>
+            <section class="db-card c7">
+              <div class="db-ch"><h2>Payout History</h2></div>
+              <div class="dh-scroll">
+                <table class="dh-table">
+                  <thead><tr><th>Period</th><th>Gross</th><th>Fees</th><th>Adjustments</th><th>Net Payout</th><th>Paid On</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td class="dh-co">July 2026</td><td>$10,000</td><td>−$1,795</td><td>−$20.00</td><td class="dh-amt">$8,185</td><td>Aug 15</td><td><span class="fin-badge sched">Scheduled</span></td></tr>
+                    <tr><td class="dh-co">June 2026</td><td>$9,400</td><td>−$1,646</td><td>$0.00</td><td class="dh-amt">$7,754</td><td>Jul 15</td><td><span class="fin-badge paid">Paid</span></td></tr>
+                    <tr><td class="dh-co">May 2026</td><td>$8,900</td><td>−$1,602</td><td class="pos" style="color:#1F7A47">+$15.00</td><td class="dh-amt">$7,313</td><td>Jun 14</td><td><span class="fin-badge paid">Paid</span></td></tr>
+                    <tr><td class="dh-co">April 2026</td><td>$8,100</td><td>−$1,458</td><td>$0.00</td><td class="dh-amt">$6,642</td><td>May 15</td><td><span class="fin-badge paid">Paid</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fin-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Payouts are sent by <b>direct deposit on the 15th</b> of each month for the prior month's earnings. Your platform fee and commission are always shown as separate lines.</span></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ============ COMMISSION & PERFORMANCE (one process) ============ -->
+        <section class="fin-panel" data-panel="tier">
+          <div class="proc-flow">
+            <div class="pf-step"><span class="pf-n">1</span><div><div class="pf-t">Performance</div><div class="pf-s">Keep your 3 scores at 95%+</div></div></div>
+            <span class="pf-arrow">→</span>
+            <div class="pf-step"><span class="pf-n">2</span><div><div class="pf-t">Commission Tier</div><div class="pf-s">Lower fees each quarter you hold</div></div></div>
+            <span class="pf-arrow">→</span>
+            <div class="pf-step"><span class="pf-n">3</span><div><div class="pf-t">$15,000 Milestone</div><div class="pf-s">Unlock the long-term partner rate</div></div></div>
+          </div>
+          <div class="fin-row">
+            <section class="db-card c5">
+              <div class="db-ch"><h2>Your Commission</h2></div>
+              <div class="cs">
+                <div class="cs-rate">
+                  <div class="cs-rate-big">15%</div>
+                  <div class="cs-rate-sub">your current total rate</div>
+                  <div class="cs-split">10% platform fee <span>+</span> 5% commission</div>
+                </div>
+                <div class="cs-progress">You're on stage <b>3</b> of 5</div>
+                <div class="cs-stepper">
+                  <div class="cs-hexwrap done"><div class="cs-hex"><span class="bg"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="cs-cap">Q1</div><div class="cs-tip"><b>Q1 · 25% total</b>Your starting rate as a new partner.</div></div>
+                  <div class="cs-hexwrap done"><div class="cs-hex"><span class="bg"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="cs-cap">Q2</div><div class="cs-tip"><b>Q2 · 20% total</b>Unlocked by strong performance.</div></div>
+                  <div class="cs-hexwrap now"><div class="cs-hex"><span class="bg"></span><span class="face">Q3</span></div><div class="cs-cap">Q3</div><div class="cs-tip"><b>Q3 · 15% total</b>You're here — 5% commission + 10% platform.</div></div>
+                  <div class="cs-hexwrap next"><div class="cs-hex"><span class="bg"></span><span class="face">Q4</span></div><div class="cs-cap">Q4</div><div class="cs-tip"><b>Q4 · 10% total</b>0% commission — your lowest everyday rate.</div></div>
+                  <div class="cs-hexwrap next"><div class="cs-hex"><span class="bg"></span><span class="face">15k</span></div><div class="cs-cap">$15000</div><div class="cs-tip"><b>Long-term partner · 19% total</b>Your rate once you pass the $15,000 milestone.</div></div>
+                </div>
+                <div class="cs-note">Keep your performance strong to reach <b>Q4</b>, where your total rate drops to just <b>10%</b>. The 10% platform fee always stays the same.</div>
+              </div>
+            </section>
+            <section class="db-card c7">
+              <div class="db-ch"><h2>Next Milestone &amp; Benefits</h2></div>
+              <div class="fin-note ok"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Next up: Q4 — a 10% total rate.</b> Maintain 95%+ across your three performance scores this quarter to get there and start counting toward the $15,000 milestone.</span></div>
+              <div class="ben-list" style="margin-top:16px">
+                <div class="ben-row"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b style="color:var(--neutral-900)">Lower fees as you grow</b> — your commission drops every quarter you keep performance high.</span></div>
+                <div class="ben-row"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b style="color:var(--neutral-900)">Priority placement</b> in menu search for top-performing kitchens.</span></div>
+                <div class="ben-row"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b style="color:var(--neutral-900)">Long-term partner rate</b> — pass $15,000 in food sales and lock in a steady 19% total, permanently.</span></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="fin-row">
+            <section class="db-card c7">
+              <div class="db-ch"><h2>Performance Scores</h2><span class="fin-badge paid">On track</span></div>
+              <div class="perf-factors">
+                <div class="perf-f"><div class="perf-f-head"><span class="nm">Order Accuracy</span><span class="vl">97%</span><span class="ic">✓</span></div><div class="perf-track"><i style="width:97%"></i><b class="gate" style="left:95%"></b></div></div>
+                <div class="perf-f"><div class="perf-f-head"><span class="nm">Timeliness</span><span class="vl">95%</span><span class="ic">✓</span></div><div class="perf-track"><i style="width:95%"></i><b class="gate" style="left:95%"></b></div></div>
+                <div class="perf-f"><div class="perf-f-head"><span class="nm">Quality</span><span class="vl">96%</span><span class="ic">✓</span></div><div class="perf-track"><i style="width:96%"></i><b class="gate" style="left:95%"></b></div></div>
+              </div>
+              <div class="fin-note ok" style="margin-top:18px"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Your performance is <b>on track to maintain your current tier</b>. Keep all three scores at 95% or above. The line on each bar marks the 95% target.</span></div>
+            </section>
+            <section class="db-card c5">
+              <div class="db-ch"><h2>What each score means</h2></div>
+              <div class="sugg">
+                <div class="sugg-row"><span class="em">✅</span><span><b style="color:var(--neutral-900)">Order Accuracy</b> — customers get the right items, quantities and customizations.</span></div>
+                <div class="sugg-row"><span class="em">⏱️</span><span><b style="color:var(--neutral-900)">Timeliness</b> — orders are packed and ready when the driver arrives.</span></div>
+                <div class="sugg-row"><span class="em">🍱</span><span><b style="color:var(--neutral-900)">Quality</b> — food leaves well packaged, at the right temperature, presentation intact.</span></div>
+              </div>
+              <div class="fin-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span><b>Tip:</b> Double-check large orders before pickup and keep hot bags ready — the quickest way to protect Timeliness and Quality.</span></div>
+            </section>
+          </div>
+
+          <div class="fin-row">
+            <section class="db-card c12">
+              <div class="db-ch"><h2>$15,000 Milestone Progress</h2></div>
+              <div class="thr">
+                <div class="thr-top">
+                  <div class="thr-l"><div class="lbl">Lifetime gross food sales</div><div class="sub">Only food sales count — fees and reservation charges are not included.</div></div>
+                  <div class="thr-fig"><span class="cur">$11,240</span><span class="goal"> / $15,000</span></div>
+                </div>
+                <div class="thr-track"><i style="width:75%"></i></div>
+                <div class="thr-marks"><span>$0</span><span>75% there</span><span>$15,000</span></div>
+                <div class="thr-note"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span><b>$3,760 to go.</b> When you pass $15,000 in food sales, you become a long-term partner at a steady <b>19% total rate</b>. This milestone counts only after you reach the Q4 stage, and it never resets.</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ============ RESERVATION FEES ============ -->
+        <section class="fin-panel" data-panel="reservations">
+          <div class="fin-row">
+            <div class="fin-kpi c4"><span class="k-ic i-purple"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 00-3-3.9"/></svg></span><div class="k-l">Guests This Month</div><div class="k-v">200</div><div class="k-sub">Personal + corporate bookings</div></div>
+            <div class="fin-kpi c4"><span class="k-ic i-brand"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5c0-2-2.2-3.5-5-3.5S7 4.5 7 6.5 9 9.5 12 10s5 1.5 5 4-2.2 3.5-5 3.5-5-1.5-5-3.5"/></svg></span><div class="k-l">Reservation Fees</div><div class="k-v">$190</div><div class="k-sub">200 guests × <b>$0.95</b></div></div>
+            <div class="fin-kpi c4"><span class="k-ic i-blue"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span><div class="k-l">Billing</div><div class="k-v">Net 30</div><div class="k-sub">Invoiced monthly, separate from payouts</div></div>
+          </div>
+          <div class="fin-row">
+            <section class="db-card c12">
+              <div class="db-ch"><h2>Monthly Reservation Invoices</h2></div>
+              <div class="dh-scroll">
+                <table class="dh-table">
+                  <thead><tr><th>Invoice</th><th>Period</th><th>Guests</th><th>Rate</th><th>Amount</th><th>Due</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td class="dh-co">RSV-2026-07</td><td>July 2026</td><td>200</td><td>$0.95</td><td class="dh-amt">$190.00</td><td>Aug 30</td><td><span class="fin-badge due">Net-30 Due</span></td></tr>
+                    <tr><td class="dh-co">RSV-2026-06</td><td>June 2026</td><td>168</td><td>$0.95</td><td class="dh-amt">$159.60</td><td>Jul 30</td><td><span class="fin-badge paid">Paid</span></td></tr>
+                    <tr><td class="dh-co">RSV-2026-05</td><td>May 2026</td><td>142</td><td>$0.95</td><td class="dh-amt">$134.90</td><td>Jun 30</td><td><span class="fin-badge paid">Paid</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fin-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Reservation fees are <b>$0.95 per guest</b> for both personal employee reservations and corporate team bookings, billed on <b>Net-30</b> terms and kept separate from your food-sales payouts.</span></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ============ LIVE KITCHEN ============ -->
+        <section class="fin-panel" data-panel="livekitchen">
+          <div class="fin-row">
+            <section class="db-card c12">
+              <div class="db-ch"><h2>Latest Live Kitchen Event</h2></div>
+              <div class="lk-event">
+                <div class="lk-flow">
+                  <div class="lk-step"><div class="l">Event</div><div class="v">Microsoft HQ</div></div>
+                  <span class="lk-op">·</span>
+                  <div class="lk-step"><div class="l">Gross Revenue</div><div class="v">$3,500</div></div>
+                  <span class="lk-op">−</span>
+                  <div class="lk-step"><div class="l">OG Commission (20%)</div><div class="v neg">$700</div></div>
+                  <span class="lk-op">=</span>
+                  <div class="lk-step"><div class="l">Your Earnings</div><div class="v pos">$2,800</div></div>
+                </div>
+              </div>
+              <div class="dh-scroll" style="margin-top:18px">
+                <table class="dh-table">
+                  <thead><tr><th>Event</th><th>Date</th><th>Gross Revenue</th><th>OG Commission (20%)</th><th>Your Earnings</th><th>Statement</th></tr></thead>
+                  <tbody>
+                    <tr><td class="dh-co">Microsoft HQ</td><td>Jul 15</td><td>$3,500</td><td>−$700</td><td class="dh-amt">$2,800</td><td><span class="fin-badge paid">Settled</span></td></tr>
+                    <tr><td class="dh-co">Google Campus</td><td>Jul 8</td><td>$4,200</td><td>−$840</td><td class="dh-amt">$3,360</td><td><span class="fin-badge paid">Settled</span></td></tr>
+                    <tr><td class="dh-co">Amazon Warehouse</td><td>Jun 30</td><td>$8,200</td><td>−$1,640</td><td class="dh-amt">$6,560</td><td><span class="fin-badge paid">Settled</span></td></tr>
+                    <tr><td class="dh-co">Microsoft HQ</td><td>Aug 15</td><td>—</td><td>—</td><td class="dh-amt">—</td><td><span class="fin-badge proc">Upcoming</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fin-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Office Grubb takes a <b>20% commission</b> on gross Live Kitchen revenue, with an <b>$800 per-day minimum</b> — you keep the rest. Each event gets its own settlement statement.</span></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ============ INVOICE HISTORY (by corporation) ============ -->
+        <section class="fin-panel" data-panel="transactions">
+          <div class="fin-error" id="txError"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>We couldn't load your invoices. Please try again.</span><button id="txRetry">Retry</button></div>
+
+          <!-- summary chips -->
+          <div class="fin-row">
+            <div class="fin-kpi c4"><span class="k-ic i-green"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><div class="k-l">Invoiced this month</div><div class="k-v">$11,500</div><div class="k-sub">Across <b>3 companies</b></div></div>
+            <div class="fin-kpi c4"><span class="k-ic i-amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="k-l">Outstanding</div><div class="k-v">$7,250</div><div class="k-sub"><b>2 invoices</b> pending or due</div></div>
+            <div class="fin-kpi c4"><span class="k-ic i-blue"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><div class="k-l">Paid (lifetime)</div><div class="k-v">$61,150</div><div class="k-sub">Settled corporate invoices</div></div>
+          </div>
+
+          <section class="db-card c12">
+            <div class="db-ch"><h2>Invoice History</h2><a class="db-link" data-toast="Exporting all invoices (CSV)">Export all</a></div>
+            <div class="tx-filters">
+              <select id="txCompany"><option value="all">All companies</option><option>Google Inc.</option><option>Microsoft</option><option>Amazon</option><option>Acme Corp</option><option>Vantage Group</option></select>
+              <select id="txType"><option value="all">All invoice types</option><option>Corporate Orders</option><option>Orders + Live Kitchen</option><option>Reservation Fees</option></select>
+              <select id="txStatus"><option value="all">All statuses</option><option>Paid</option><option>Pending</option><option>Due</option></select>
+              <div class="tx-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="txSearch" type="text" placeholder="Search company or invoice…"></div>
+            </div>
+            <div class="dh-scroll">
+              <table class="dh-table" id="txTable">
+                <thead><tr><th>Corporation</th><th>Invoice Period</th><th>Invoice Date</th><th>Invoice Type</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr data-company="Google Inc." data-type="Corporate Orders" data-status="Paid"><td><div class="inv-co"><img class="inv-av" src="assets/figma/avatar-acme.png" alt=""><div><div class="dh-co">Google Inc.</div><div class="dh-sub">INV-2026-0812</div></div></div></td><td>August 2026</td><td>Aug 31</td><td>Corporate Orders</td><td class="dh-amt">$4,250</td><td><span class="fin-badge paid">Paid</span></td><td><button class="inv-dl" data-toast="Downloading INV-2026-0812 (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download</button></td></tr>
+                  <tr data-company="Microsoft" data-type="Orders + Live Kitchen" data-status="Pending"><td><div class="inv-co"><img class="inv-av" src="assets/figma/avatar-acme.png" alt=""><div><div class="dh-co">Microsoft</div><div class="dh-sub">INV-2026-0813</div></div></div></td><td>August 2026</td><td>Aug 31</td><td>Orders + Live Kitchen</td><td class="dh-amt">$6,800</td><td><span class="fin-badge proc">Pending</span></td><td><button class="inv-dl" data-toast="Downloading INV-2026-0813 (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download</button></td></tr>
+                  <tr data-company="Amazon" data-type="Reservation Fees" data-status="Due"><td><div class="inv-co"><img class="inv-av" src="assets/figma/avatar-acme.png" alt=""><div><div class="dh-co">Amazon</div><div class="dh-sub">INV-2026-0731</div></div></div></td><td>July 2026</td><td>Jul 31</td><td>Reservation Fees</td><td class="dh-amt">$450</td><td><span class="fin-badge due">Due</span></td><td><button class="inv-dl" data-toast="Downloading INV-2026-0731 (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download</button></td></tr>
+                  <tr data-company="Google Inc." data-type="Corporate Orders" data-status="Paid"><td><div class="inv-co"><img class="inv-av" src="assets/figma/avatar-acme.png" alt=""><div><div class="dh-co">Google Inc.</div><div class="dh-sub">INV-2026-0731</div></div></div></td><td>July 2026</td><td>Jul 31</td><td>Corporate Orders</td><td class="dh-amt">$3,900</td><td><span class="fin-badge paid">Paid</span></td><td><button class="inv-dl" data-toast="Downloading INV-2026-0731 (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download</button></td></tr>
+                  <tr data-company="Vantage Group" data-type="Corporate Orders" data-status="Paid"><td><div class="inv-co"><img class="inv-av" src="assets/figma/avatar-acme.png" alt=""><div><div class="dh-co">Vantage Group</div><div class="dh-sub">INV-2026-0630</div></div></div></td><td>June 2026</td><td>Jun 30</td><td>Corporate Orders</td><td class="dh-amt">$2,150</td><td><span class="fin-badge paid">Paid</span></td><td><button class="inv-dl" data-toast="Downloading INV-2026-0630 (PDF)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="fin-empty" id="txEmpty"><span class="em">🔍</span>No invoices match your filters. Try a different company or status.</div>
+          </section>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="fin-toast" id="finToast"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span id="finToastMsg"></span></div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      // sub-nav panel switching
+      var subnav=document.getElementById('finSubnav');
+      var panels=document.querySelectorAll('.fin-panel');
+      subnav.addEventListener('click',function(e){
+        var b=e.target.closest('.fin-tab'); if(!b) return;
+        subnav.querySelectorAll('.fin-tab').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        var p=b.getAttribute('data-p');
+        panels.forEach(function(pn){ pn.classList.toggle('on', pn.getAttribute('data-panel')===p); });
+        try{ location.hash=p; }catch(_){}
+      });
+      // deep-link via hash
+      if(location.hash){ var t=subnav.querySelector('.fin-tab[data-p="'+location.hash.slice(1)+'"]'); if(t) t.click(); }
+
+      // toast
+      var toast=document.getElementById('finToast'), tmsg=document.getElementById('finToastMsg'), tt;
+      document.addEventListener('click',function(e){
+        var b=e.target.closest('[data-toast]'); if(!b) return;
+        tmsg.textContent=b.getAttribute('data-toast'); toast.classList.add('on');
+        clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('on');},2400);
+      });
+
+      // invoice-history filters (by corporation)
+      var rows=[].slice.call(document.querySelectorAll('#txTable tbody tr'));
+      var fCompany=document.getElementById('txCompany'), fType=document.getElementById('txType'), fStatus=document.getElementById('txStatus'), fSearch=document.getElementById('txSearch');
+      var empty=document.getElementById('txEmpty'), table=document.getElementById('txTable');
+      function applyTx(){
+        var c=fCompany.value, t=fType.value, s=fStatus.value, q=fSearch.value.trim().toLowerCase(), shown=0;
+        rows.forEach(function(r){
+          var okC=c==='all'||r.getAttribute('data-company')===c;
+          var okT=t==='all'||r.getAttribute('data-type')===t;
+          var okS=s==='all'||r.getAttribute('data-status')===s;
+          var okQ=!q||r.textContent.toLowerCase().indexOf(q)>-1;
+          var vis=okC&&okT&&okS&&okQ; r.style.display=vis?'':'none'; if(vis)shown++;
+        });
+        empty.classList.toggle('on',shown===0);
+        table.style.display=shown===0?'none':'';
+      }
+      [fCompany,fType,fStatus].forEach(function(el){el.onchange=applyTx;});
+      fSearch.oninput=applyTx;
+
+      // demo error/retry (transactions)
+      var txErr=document.getElementById('txError');
+      document.getElementById('txRetry').onclick=function(){ txErr.classList.remove('on'); applyTx(); };
+    })();
+  </script>
+</body>
+</html>

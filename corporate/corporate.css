@@ -1,0 +1,82 @@
+/* Office Grubb — Corporate Portal shell.
+   Corporate identity colour is teal (spec Part 5: dark = restaurant, teal = corporate). */
+:root{
+  --corp-500:#0f8a86;
+  --corp-400:#14a8a3;
+  --corp-50:#effbfa;
+  --corp-alpha-100:rgba(20,168,163,.1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--neutral-50,#fafafa);
+  color:var(--neutral-950,#0a0a0a);
+}
+.app{display:grid;grid-template-columns:239px 1fr;min-height:100vh}
+
+/* ---------- sidebar ---------- */
+.cside{background:#fff;border-right:1px solid var(--neutral-200,#e5e5e5);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.cside-inner{flex:1;display:flex;flex-direction:column;gap:28px;padding:12px}
+.cbrand{display:flex;align-items:center;gap:10px;padding:6px 8px}
+.cbrand-mark{width:32px;height:32px;flex:none;border-radius:9px;background:var(--corp-500);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+.cbrand-name{font-weight:800;font-size:16px;letter-spacing:-.01em;color:var(--brand-400,#ff4f2f);line-height:1.1}
+.cbrand-sub{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--corp-500)}
+.cnav{display:flex;flex-direction:column;gap:6px}
+.cnav-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-400,#a3a3a3);padding:6px 10px 0}
+.cnav-item{display:flex;align-items:center;gap:12px;padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--neutral-950,#0a0a0a);cursor:pointer;border:0;background:none;width:100%;text-align:left;font:inherit}
+.cnav-item svg{width:20px;height:20px;flex:none;stroke:var(--neutral-950,#0a0a0a);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cnav-item span{flex:1;font-weight:500;font-size:15px;line-height:24px}
+.cnav-item:hover{background:var(--neutral-100,#f5f5f5)}
+.cnav-item.active{background:var(--corp-alpha-100)}
+.cnav-item.active span{color:var(--corp-500)}
+.cnav-item.active svg{stroke:var(--corp-500)}
+.cnav-item .pill{font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px;background:var(--neutral-100,#f5f5f5);color:var(--neutral-500,#737373);letter-spacing:.03em}
+.cside-foot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;border-top:1px solid var(--neutral-200,#e5e5e5)}
+.cavatar{width:34px;height:34px;border-radius:50%;background:var(--corp-50);color:var(--corp-500);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.cwho{font-size:13px;font-weight:600;line-height:1.2}
+.crole{font-size:11px;color:var(--neutral-500,#737373)}
+
+/* ---------- top bar ---------- */
+.main{display:flex;flex-direction:column;min-width:0}
+.ctop{background:#fff;border-bottom:1px solid var(--neutral-200,#e5e5e5);display:flex;align-items:center;gap:16px;padding:14px 24px;position:sticky;top:0;z-index:12}
+.ctop h1{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.ctop .sub{font-size:12px;color:var(--neutral-500,#737373);margin-top:2px}
+.spacer{flex:1}
+.tier-chip{display:flex;align-items:center;gap:8px;background:var(--corp-50);color:var(--corp-500);border:1px solid rgba(20,168,163,.25);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:600}
+.tier-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--corp-400)}
+
+/* ---------- content ---------- */
+.content{padding:24px;display:flex;flex-direction:column;gap:20px;max-width:1320px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g2{grid-template-columns:1.4fr 1fr}
+.card{background:#fff;border:1px solid var(--neutral-200,#e5e5e5);border-radius:14px;padding:18px}
+.card h2{margin:0 0 2px;font-size:15px;font-weight:700}
+.card .hint{font-size:12px;color:var(--neutral-500,#737373)}
+.stat .k{font-size:12px;font-weight:600;color:var(--neutral-500,#737373);letter-spacing:.02em}
+.stat .v{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+.stat .m{font-size:12px;color:var(--neutral-500,#737373);margin-top:4px}
+.rows{margin-top:14px;display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--neutral-200,#e5e5e5);font-size:13px}
+.row:first-child{border-top:0}
+.row .grow{flex:1;min-width:0}
+.row .t{font-weight:600}
+.row .s{font-size:12px;color:var(--neutral-500,#737373);margin-top:2px}
+.row .amt{font-weight:700;font-variant-numeric:tabular-nums}
+.tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em}
+.tag.due{background:#fff4e5;color:#a35b00}
+.tag.paid{background:#e9f7ef;color:#186a3b}
+.tag.next{background:var(--corp-50);color:var(--corp-500)}
+.bar{height:8px;border-radius:999px;background:var(--neutral-100,#f5f5f5);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--corp-400);border-radius:999px}
+
+/* stub views */
+.stub .lead{font-size:13px;color:var(--neutral-600,#525252);margin:0 0 14px;max-width:70ch}
+.stub ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+.stub li{font-size:13px;line-height:1.5;color:var(--neutral-800,#262626)}
+.stub li b{font-weight:700}
+.note{margin-top:16px;padding:12px 14px;border-radius:10px;background:var(--corp-50);border:1px solid rgba(20,168,163,.2);font-size:12px;color:var(--corp-500);font-weight:600}
+.note.warn{background:#fff4e5;border-color:#f0d3a8;color:#a35b00}
+
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}

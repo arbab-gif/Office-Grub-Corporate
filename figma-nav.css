@@ -1,0 +1,48 @@
+/* Office Grubb — shared Figma side nav (white), applied across all pages */
+.fside{width:239px;flex:none;background:#fff;border-right:1px solid var(--neutral-200,#e5e5e5);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:9;transition:width .18s ease;}
+.app .fside{width:100%;}
+.fside-inner{flex:1;display:flex;flex-direction:column;gap:31px;padding:12px;overflow-y:auto;}
+.fbrand{display:flex;align-items:center;gap:2px;padding:2px 0;height:32px;}
+.fbrand-mark{width:60px;height:32px;flex:none;background:url('assets/figma/og-logo.png') no-repeat;background-size:116px 116px;background-position:47% 39%;}
+.fbrand-word{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--brand-400,#ff4f2f);white-space:nowrap;margin-left:-6px;}
+
+.fnav{display:flex;flex-direction:column;gap:8px;}
+.fnav-item{display:flex;align-items:center;gap:12px;padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--neutral-950,#0a0a0a);cursor:pointer;border:0;}
+.fnav-item svg{width:20px;height:20px;flex:none;stroke:var(--neutral-950,#0a0a0a);}
+.fnav-item span{flex:1;font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:16px;line-height:24px;}
+.fnav-item:hover{background:var(--neutral-100,#f5f5f5);}
+.fnav-item.active{background:var(--brand-alpha-100,rgba(255,79,47,.1));}
+.fnav-item.active span{color:var(--brand-500,#fe2c11);}
+.fnav-item.active svg{stroke:var(--brand-400,#ff4f2f);}
+.fnav-foot{display:flex;flex-direction:column;gap:8px;}
+.fdiv{height:1px;width:100%;background:var(--neutral-200,#e5e5e5);}
+
+/* fit the shared nav into the existing .app grid layout (was 248px dark rail) */
+.app{grid-template-columns:239px 1fr;}
+
+/* ===== shared Figma top bar (white) ===== */
+.ftopbar{background:#fff;border-bottom:1px solid var(--neutral-200,#e5e5e5);display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:10px 24px 11px;position:sticky;top:0;z-index:12;}
+.ftopbar .ficon-btn{width:40px;height:40px;border-radius:100px;background:var(--neutral-100,#f5f5f5);border:0;display:grid;place-items:center;cursor:pointer;}
+.ftopbar .ficon-btn svg{width:24px;height:24px;stroke:var(--neutral-950,#0a0a0a);fill:none;}
+.ftopbar .fuser{display:flex;align-items:center;gap:10px;height:42px;padding:8px;border-radius:100px;background:var(--neutral-100,#f5f5f5);}
+.ftopbar .fuser img{width:28px;height:28px;border-radius:50%;object-fit:cover;display:block;}
+.ftopbar .fuser span{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:-.16px;color:var(--neutral-900,#171717);white-space:nowrap;}
+
+/* sidebar collapse toggle (hamburger) */
+.fnav-toggle{width:40px;height:40px;border-radius:100px;background:transparent;border:0;display:grid;place-items:center;cursor:pointer;margin-right:auto;color:var(--neutral-800,#262626);}
+.fnav-toggle:hover{background:var(--neutral-100,#f5f5f5);}
+.fnav-toggle svg{width:22px;height:22px;stroke:currentColor;fill:none;}
+
+/* ===== collapsed sidebar ===== */
+html.nav-collapsed .app{grid-template-columns:72px 1fr;}
+html.nav-collapsed .fside{width:72px;}
+html.nav-collapsed .fside-inner{padding:12px 8px;}
+html.nav-collapsed .fbrand{justify-content:center;gap:0;}
+html.nav-collapsed .fbrand-word{display:none;}
+html.nav-collapsed .fbrand-mark{width:40px;background-position:47% 39%;}
+html.nav-collapsed .fnav-item{justify-content:center;padding:9px 0;gap:0;}
+html.nav-collapsed .fnav-item span{display:none;}
+
+/* notification bell badge */
+.ftopbar .fbell{position:relative;text-decoration:none;}
+.ftopbar .fbell-badge{position:absolute;top:-2px;right:-2px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:#fe2c11;color:#fff;font-family:'Inter';font-weight:700;font-size:10px;display:grid;place-items:center;border:2px solid #fff;box-sizing:border-box;}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Announcements · Beacon Yards Financial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+<body data-nav="announce">
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+
+        <!-- ============ LIST ============ -->
+        <div id="anList">
+          <div class="db-head cx-head">
+            <div>
+              <div class="cx-eyebrow">Service</div>
+              <h1>Announcements</h1>
+              <div class="cx-meta">
+                <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+                <span class="mono">OG-BLFB-6KKM-BBUL</span>
+                <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/></svg>500 enrolled employees</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cx-toolbar">
+            <label class="cx-search">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input id="anSearch" type="search" placeholder="Search announcements">
+            </label>
+            <div class="cx-seg" id="anTabs" role="tablist" aria-label="Filter by state">
+              <button role="tab" aria-selected="true" class="on" data-f="all">All</button>
+              <button role="tab" aria-selected="false" data-f="scheduled">Scheduled</button>
+              <button role="tab" aria-selected="false" data-f="sent">Sent</button>
+              <button role="tab" aria-selected="false" data-f="draft">Drafts</button>
+            </div>
+            <button class="cx-btn" id="anNew">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New announcement
+            </button>
+          </div>
+
+          <div class="cx-privacy">
+            <svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 001 1h2l5 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M16 9a4 4 0 010 6"/></svg>
+            <span>Announcements are one-way, from you to your people. They are not the Office Feed — employees cannot reply or comment, and nothing you send here appears on the feed unless someone posts it themselves.</span>
+          </div>
+
+          <div class="cx-count" id="anCount" role="status" aria-live="polite"></div>
+          <div id="anRows" class="cx-ann-list"></div>
+          <div class="cx-empty" id="anEmpty" hidden>No announcements match that search.</div>
+        </div>
+
+        <!-- ============ COMPOSE FLOW ============ -->
+        <div id="anFlow" hidden></div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="corp-nav.js"></script>
+  <script src="announcements.js"></script>
+</body>
+</html>

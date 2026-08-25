@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Dashboard · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+        <div class="db-head">
+          <div><h1>Dashboard</h1><div class="sub">Good evening, Sofia's Kitchen · Friday, Jul 31, 2026</div></div>
+          <div class="db-live"><i></i>Delivery day · menu closes 10:30 AM</div>
+        </div>
+
+        <!-- KPI tiles -->
+        <div class="db-grid">
+          <div class="db-kpi col-3">
+            <span class="db-ic i-purple"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M15 5h2a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h2"/><path d="M9 12h6M9 16h4"/></svg></span>
+            <div class="kbody"><div class="kv">85</div><div class="kl">Today's Orders</div><div class="ktr">↑ 12% vs yesterday</div></div>
+          </div>
+          <div class="db-kpi col-3">
+            <span class="db-ic i-green"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5c0-2-2.2-3.5-5-3.5S7 4.5 7 6.5 9 9.5 12 10s5 1.5 5 4-2.2 3.5-5 3.5-5-1.5-5-3.5"/></svg></span>
+            <div class="kbody"><div class="kv">$1,240</div><div class="kl">Today's Revenue</div><div class="ktr">↑ 9% vs yesterday</div></div>
+          </div>
+          <div class="db-kpi col-3">
+            <span class="db-ic i-amber"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>
+            <div class="kbody"><div class="kv">8</div><div class="kl">Upcoming Reservations</div><div class="ktr muted">Next: 7:00 PM · Google Team Dinner</div></div>
+          </div>
+          <div class="db-kpi col-3">
+            <span class="db-ic i-blue"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div class="kbody"><div class="kv">1 Upcoming</div><div class="kl">Live Kitchen</div><div class="ktr muted">Microsoft HQ · Aug 15, 12:00 PM</div></div>
+          </div>
+        </div>
+
+        <!-- $15,000 lifetime threshold -->
+        <div class="db-grid">
+          <section class="db-card col-12">
+            <div class="db-ch"><span class="db-ic i-blue"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.4 4.3 1 6L12 16.5 6.4 19.2l1-6L3 8.9 9 8z"/></svg></span><h2>$15,000 Lifetime Threshold</h2></div>
+            <div class="thr">
+              <div class="thr-top">
+                <div class="thr-l"><div class="lbl">Lifetime gross food sales</div><div class="sub">Gross food sales only — the 10% platform fee is excluded. Accumulation begins once you reach the Q4+ (0% commission) stage.</div></div>
+                <div class="thr-fig"><span class="cur">$0</span><span class="goal"> / $15,000</span></div>
+              </div>
+              <div class="thr-track"><i style="width:0%"></i></div>
+              <div class="thr-marks"><span>$0</span><span>Not started</span><span>$15,000</span></div>
+              <div class="thr-note"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span><b>Accumulation hasn't started yet.</b> You're at <b>Q3</b> — sales in Q1–Q3 don't count. It begins at <b>Q4+ (0% commission)</b>. When lifetime gross later crosses $15,000, your rate becomes <b>19% total</b> permanently.</span></div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Orders Overview + Commission Tier -->
+        <div class="db-grid">
+          <section class="db-card col-8">
+            <div class="db-ch"><h2>Orders Overview</h2><button class="db-sel">This Week <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>
+            <div class="ov-stats">
+              <div class="ov-stat"><div class="l">Total Orders</div><div class="v">420</div><div class="d">↑ 15% <span>vs last week</span></div></div>
+              <div class="ov-stat"><div class="l">Average Daily Orders</div><div class="v">60</div></div>
+            </div>
+            <div class="ov-chart">
+              <div class="ov-yaxis"><span>150</span><span>100</span><span>50</span><span>0</span></div>
+              <div class="ov-bars">
+                <div class="ov-bar"><div class="ov-track"><span class="val">45</span><i style="height:30%"></i></div><div class="day">Mon</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">68</span><i style="height:45.3%"></i></div><div class="day">Tue</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">55</span><i style="height:36.7%"></i></div><div class="day">Wed</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">85</span><i style="height:56.7%"></i></div><div class="day">Thu</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">92</span><i style="height:61.3%"></i></div><div class="day">Fri</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">50</span><i style="height:33.3%"></i></div><div class="day">Sat</div></div>
+                <div class="ov-bar"><div class="ov-track"><span class="val">25</span><i style="height:16.7%"></i></div><div class="day">Sun</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="db-card col-4">
+            <div class="db-ch"><h2>Commission &amp; Fees</h2></div>
+            <div class="cs">
+              <div class="cs-rate">
+                <div class="cs-rate-big">15%</div>
+                <div class="cs-rate-sub">current total rate</div>
+                <div class="cs-split">10% platform fee <span>+</span> 5% commission</div>
+              </div>
+              <div class="cs-progress">Stage <b>3</b> of 5</div>
+              <div class="cs-stepper">
+                <div class="cs-hexwrap done">
+                  <div class="cs-hex"><span class="bg"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div>
+                  <div class="cs-cap">Q1</div>
+                  <div class="cs-tip"><b>Q1 · 25% total</b>New-partner default. 15% commission + 10% platform fee.</div>
+                </div>
+                <div class="cs-hexwrap done">
+                  <div class="cs-hex"><span class="bg"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div>
+                  <div class="cs-cap">Q2</div>
+                  <div class="cs-tip"><b>Q2 · 20% total</b>Earned 95%+ on all 3 factors in Q1. 10% commission + 10% platform fee.</div>
+                </div>
+                <div class="cs-hexwrap now">
+                  <div class="cs-hex"><span class="bg"></span><span class="face">Q3</span></div>
+                  <div class="cs-cap">Q3</div>
+                  <div class="cs-tip"><b>Q3 · 15% total</b>Earned 95%+ on all 3 factors in Q2. 5% commission + 10% platform fee.</div>
+                </div>
+                <div class="cs-hexwrap next">
+                  <div class="cs-hex"><span class="bg"></span><span class="face">Q4</span></div>
+                  <div class="cs-cap">Q4</div>
+                  <div class="cs-tip"><b>Q4+ · 10% total</b>Earn 95%+ in Q3 to unlock. 0% commission + 10% platform fee. Gross then starts accumulating toward the $15,000 threshold.</div>
+                </div>
+                <div class="cs-hexwrap next">
+                  <div class="cs-hex"><span class="bg"></span><span class="face">15k</span></div>
+                  <div class="cs-cap">$15000</div>
+                  <div class="cs-tip"><b>$15k+ · 19% total</b>When lifetime gross crosses $15,000: 9% commission + 10% platform fee, permanent from that point.</div>
+                </div>
+              </div>
+              <div class="cs-prob" id="csProb" hidden>
+                <span class="cs-prob-badge"><span class="dot"></span><span id="csProbLabel"></span></span>
+                <div class="cs-prob-list" id="csProbList"></div>
+                <div class="cs-prob-txt" id="csProbTxt"></div>
+              </div>
+              <div class="cs-note">You're at <b>Q3 (5% commission)</b>. Earn <b>95%+ on all 3 factors</b> this quarter to advance to <b>Q4+ (0% commission)</b> and begin accumulating toward the $15,000 threshold. The <b>10% platform fee</b> is permanent and billed separately.</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Performance + Top Selling + Upcoming Schedule -->
+        <div class="db-grid">
+          <section class="db-card col-4">
+            <div class="db-ch"><h2>Performance Rating</h2></div>
+            <div class="perf" id="perfCard">
+              <div class="perf-hero">
+                <div class="perf-badge">Gold Tier <span>⭐</span></div>
+                <div class="perf-msg" id="perfMsg">You're performing great!</div>
+              </div>
+              <div class="perf-factors" id="perfFactors"></div>
+              <div class="perf-status" id="perfStatus"></div>
+              <div class="perf-foot" id="perfFoot">Keep up the great work!</div>
+            </div>
+          </section>
+
+          <section class="db-card col-4">
+            <div class="db-ch"><h2>Top Selling Items</h2><a class="db-link" href="menu.html">View Full Report</a></div>
+            <div class="top-list">
+              <div class="top-row"><span class="top-rank">1</span><span class="top-emoji">🍗</span><span class="top-name">Chicken Bowl</span><span class="top-orders">120 orders</span></div>
+              <div class="top-row"><span class="top-rank">2</span><span class="top-emoji">🍝</span><span class="top-name">Pasta Primavera</span><span class="top-orders">95 orders</span></div>
+              <div class="top-row"><span class="top-rank">3</span><span class="top-emoji">🥗</span><span class="top-name">Caesar Salad</span><span class="top-orders">70 orders</span></div>
+              <div class="top-row"><span class="top-rank">4</span><span class="top-emoji">🍕</span><span class="top-name">Margherita Pizza</span><span class="top-orders">60 orders</span></div>
+              <div class="top-row"><span class="top-rank">5</span><span class="top-emoji">🌯</span><span class="top-name">Greek Wrap</span><span class="top-orders">45 orders</span></div>
+            </div>
+          </section>
+
+          <section class="db-card col-4">
+            <div class="db-ch"><h2>Upcoming Schedule</h2><a class="db-link" href="calendar.html">View Calendar</a></div>
+            <div class="sch-strip" id="schStrip">
+              <div class="sch-day on"><div class="dn">Thu</div><div class="dd">31</div></div>
+              <div class="sch-day"><div class="dn">Fri</div><div class="dd">1</div></div>
+              <div class="sch-day"><div class="dn">Sat</div><div class="dd">2</div></div>
+              <div class="sch-day"><div class="dn">Sun</div><div class="dd">3</div></div>
+              <div class="sch-day"><div class="dn">Mon</div><div class="dd">4</div></div>
+              <div class="sch-day"><div class="dn">Tue</div><div class="dd">5</div></div>
+              <div class="sch-day"><div class="dn">Wed</div><div class="dd">6</div></div>
+            </div>
+            <div class="sch-events">
+              <div class="sch-ev"><div class="tm">12:30 PM</div><div class="body"><div class="t">Google Inc.</div><div class="s">Corporate Lunch</div></div><div class="r"><span class="sch-pill prep">Preparing</span><div class="sub">65 Orders</div></div></div>
+              <div class="sch-ev"><div class="tm">7:00 PM</div><div class="body"><div class="t">ABC Corp</div><div class="s">Reservation · 20 Guests</div></div><div class="r"><span class="sch-pill conf">Confirmed</span></div></div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Today's orders + Payout Summary -->
+        <div class="db-grid">
+          <section class="db-card col-8">
+            <div class="db-ch"><h2>Today's orders</h2><a class="db-link" href="index.html">Open Orders →</a></div>
+            <div class="to-list">
+              <div class="to-row"><div class="to-time">12:00<br>PM</div><div class="to-co"><div class="n">Acme Corp</div><div class="m">28 meals</div></div><span class="to-status new">New</span><div class="to-amt">$456.50</div></div>
+              <div class="to-row"><div class="to-time">12:30<br>PM</div><div class="to-co"><div class="n">Northline Labs</div><div class="m">16 meals</div></div><span class="to-status acc">Accepted</span><div class="to-amt">$288.75</div></div>
+              <div class="to-row"><div class="to-time">1:00<br>PM</div><div class="to-co"><div class="n">Vantage Group</div><div class="m">34 meals</div></div><span class="to-status new">New</span><div class="to-amt">$612.40</div></div>
+              <div class="to-row"><div class="to-time">11:30<br>AM</div><div class="to-co"><div class="n">Bright Digital</div><div class="m">12 meals</div></div><span class="to-status ready">Ready</span><div class="to-amt">$206.00</div></div>
+            </div>
+          </section>
+
+          <section class="db-card col-4">
+            <div class="db-ch"><span class="db-ic i-green"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><h2>Payout Summary</h2></div>
+            <div class="pay">
+              <div class="pay-line"><span class="k">Gross food sales</span><span class="v">$9,200.00</span></div>
+              <div class="pay-line ded"><span class="k">Platform fee (10%)</span><span class="v">− $920.00</span></div>
+              <div class="pay-line ded"><span class="k">Performance commission (5% · Q3)</span><span class="v">− $460.00</span></div>
+            </div>
+            <div class="pay-total"><span class="k">Net payout</span><span class="v">$7,820.00</span></div>
+            <div class="pay-note">Next ACH deposit <b>Friday</b></div>
+          </section>
+        </div>
+
+        <!-- History: Orders / Reservations / Live Kitchen -->
+        <div class="db-grid">
+          <section class="db-card col-12">
+            <div class="db-ch">
+              <h2>History</h2>
+              <div class="dh-tabs" id="dhTabs">
+                <button class="dh-tab on" data-t="orders">Order history</button>
+                <button class="dh-tab" data-t="resv">Reservations</button>
+                <button class="dh-tab" data-t="live">Live Kitchen</button>
+              </div>
+            </div>
+
+            <!-- Order history with 3-factor ratings per order -->
+            <div class="dh-panel on" data-p="orders">
+              <div class="dh-scroll">
+                <table class="dh-table">
+                  <thead><tr>
+                    <th>Order</th><th>Company</th><th>Date</th><th>Amount</th>
+                    <th class="dh-th-r">Accuracy</th><th class="dh-th-r">Timeliness</th><th class="dh-th-r">Quality</th><th class="dh-th-r">Overall</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr><td>#OG-4821</td><td><div class="dh-co">Acme Corp</div><div class="dh-sub">28 meals</div></td><td>Jul 30</td><td class="dh-amt">$456.50</td><td class="dh-r g">5.0</td><td class="dh-r g">4.8</td><td class="dh-r g">5.0</td><td class="dh-r"><span class="dh-star">★</span> 4.9</td></tr>
+                    <tr><td>#OG-4818</td><td><div class="dh-co">Northline Labs</div><div class="dh-sub">16 meals</div></td><td>Jul 30</td><td class="dh-amt">$288.75</td><td class="dh-r g">4.9</td><td class="dh-r a">4.3</td><td class="dh-r g">4.7</td><td class="dh-r"><span class="dh-star">★</span> 4.6</td></tr>
+                    <tr><td>#OG-4805</td><td><div class="dh-co">Vantage Group</div><div class="dh-sub">34 meals</div></td><td>Jul 29</td><td class="dh-amt">$612.40</td><td class="dh-r g">5.0</td><td class="dh-r g">4.9</td><td class="dh-r g">4.8</td><td class="dh-r"><span class="dh-star">★</span> 4.9</td></tr>
+                    <tr><td>#OG-4790</td><td><div class="dh-co">Bright Digital</div><div class="dh-sub">12 meals</div></td><td>Jul 29</td><td class="dh-amt">$206.00</td><td class="dh-r a">4.2</td><td class="dh-r b">3.6</td><td class="dh-r g">4.7</td><td class="dh-r"><span class="dh-star">★</span> 4.2</td></tr>
+                    <tr><td>#OG-4772</td><td><div class="dh-co">Acme Corp</div><div class="dh-sub">30 meals</div></td><td>Jul 28</td><td class="dh-amt">$498.00</td><td class="dh-r g">4.8</td><td class="dh-r g">4.9</td><td class="dh-r g">5.0</td><td class="dh-r"><span class="dh-star">★</span> 4.9</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Reservation history + fee invoices ($0.95 / guest, Net-30) -->
+            <div class="dh-panel" data-p="resv">
+              <div class="dh-scroll">
+                <table class="dh-table">
+                  <thead><tr>
+                    <th>Reservation</th><th>Company</th><th>Date</th><th class="dh-th-r">Guests</th><th>Fee ($0.95/guest)</th><th>Invoice</th><th>Status</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr><td>#RSV-1042</td><td><div class="dh-co">Google Inc.</div><div class="dh-sub">Team Dinner</div></td><td>Jul 27</td><td class="dh-r">24</td><td class="dh-amt">$22.80</td><td>INV-2026-0142</td><td><span class="dh-badge paid">Paid</span></td></tr>
+                    <tr><td>#RSV-1039</td><td><div class="dh-co">ABC Corp</div><div class="dh-sub">Client Lunch</div></td><td>Jul 25</td><td class="dh-r">20</td><td class="dh-amt">$19.00</td><td>INV-2026-0138</td><td><span class="dh-badge due">Net-30 Due</span></td></tr>
+                    <tr><td>#RSV-1031</td><td><div class="dh-co">Meridian LLC</div><div class="dh-sub">Board Meeting</div></td><td>Jul 21</td><td class="dh-r">12</td><td class="dh-amt">$11.40</td><td>INV-2026-0129</td><td><span class="dh-badge pend">Pending</span></td></tr>
+                    <tr><td>#RSV-1024</td><td><div class="dh-co">Northline Labs</div><div class="dh-sub">Offsite</div></td><td>Jul 18</td><td class="dh-r">40</td><td class="dh-amt">$38.00</td><td>INV-2026-0121</td><td><span class="dh-badge paid">Paid</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="thr-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Reservation fees bill at <b>$0.95 per guest</b> on <b>Net-30</b> terms. (Reservations are design-only in Phase 1 — no live collection.)</span></div>
+            </div>
+
+            <!-- Live Kitchen event history + commission statements (20% gross, $800/day min) -->
+            <div class="dh-panel" data-p="live">
+              <div class="dh-scroll">
+                <table class="dh-table">
+                  <thead><tr>
+                    <th>Event</th><th>Company</th><th>Date</th><th>Gross</th><th>Commission (20%)</th><th class="dh-th-r">$800 min</th><th>Statement</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr><td>#LK-318</td><td><div class="dh-co">Microsoft HQ</div><div class="dh-sub">On-site lunch · 210 pax</div></td><td>Jul 15</td><td class="dh-amt">$5,400</td><td class="dh-amt">$1,080</td><td class="dh-r g">✓ met</td><td><span class="dh-badge sett">Settled</span></td></tr>
+                    <tr><td>#LK-305</td><td><div class="dh-co">Google Inc.</div><div class="dh-sub">Campus event · 150 pax</div></td><td>Jul 8</td><td class="dh-amt">$3,900</td><td class="dh-amt">$800 <span class="dh-min">(min)</span></td><td class="dh-r a">shortfall</td><td><span class="dh-badge sett">Settled</span></td></tr>
+                    <tr><td>#LK-297</td><td><div class="dh-co">Amazon</div><div class="dh-sub">Warehouse day · 320 pax</div></td><td>Jun 30</td><td class="dh-amt">$8,200</td><td class="dh-amt">$1,640</td><td class="dh-r g">✓ met</td><td><span class="dh-badge sett">Settled</span></td></tr>
+                    <tr><td>#LK-402</td><td><div class="dh-co">Microsoft HQ</div><div class="dh-sub">On-site lunch · 180 pax</div></td><td>Aug 15</td><td class="dh-amt">—</td><td class="dh-amt">est. $800+</td><td class="dh-r">—</td><td><span class="dh-badge pend">Upcoming</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="thr-note" style="margin-top:14px"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16h.01M12 3l9 16H3z"/></svg><span>Live Kitchen commission is <b>20% of gross</b> with an <b>$800/day minimum</b> — any shortfall to the minimum is charged to the corporate client. Live Kitchen gross does not count toward the $15,000 threshold.</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      var strip=document.getElementById('schStrip');
+      if(strip) Array.prototype.forEach.call(strip.children,function(d){ d.onclick=function(){ Array.prototype.forEach.call(strip.children,function(x){x.classList.remove('on');}); d.classList.add('on'); }; });
+
+      // Performance Rating — restaurant-friendly, auto good/warning state
+      (function(){
+        var GATE=95;
+        var factors=[
+          {name:'Order Accuracy', value:97},
+          {name:'On-Time Delivery', value:95.5},
+          {name:'Food Quality', value:96.8}
+        ];
+        var host=document.getElementById('perfFactors');
+        if(!host) return;
+        var below=0;
+        factors.forEach(function(f){
+          var ok=f.value>=GATE; if(!ok) below++;
+          var pct=Math.max(0,Math.min(100,f.value));
+          var row=document.createElement('div');
+          row.className='perf-f'+(ok?'':' warn');
+          row.innerHTML=
+            '<div class="perf-f-head"><span class="nm">'+f.name+'</span>'+
+            '<span class="vl">'+f.value+'%</span>'+
+            '<span class="ic">'+(ok?'✓':'⚠')+'</span></div>'+
+            '<div class="perf-track"><i style="width:'+pct+'%"></i><b class="gate" style="left:'+GATE+'%"></b></div>';
+          host.appendChild(row);
+        });
+        var card=document.getElementById('perfCard');
+        var status=document.getElementById('perfStatus');
+        var msg=document.getElementById('perfMsg');
+        var foot=document.getElementById('perfFoot');
+        if(below===0){
+          card.classList.add('good');
+          status.className='perf-status ok';
+          status.innerHTML='<b>✓ On Track</b> All quality standards met';
+        }else{
+          card.classList.add('attention');
+          msg.textContent='Your tier needs attention';
+          status.className='perf-status warn';
+          status.innerHTML='<b>⚠ Needs Improvement</b> '+below+' area'+(below>1?'s':'')+' to work on to keep your tier';
+          foot.textContent='Reduce order mistakes, tighten prep timing, and keep food consistent.';
+        }
+        // Probation badge in Commission & Fees: appears only when a factor is below the gate
+        var GRACE_DAYS=12; // days remaining in the 30-day grace window (0 = grace expired → on probation)
+        window.OGrenderProbation=function(fs){
+          var prob=document.getElementById('csProb');
+          if(!prob) return;
+          var card=document.querySelector('.cs');
+          var failing=fs.filter(function(f){return f.value<GATE;});
+          if(!failing.length){ prob.hidden=true; if(card) card.classList.remove('cs-onprob'); return; }
+          prob.hidden=false;
+          var label=document.getElementById('csProbLabel'), txt=document.getElementById('csProbTxt'), listEl=document.getElementById('csProbList');
+          var allFailed=failing.length===fs.length;
+          var many=failing.length>1;
+          // one row per failing factor
+          listEl.innerHTML=failing.map(function(f){
+            return '<div class="cs-prob-f"><span class="nm">'+f.name+'</span><span class="vl">'+f.value+'%</span></div>';
+          }).join('');
+          var subject=allFailed?'All three scores':(many?'These scores':'This score');
+          var inGrace=GRACE_DAYS>0;
+          prob.className='cs-prob '+(inGrace?'grace':'active')+(allFailed?' all':'');
+          if(inGrace){
+            if(card) card.classList.remove('cs-onprob');
+            label.textContent=(allFailed?'⚠ All scores low · ':'Grace period · ')+GRACE_DAYS+' days left';
+            txt.innerHTML=subject+' dropped below 95%. Bring '+(many?'them':'it')+' back up in the next <b>'+GRACE_DAYS+' days</b>. If you don\'t, your fees go up to <b>25%</b> and your $15,000 progress pauses until you fix it.';
+          }else{
+            if(card) card.classList.add('cs-onprob');
+            label.textContent='On probation · 25%';
+            txt.innerHTML='Your fees are now <b>25%</b> because '+(allFailed?'all three scores':(many?'these scores':'this score'))+' stayed below 95%. Get all three back to 95% or higher to go back to normal. Your $15,000 progress is paused for now — it won\'t reset.';
+          }
+        };
+        window.OGrenderProbation(factors);
+      })();
+
+      var tabs=document.getElementById('dhTabs');
+      if(tabs){
+        var panels=document.querySelectorAll('.dh-panel');
+        Array.prototype.forEach.call(tabs.querySelectorAll('.dh-tab'),function(b){
+          b.onclick=function(){
+            Array.prototype.forEach.call(tabs.querySelectorAll('.dh-tab'),function(x){x.classList.remove('on');});
+            b.classList.add('on');
+            Array.prototype.forEach.call(panels,function(p){ p.classList.toggle('on', p.getAttribute('data-p')===b.getAttribute('data-t')); });
+          };
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

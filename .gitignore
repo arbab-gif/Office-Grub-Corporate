@@ -1,0 +1,24 @@
+# Claude Code — machine-local settings (launch.json is shared, settings.local.json is not)
+.claude/settings.local.json
+
+# dependencies / build
+node_modules/
+dist/
+build/
+
+# scratch + working files
+*.log
+tmp/
+scratch/
+*.tmp
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# editors
+.vscode/
+.idea/
+*.swp

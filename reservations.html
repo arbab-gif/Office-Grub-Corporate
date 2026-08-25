@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Reservations</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="reservations.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <div class="brand-mark">🍽️</div>
+        <div><div class="brand-name">Office Grubb</div><div class="brand-sub">Restaurant</div></div>
+      </div>
+      <div class="nav-label">Overview</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Dashboard</a>
+      <div class="nav-label">Kitchen</div>
+      <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>Orders <span class="badge tnum">6</span></a>
+      <a class="nav-item" href="menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v4H4zM6 7v13h12V7"/><path d="M9 11h6"/></svg>Menu</a>
+      <a class="nav-item" href="labels.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h5"/></svg>Labels</a>
+      <a class="nav-item" href="calendar.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Calendar</a>
+      <div class="nav-label">Programs</div>
+      <a class="nav-item" href="live.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18l.9-5.5-4-3.9L9.5 8z"/></svg>Live Kitchen</a>
+      <a class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v6H4z"/><path d="M4 11c0 5 4 8 8 8s8-3 8-8"/></svg>Reservations</a>
+      <a class="nav-item" href="offers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Special Offers</a>
+      <div class="nav-label">Business</div>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Payouts</a>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4l3 2"/></svg>Notifications</a>
+      <div class="rail-foot"><div class="avatar">SK</div><div><div class="who">Sofia's Kitchen</div><div class="role">Owner · Boston, MA</div></div></div>
+    </aside>
+
+    <div class="main">
+      <header class="res-top">
+        <div><h1>Reservations</h1><div class="sub">Dine-in bookings via Office Grubb · Sofia's Kitchen</div></div>
+        <div class="spacer"></div>
+        <label class="searchbar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="text" id="search" placeholder="Search host or company…">
+        </label>
+        <button class="btn" id="availBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Manage availability</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+      </header>
+
+      <div class="res-content">
+        <div class="statrow">
+          <div class="statcard hi"><div class="sl">Today's Reservations</div><div class="sv tnum" id="stToday">—</div><div class="sd" id="stCovers">— covers</div></div>
+          <div class="statcard"><div class="sl">Pending Acceptance</div><div class="sv tnum" id="stPending">—</div><div class="sd">need your response</div></div>
+          <div class="statcard"><div class="sl">Confirmed Attended</div><div class="sv tnum" id="stAttended">—</div><div class="sd">this month</div></div>
+          <div class="statcard"><div class="sl">Reservation Fees</div><div class="sv tnum" id="stFees">—</div><div class="sd">billed on attendance</div></div>
+        </div>
+
+        <div class="tabs-row">
+          <div class="res-tabs" id="tabs"></div>
+          <div class="viewtoggle" id="viewToggle">
+            <button class="vt on" data-v="cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/></svg>Cards</button>
+            <button class="vt" data-v="table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18M9 6v12"/></svg>Table</button>
+          </div>
+        </div>
+
+        <div class="res-split">
+          <div class="res-list" id="list"></div>
+          <aside class="res-detail" id="detail"></aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- availability modal -->
+  <div class="modal-ov" id="avModal">
+    <div class="modal-av">
+      <div class="mh"><div><h3>Manage availability</h3><p>Block time slots that are already at capacity. Blocked slots stop new bookings.</p></div><button class="mclose" id="avClose" aria-label="Close">×</button></div>
+      <div class="mb" id="avSlots"></div>
+      <div class="mf"><button class="btn" id="avCancel">Cancel</button><button class="btn primary" id="avSave">Save availability</button></div>
+    </div>
+  </div>
+
+  <!-- table assignment modal -->
+  <div class="modal-ov" id="tblModal">
+    <div class="modal-av" style="width:560px">
+      <div class="mh"><div><h3 id="tblTitle">Assign a table</h3><p id="tblSub">Pick a table for this reservation. You can change it any time.</p></div><button class="mclose" id="tblClose" aria-label="Close">×</button></div>
+      <div class="mb" id="tblAreas" style="max-height:52vh;overflow-y:auto"></div>
+      <div class="mf"><button class="btn danger" id="tblUnassign" style="margin-right:auto">Unassign</button><button class="btn" id="tblCancel">Cancel</button><button class="btn primary" id="tblAssign">Assign table</button></div>
+    </div>
+  </div>
+
+  <!-- cancel-with-reason modal -->
+  <div class="modal-ov" id="cxModal">
+    <div class="modal-av">
+      <div class="mh"><div><h3 id="cxTitle">Cancel reservation</h3><p>Pick a reason. The host is notified and any deposit is fully refunded.</p></div><button class="mclose" id="cxClose" aria-label="Close">×</button></div>
+      <div class="mb">
+        <div class="fld"><label>Reason <span class="req">*required</span></label><div class="cx-reasons" id="cxReasons"></div></div>
+        <div class="fld"><label id="cxNoteLabel">Note to host (optional)</label><textarea id="cxNote" placeholder="Add any detail the host should know…"></textarea></div>
+        <div class="cx-dep" id="cxDep"></div>
+        <label class="cx-notify"><span>Notify host by email &amp; in-app</span><span class="toggle on" id="cxNotify"></span></label>
+      </div>
+      <div class="mf"><button class="btn" id="cxKeep">Keep reservation</button><button class="btn danger-solid" id="cxConfirm">Cancel reservation</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+  <script src="reservations.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>
+

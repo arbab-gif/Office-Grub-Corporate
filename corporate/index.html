@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Dashboard · Beacon Yards Financial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+  <!-- the restaurant portal's own stylesheets — same theme, same components -->
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+<body data-nav="dashboard">
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+
+        <!-- header -->
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">Overview</div>
+            <h1>How the perk is landing</h1>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>3 drop points</span>
+            </div>
+          </div>
+          <div class="cx-range" id="cxRange">
+            <button>7 days</button><button class="on">30 days</button><button>Quarter</button><button>Year</button>
+          </div>
+        </div>
+
+        <!-- KPI row -->
+        <div class="db-grid">
+          <div class="cx-kpi col-3">
+            <div class="cx-k">Enrolled employees</div>
+            <div class="cx-v accent">500</div>
+            <div class="cx-m">50.0% of 1,000 headcount</div>
+          </div>
+          <div class="cx-kpi col-3">
+            <div class="cx-k">Orders this period</div>
+            <div class="cx-v">2,602</div>
+            <div class="cx-m">Up 11.4% on the prior 30 days</div>
+          </div>
+          <div class="cx-kpi col-3">
+            <div class="cx-k">Credit applied</div>
+            <div class="cx-v">$39,030.00</div>
+            <div class="cx-m">$15.00 daily credit, no rollover</div>
+          </div>
+          <div class="cx-kpi col-3">
+            <div class="cx-k">Active guests</div>
+            <div class="cx-v">4</div>
+            <div class="cx-m">$1,290.00 guest credit this period</div>
+          </div>
+        </div>
+
+        <!-- programme fact strip -->
+        <div class="db-grid">
+          <div class="cx-facts col-12">
+            <div class="cx-fact"><div class="cx-k">Daily credit</div><div class="cx-fv mono">$15.00</div></div>
+            <div class="cx-fact"><div class="cx-k">Ordering closes</div><div class="cx-fv mono">10:30 AM</div></div>
+            <div class="cx-fact"><div class="cx-k">Delivery</div><div class="cx-fv mono">12:00 PM</div></div>
+            <div class="cx-fact"><div class="cx-k">Service days</div><div class="cx-fv">Mon · Tue · Wed · Thu</div></div>
+            <div class="cx-fact"><div class="cx-k">Live Kitchen</div><div class="cx-fv">Wednesdays · Bangkok Bites</div></div>
+            <div class="cx-fact"><div class="cx-k">Covered to date</div><div class="cx-fv accent mono">$486,210.50</div></div>
+          </div>
+        </div>
+
+        <!-- perk adoption -->
+        <div class="db-grid">
+          <section class="db-card col-12">
+            <div class="db-ch">
+              <h2>Perk adoption</h2>
+              <div class="cx-legend">
+                <span><i class="sw on"></i>Enrolled</span>
+                <span><i class="sw"></i>Not yet</span>
+              </div>
+            </div>
+            <div class="cx-adopt-hero">
+              <div class="cx-v">500 <span>of 1,000 employees</span></div>
+              <div class="cx-m accent">50.0% enrolled · one square is one person</div>
+            </div>
+            <div id="waffle"></div>
+            <div class="cx-thresh">
+              <span>2 departments below the reporting threshold</span>
+              <b>4/10 combined</b>
+            </div>
+            <div class="cx-privacy">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span>Departments with fewer than 5 participants are combined and unnamed. Below that number, a department figure identifies individuals' eating habits to their employer. There is no setting to turn this off.</span>
+            </div>
+          </section>
+        </div>
+
+        <!-- ordering + exposure -->
+        <div class="db-grid">
+          <section class="db-card col-7">
+            <div class="db-ch">
+              <h2>Where employees are ordering</h2>
+              <span class="cx-pill">Aggregate · last 30 days</span>
+            </div>
+            <div id="rank"></div>
+          </section>
+
+          <section class="db-card col-5">
+            <div class="db-ch"><h2>Credit exposure</h2></div>
+            <div class="cx-exp">
+              <div class="cx-exp-r">
+                <div><div class="cx-exp-t">Maximum daily exposure</div>
+                     <div class="cx-exp-s">If every enrolled employee used the full credit</div></div>
+                <div class="cx-exp-v mono">$7,500.00</div>
+              </div>
+              <div class="cx-exp-r">
+                <div><div class="cx-exp-t">Actual, this period</div>
+                     <div class="cx-exp-s">2,602 orders · credit does not roll over</div></div>
+                <div class="cx-exp-v mono accent">$39,030.00</div>
+              </div>
+              <div class="cx-exp-r">
+                <div><div class="cx-exp-t">Guest credit</div>
+                     <div class="cx-exp-s">Counted separately, never inside a department figure</div></div>
+                <div class="cx-exp-v mono">$1,290.00</div>
+              </div>
+            </div>
+            <div class="cx-privacy">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span>Office Grubb never shares what an individual ordered, or their allergies and dietary needs, with your organization. That data goes to Office Grubb and the preparing restaurant only.</span>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="corp-nav.js"></script>
+  <script src="corp-dashboard.js"></script>
+</body>
+</html>

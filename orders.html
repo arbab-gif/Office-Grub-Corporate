@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Orders</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="ordman.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail" id="rail"></aside>
+    <div class="main">
+      <header class="pg-top">
+        <div><h1>Orders</h1><div class="sub">Corporate meal orders · Sofia's Kitchen</div></div>
+        <div class="spacer"></div>
+        <label class="searchbar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="text" id="search" placeholder="Search order ID, company, manager…">
+        </label>
+        <button class="filter-btn" id="filterBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v5l-4 2v-7z"/></svg>Filters</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+      </header>
+
+      <div class="pg-content">
+        <div class="statrow">
+          <div class="statcard hi"><div class="sl">Orders Today</div><div class="sv tnum">7</div><div class="sd">3 companies awaiting action</div></div>
+          <div class="statcard"><div class="sl">Total Meals</div><div class="sv tnum">214</div><div class="sd">across all corporate orders</div></div>
+          <div class="statcard"><div class="sl">Gross Volume</div><div class="sv tnum">$3,180</div><div class="sd">today · before fees</div></div>
+          <div class="statcard"><div class="sl">Next Deadline</div><div class="sv tnum">10:30 AM</div><div class="sd">Acme Corp · menu locks</div></div>
+        </div>
+
+        <div class="ord-tabs" id="tabs"></div>
+        <div class="order-list" id="list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+  <script src="nav.js"></script>
+  <script src="orders.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>

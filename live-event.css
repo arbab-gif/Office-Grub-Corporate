@@ -1,0 +1,61 @@
+/* Office Grubb — Live Kitchen Event Detail */
+.le-top{display:flex;align-items:center;gap:10px;padding:18px 30px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:20;flex-wrap:wrap;}
+.le-top .spacer{flex:1;}
+.le-top .btn svg{width:16px;height:16px;}
+
+.le-wrap{padding:24px 30px 64px;max-width:1200px;}
+.le-hero{border-radius:20px;margin-bottom:20px;}
+.le-grid{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start;}
+.le-main{display:flex;flex-direction:column;gap:20px;}
+.le-side{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px;}
+
+/* section card */
+.le-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;}
+.le-ch{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--border);}
+.le-ch svg{width:17px;height:17px;color:var(--accent);}
+.le-ch h2{margin:0;font-size:13.5px;font-weight:800;letter-spacing:-.01em;}
+.le-note-r{margin-left:auto;font-size:11px;font-weight:700;color:var(--ink-3);}
+.le-cb{padding:16px 18px;}
+
+/* info rows */
+.le-rows{display:flex;flex-direction:column;gap:14px;margin-top:14px;}
+.le-row{display:flex;gap:11px;align-items:flex-start;}
+.le-row svg{width:17px;height:17px;color:var(--ink-3);flex:none;margin-top:2px;}
+.le-rl{font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em;font-weight:700;}
+.le-rv{font-size:13px;font-weight:600;margin-top:2px;line-height:1.45;}
+
+.le-sub{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 10px;}
+
+/* callouts */
+.le-callout{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--ink-2);line-height:1.5;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;margin-top:14px;}
+.le-callout svg{width:15px;height:15px;flex:none;margin-top:1px;color:var(--ink-3);}
+.le-callout b{color:var(--ink);}
+.le-callout.accent{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 22%,transparent);}
+.le-callout.accent svg{color:var(--accent);}
+
+/* menu with dietary tags */
+.le-menu-row .le-mi{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.le-diet{display:flex;gap:5px;flex-wrap:wrap;}
+.lk-diet{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:color-mix(in srgb,var(--s-ready) 12%,transparent);color:var(--s-ready);}
+
+/* equipment list */
+.le-eqs{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.le-eq{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;padding:9px 11px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);flex-wrap:wrap;}
+.le-eq svg{width:14px;height:14px;color:var(--s-ready);flex:none;}
+.le-eq small{flex-basis:100%;font-weight:500;color:var(--ink-3);font-size:11px;padding-left:22px;}
+
+/* contacts */
+.le-contacts{display:flex;flex-direction:column;gap:8px;}
+.le-clabel{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;}
+.le-clabel:first-child{margin-top:0;}
+.lk-rep.og .av{background:linear-gradient(135deg,#5B93F7,#2563EB);}
+.lk-rep.rest .av{background:linear-gradient(135deg,var(--accent),#F59E42);}
+
+/* mark-ready modal checklist recap */
+.le-ready-list{display:flex;flex-direction:column;gap:7px;text-align:left;margin-bottom:16px;}
+.le-rl-item{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ink-3);padding:8px 11px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);}
+.le-rl-item svg{width:16px;height:16px;flex:none;color:var(--ink-3);}
+.le-rl-item.on{color:var(--ink);}
+.le-rl-item.on svg{color:var(--s-ready);}
+
+@media (max-width:1180px){ .le-grid{grid-template-columns:1fr;} .le-side{position:static;} .le-eqs{grid-template-columns:1fr;} }

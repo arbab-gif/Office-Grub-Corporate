@@ -1,0 +1,65 @@
+/* Office Grubb — Figma design tokens (file: Ki64V6shxmVd6RZLWJPosb)
+   Mirrors the Figma variables 1:1 so components can use the same names. */
+:root{
+  /* ---- Support ---- */
+  --support-background:#fffdf8;
+  --support-border:#ebe5d7;
+  --support-heading:#2d2d2d;
+
+  /* ---- Neutral scale ---- */
+  --neutral-400:#a3a3a3;
+  --neutral-800:#262626;
+
+  /* ---- Type: Label / Label-2 (Semi Bold) ---- */
+  --label-2-family:'Inter';
+  --label-2-size:14px;
+  --label-2-line:20px;
+  --label-2-tracking:-0.16px;
+  --weight-semibold:600;
+
+  /* ---- Type: Body / Body-4 (Regular) ---- */
+  --body-4-family:'Inter';
+  --body-4-size:12px;
+  --body-4-line:16px;
+  --body-4-tracking:0px;
+  --weight-regular:400;
+
+  /* ---- Brand ---- */
+  --brand-400:#ff4f2f;   /* brand/400 - Main */
+  --brand-500:#fe2c11;
+  --brand-50:#fff2ed;
+  --brand-100:#ffe0d4;
+  --brand-alpha-100:rgba(255,79,47,.1);
+  --support-icon-bg:#ffc857;
+
+  /* ---- Neutral scale (Figma) ---- */
+  --neutral-50:#fafafa; --neutral-100:#f5f5f5; --neutral-200:#e5e5e5; --neutral-300:#d4d4d4;
+  --neutral-500:#737373; --neutral-600:#525252; --neutral-700:#404040;
+  --neutral-900:#171717; --neutral-950:#0a0a0a;
+  --text-tertiary:#777779; --border-neutral:#e5e7eb;
+  --weight-medium:500;
+
+  /* ---- Type scale (Figma, Inter) ---- */
+  --h4-size:32px;   --h4-line:38px;   --h4-tracking:-0.2px;   /* Heading/H4 Bold */
+  --h5-size:24px;   --h5-line:30px;   --h5-tracking:-0.15px;  /* Heading/H5 Bold */
+  --h6-size:20px;   --h6-line:24px;   --h6-tracking:0px;      /* Heading/H6 SemiBold */
+  --label-1-size:16px; --label-1-line:22px; --label-1-tracking:-0.18px;
+  --body-2-size:16px;  --body-2-line:24px;  --body-2-tracking:0px;
+  --weight-bold:700;
+}
+
+/* ---- text style helpers ---- */
+.t-label-2{
+  font-family:var(--label-2-family),system-ui,sans-serif;
+  font-weight:var(--weight-semibold);
+  font-size:var(--label-2-size);
+  line-height:var(--label-2-line);
+  letter-spacing:var(--label-2-tracking);
+}
+.t-body-4{
+  font-family:var(--body-4-family),system-ui,sans-serif;
+  font-weight:var(--weight-regular);
+  font-size:var(--body-4-size);
+  line-height:var(--body-4-line);
+  letter-spacing:var(--body-4-tracking);
+}

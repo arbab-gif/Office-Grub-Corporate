@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Delivery manifests · Beacon Yards Financial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+<body data-nav="manifests">
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">Service</div>
+            <h1>Delivery manifests</h1>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.7"/><circle cx="17" cy="17" r="1.7"/></svg>3 drop points</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cx-toolbar">
+          <label class="cx-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input id="mfSearch" type="search" placeholder="Search by manifest ID, date, or drop point">
+          </label>
+          <button class="cx-btn ghost auto">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Export
+          </button>
+          <button class="cx-btn">
+            <svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 18H5v-6h14v6h-2M8 15h8v6H8z"/></svg>Print today's manifest
+          </button>
+        </div>
+
+        <section class="cx-panel">
+          <div class="cx-panel-h">
+            <h2>Manifest B — delivery receipts</h2>
+            <span class="cx-pill">3 drop points</span>
+          </div>
+
+          <div class="cx-table flush">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Manifest</th>
+                  <th scope="col">Delivery date</th>
+                  <th scope="col">Drop point</th>
+                  <th scope="col" class="ta-r">Items</th>
+                  <th scope="col">Driver</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Closed out</th>
+                  <th scope="col"><span class="sr-only">Print</span></th>
+                </tr>
+              </thead>
+              <tbody id="mfRows"></tbody>
+            </table>
+            <div class="cx-empty" id="mfEmpty" hidden>No manifests match that search.</div>
+          </div>
+        </section>
+
+        <div class="cx-privacy">
+          <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h4"/></svg>
+          <span>Manifest B is the receiving document for your drop point. Scan the close-out QR once every item is accounted for — that timestamp is what settles the delivery on your invoice.</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="corp-nav.js"></script>
+  <script src="manifests.js"></script>
+</body>
+</html>

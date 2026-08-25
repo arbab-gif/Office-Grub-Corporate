@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Notifications · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔔</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="notifications.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="ntc-wrap">
+        <div class="ntc-head">
+          <div>
+            <h1>Notifications <span class="cnt" id="ntcCount">3 new</span></h1>
+            <div class="sub">Orders, payouts, reviews and updates from Office Grubb.</div>
+          </div>
+          <div class="ntc-actions">
+            <button class="ntc-btn" id="markAll"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Mark all as read</button>
+            <a class="ntc-btn" href="settings.html#notifications"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.4-2.3 1a7 7 0 00-1.7-1L14.6 3H9.4l-.3 2.6a7 7 0 00-1.7 1l-2.3-1-2 3.4L5 11a7 7 0 000 2l-2 1.5 2 3.4 2.3-1a7 7 0 001.7 1l.3 2.6h5.2l.3-2.6a7 7 0 001.7-1l2.3 1 2-3.4-2-1.5a7 7 0 00.1-1z"/></svg>Settings</a>
+          </div>
+        </div>
+
+        <div class="ntc-tabs" id="ntcTabs">
+          <button class="ntc-tab on" data-f="all">All</button>
+          <button class="ntc-tab" data-f="unread">Unread <span class="n" id="unreadN">3</span></button>
+          <button class="ntc-tab" data-f="order">Orders</button>
+          <button class="ntc-tab" data-f="payout">Payouts</button>
+          <button class="ntc-tab" data-f="review">Reviews</button>
+        </div>
+
+        <div id="ntcScroll">
+          <div class="ntc-group" data-group>
+            <div class="ntc-group-h">Today</div>
+            <div class="ntc-list">
+              <div class="ntc-item unread" data-type="order">
+                <span class="ntc-ic ic-order"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M15 5h2a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h2"/><path d="M9 12h6M9 16h4"/></svg></span>
+                <div class="ntc-body"><div class="t">New order from Acme Corp</div><div class="m">28 meals · $456.50 · delivery 12:00 PM. Accept before your menu closes at 10:30 AM.</div><div class="tm">12 minutes ago</div><a class="cta" href="index.html">View order →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+              <div class="ntc-item unread" data-type="payout">
+                <span class="ntc-ic ic-payout"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 10l9-6 9 6M5 10v9h14v-9"/></svg></span>
+                <div class="ntc-body"><div class="t">Payout scheduled</div><div class="m">Your July payout of <b>$8,185.00</b> is scheduled for Aug 15 via direct deposit.</div><div class="tm">1 hour ago</div><a class="cta" href="financial.html#payouts">View statement →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+              <div class="ntc-item unread" data-type="review">
+                <span class="ntc-ic ic-review"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span>
+                <div class="ntc-body"><div class="t">New 5★ review from Google Inc.</div><div class="m">"Everything arrived hot, labeled per person, and exactly on time." — Daniel Okafor</div><div class="tm">2 hours ago</div><a class="cta" href="customer-feedback.html">Read review →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ntc-group" data-group>
+            <div class="ntc-group-h">Yesterday</div>
+            <div class="ntc-list">
+              <div class="ntc-item" data-type="order">
+                <span class="ntc-ic ic-order"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M15 5h2a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h2"/><path d="M9 12h6M9 16h4"/></svg></span>
+                <div class="ntc-body"><div class="t">Order changed — Northline Labs</div><div class="m">Reduced from 16 to 14 meals. New total $252.60.</div><div class="tm">Yesterday, 3:12 PM</div><a class="cta" href="index.html">View order →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+              <div class="ntc-item" data-type="perf">
+                <span class="ntc-ic ic-perf"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+                <div class="ntc-body"><div class="t">Performance update</div><div class="m">On-Time Delivery is at 95.5% — still above the 95% target. Keep it up!</div><div class="tm">Yesterday, 9:00 AM</div><a class="cta" href="financial.html#tier">View performance →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ntc-group" data-group>
+            <div class="ntc-group-h">Earlier</div>
+            <div class="ntc-list">
+              <div class="ntc-item" data-type="live">
+                <span class="ntc-ic ic-live"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 00-3.8 2.8A3.5 3.5 0 006 12a3 3 0 003 3h6a3 3 0 003-3 3.5 3.5 0 00-2.2-6.2A4 4 0 0012 3z"/><path d="M8 15v4a1 1 0 001 1h6a1 1 0 001-1v-4"/></svg></span>
+                <div class="ntc-body"><div class="t">Live Kitchen event confirmed</div><div class="m">Microsoft HQ · Aug 15, 12:00 PM · 180 guests.</div><div class="tm">Aug 3</div><a class="cta" href="live.html">View event →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+              <div class="ntc-item" data-type="review">
+                <span class="ntc-ic ic-review"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span>
+                <div class="ntc-body"><div class="t">New review from Bright Digital</div><div class="m">3★ — "Food was great but arrived 20 minutes late."</div><div class="tm">Aug 2</div><a class="cta" href="customer-feedback.html">Read review →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+              <div class="ntc-item" data-type="system">
+                <span class="ntc-ic ic-system"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 6.3L21 10l-5 4 1.6 7L12 17l-5.6 4L8 14l-5-4 6.6-.7z"/></svg></span>
+                <div class="ntc-body"><div class="t">New: Invoice History</div><div class="m">Your Financial section now shows invoices by corporation. Take a look.</div><div class="tm">Aug 1</div><a class="cta" href="financial.html#transactions">Open Financial →</a></div>
+                <span class="ntc-dot"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ntc-empty" id="ntcEmpty"><span class="em">🔔</span><div class="t">You're all caught up</div><div class="s">No notifications here right now.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ntc-toast" id="ntcToast"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span id="ntcToastMsg"></span></div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      var items=[].slice.call(document.querySelectorAll('.ntc-item'));
+      var tabs=document.getElementById('ntcTabs');
+      var empty=document.getElementById('ntcEmpty');
+      var countEl=document.getElementById('ntcCount');
+      var unreadN=document.getElementById('unreadN');
+      var toast=document.getElementById('ntcToast'), tmsg=document.getElementById('ntcToastMsg'), tt;
+      var filter='all';
+
+      function showToast(m){ tmsg.textContent=m; toast.classList.add('on'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('on');},2200); }
+
+      function unreadCount(){ return items.filter(function(i){return i.classList.contains('unread');}).length; }
+      function refreshCounts(){
+        var u=unreadCount();
+        unreadN.textContent=u;
+        countEl.textContent=u?(u+' new'):'All read';
+        countEl.style.display=u?'':'none';
+      }
+      function apply(){
+        var shown=0;
+        document.querySelectorAll('[data-group]').forEach(function(g){
+          var vis=0;
+          g.querySelectorAll('.ntc-item').forEach(function(it){
+            var ok = filter==='all' || (filter==='unread'? it.classList.contains('unread') : it.getAttribute('data-type')===filter);
+            it.style.display=ok?'':'none'; if(ok){vis++;shown++;}
+          });
+          g.style.display=vis?'':'none';
+        });
+        empty.classList.toggle('on', shown===0);
+      }
+
+      tabs.addEventListener('click',function(e){
+        var b=e.target.closest('.ntc-tab'); if(!b) return;
+        tabs.querySelectorAll('.ntc-tab').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on'); filter=b.getAttribute('data-f'); apply();
+      });
+
+      // click an item -> mark read
+      items.forEach(function(it){
+        it.addEventListener('click',function(e){
+          if(e.target.closest('.cta')) return; // let links work
+          it.classList.remove('unread'); refreshCounts(); if(filter==='unread') apply();
+        });
+      });
+
+      document.getElementById('markAll').onclick=function(){
+        items.forEach(function(i){i.classList.remove('unread');});
+        refreshCounts(); apply(); showToast('All notifications marked as read');
+      };
+
+      refreshCounts(); apply();
+    })();
+  </script>
+</body>
+</html>

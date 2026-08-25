@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Customer Feedback · Sofia's Kitchen</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-tokens.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="customer-feedback.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="cf-wrap">
+        <div class="cf-head">
+          <div>
+            <h1>Customer Feedback</h1>
+            <div class="sub">What customers and corporate clients said about their orders from Sofia's Kitchen.</div>
+          </div>
+          <button class="cf-export"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export</button>
+        </div>
+
+        <!-- summary -->
+        <div class="cf-summary">
+          <div class="cf-card cf-score">
+            <div class="big">4.8</div>
+            <div class="stars">★★★★★</div>
+            <div class="cnt">Based on 245 reviews</div>
+          </div>
+          <div class="cf-card cf-dist">
+            <div class="cf-drow"><span class="lab">5<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span><span class="track"><i style="width:78%"></i></span><span class="pct">78%</span></div>
+            <div class="cf-drow"><span class="lab">4<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span><span class="track"><i style="width:15%"></i></span><span class="pct">15%</span></div>
+            <div class="cf-drow"><span class="lab">3<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span><span class="track"><i style="width:4%"></i></span><span class="pct">4%</span></div>
+            <div class="cf-drow"><span class="lab">2<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span><span class="track"><i style="width:2%"></i></span><span class="pct">2%</span></div>
+            <div class="cf-drow"><span class="lab">1<svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.3 4.4L18.5 21 12 17l-6.5 4 1.8-7.1L2 9.5 9 9z"/></svg></span><span class="track"><i style="width:1%"></i></span><span class="pct">1%</span></div>
+          </div>
+        </div>
+
+        <!-- menu item thumbs-up ranking (5F) -->
+        <div class="cf-card cf-ranks">
+          <div class="cf-items-h">
+            <div><div class="cf-items-t">Menu Item Thumbs-Up</div><div class="cf-items-s">Items with the most 👍 are surfaced higher in your menu display.</div></div>
+            <a class="cf-items-link" href="menu.html">Open menu →</a>
+          </div>
+          <div class="cf-ir">
+            <span class="cf-irank">1</span><span class="cf-iemoji">🍗</span>
+            <span class="cf-iname">Chicken Bowl <span class="cf-ibadge must">★ Must Try</span></span>
+            <span class="cf-itrack"><i style="width:100%"></i></span>
+            <span class="cf-ithumb">👍 120</span>
+          </div>
+          <div class="cf-ir">
+            <span class="cf-irank">2</span><span class="cf-iemoji">🍝</span>
+            <span class="cf-iname">Pasta Primavera <span class="cf-ibadge must">★ Must Try</span></span>
+            <span class="cf-itrack"><i style="width:79%"></i></span>
+            <span class="cf-ithumb">👍 95</span>
+          </div>
+          <div class="cf-ir">
+            <span class="cf-irank">3</span><span class="cf-iemoji">🥗</span>
+            <span class="cf-iname">Caesar Salad <span class="cf-ibadge pop">Surfaced higher</span></span>
+            <span class="cf-itrack"><i style="width:58%"></i></span>
+            <span class="cf-ithumb">👍 70</span>
+          </div>
+          <div class="cf-ir">
+            <span class="cf-irank">4</span><span class="cf-iemoji">🍕</span>
+            <span class="cf-iname">Margherita Pizza</span>
+            <span class="cf-itrack"><i style="width:50%"></i></span>
+            <span class="cf-ithumb">👍 60</span>
+          </div>
+          <div class="cf-ir">
+            <span class="cf-irank">5</span><span class="cf-iemoji">🌯</span>
+            <span class="cf-iname">Greek Wrap</span>
+            <span class="cf-itrack"><i style="width:38%"></i></span>
+            <span class="cf-ithumb">👍 45</span>
+          </div>
+          <div class="cf-ir flag">
+            <span class="cf-irank">7</span><span class="cf-iemoji">🍲</span>
+            <span class="cf-iname">Lentil Soup <span class="cf-ibadge warn">Needs attention</span></span>
+            <span class="cf-itrack"><i style="width:7%" class="neg"></i></span>
+            <span class="cf-ithumb neg">👎 8</span>
+          </div>
+        </div>
+
+        <!-- filters -->
+        <div class="cf-bar">
+          <div class="cf-tabs" id="cfTabs">
+            <button class="cf-tab on" data-f="all">All <span class="n">245</span></button>
+            <button class="cf-tab" data-f="positive">Positive <span class="n">228</span></button>
+            <button class="cf-tab" data-f="critical">Needs attention <span class="n">17</span></button>
+          </div>
+          <button class="cf-chip" id="cfSource" data-src="all">All sources</button>
+          <div class="cf-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input id="cfSearch" type="text" placeholder="Search reviews…">
+          </div>
+        </div>
+
+        <!-- reviews -->
+        <div class="cf-list" id="cfList">
+
+          <div class="cf-rev" data-rating="5" data-src="client">
+            <div class="cf-rev-top">
+              <img class="cf-av" src="assets/figma/avatar-acme.png" alt="">
+              <div class="cf-who">
+                <div class="nm">Daniel Okafor <span class="cf-badge client">Client</span></div>
+                <div class="meta">Acme Corp · Team lunch · Order #OG-4821</div>
+              </div>
+              <div class="cf-rev-stars"><div class="s">★★★★★</div><div class="dt">Jul 30, 2026</div></div>
+            </div>
+            <p class="cf-rev-body">Ordered lunch for 28 people and everything arrived hot, labeled per person, and exactly on time. The team keeps asking for Sofia's Kitchen again. Best vendor we've used this quarter.</p>
+            <div class="cf-items"><span class="cf-item"><span class="up">▲</span> Chicken Bowl</span><span class="cf-item"><span class="up">▲</span> Greek Wrap</span></div>
+            <div class="cf-replied">
+              <div><div class="rlabel">Sofia's Kitchen replied</div><div class="rtext">Thank you, Daniel! We love catering for the Acme team — see you next week. 🙌</div></div>
+            </div>
+          </div>
+
+          <div class="cf-rev" data-rating="5" data-src="customer">
+            <div class="cf-rev-top">
+              <img class="cf-av" src="assets/figma/avatar-user.png" alt="">
+              <div class="cf-who">
+                <div class="nm">Priya Nair <span class="cf-badge customer">Customer</span></div>
+                <div class="meta">Northline Labs · Individual order · Order #OG-4818</div>
+              </div>
+              <div class="cf-rev-stars"><div class="s">★★★★★</div><div class="dt">Jul 30, 2026</div></div>
+            </div>
+            <p class="cf-rev-body">The pasta primavera was fresh and generous, and the packaging kept it warm. Loved the little handwritten note too.</p>
+            <div class="cf-items"><span class="cf-item"><span class="up">▲</span> Pasta Primavera</span></div>
+            <div class="cf-reply-box"><textarea placeholder="Write a reply to Priya…"></textarea><div class="row"><button class="cf-btn cf-cancel">Cancel</button><button class="cf-btn primary cf-post">Post reply</button></div></div>
+            <div class="cf-rev-foot">
+              <button class="cf-act cf-reply"><svg viewBox="0 0 24 24"><path d="M3 10h11a4 4 0 010 8h-1M3 10l4-4M3 10l4 4"/></svg>Reply</button>
+              <button class="cf-act"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.3a2 2 0 002-1.7l1.4-9A2 2 0 0019.7 9z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>Helpful</button>
+            </div>
+          </div>
+
+          <div class="cf-rev" data-rating="3" data-src="customer">
+            <div class="cf-rev-top">
+              <img class="cf-av" src="assets/figma/avatar-user.png" alt="">
+              <div class="cf-who">
+                <div class="nm">Marcus Bell <span class="cf-badge customer">Customer</span></div>
+                <div class="meta">Bright Digital · Individual order · Order #OG-4790</div>
+              </div>
+              <div class="cf-rev-stars"><div class="s">★★★<span class="off">★★</span></div><div class="dt">Jul 29, 2026</div></div>
+            </div>
+            <p class="cf-rev-body">Food tasted great but arrived about 20 minutes late and one salad was missing dressing. Would order again if timing improves.</p>
+            <div class="cf-items"><span class="cf-item"><span class="up">▲</span> Margherita Pizza</span><span class="cf-item"><span class="down">▼</span> Caesar Salad</span></div>
+            <div class="cf-reply-box"><textarea placeholder="Write a reply to Marcus…"></textarea><div class="row"><button class="cf-btn cf-cancel">Cancel</button><button class="cf-btn primary cf-post">Post reply</button></div></div>
+            <div class="cf-rev-foot">
+              <button class="cf-act cf-reply"><svg viewBox="0 0 24 24"><path d="M3 10h11a4 4 0 010 8h-1M3 10l4-4M3 10l4 4"/></svg>Reply</button>
+              <button class="cf-act"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.3a2 2 0 002-1.7l1.4-9A2 2 0 0019.7 9z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>Helpful</button>
+            </div>
+          </div>
+
+          <div class="cf-rev" data-rating="4" data-src="client">
+            <div class="cf-rev-top">
+              <img class="cf-av" src="assets/figma/avatar-acme.png" alt="">
+              <div class="cf-who">
+                <div class="nm">Elena Rodriguez <span class="cf-badge client">Client</span></div>
+                <div class="meta">Vantage Group · Corporate lunch · Order #OG-4805</div>
+              </div>
+              <div class="cf-rev-stars"><div class="s">★★★★<span class="off">★</span></div><div class="dt">Jul 29, 2026</div></div>
+            </div>
+            <p class="cf-rev-body">Reliable and tasty as always. Portions were a touch smaller than last time, but the team was happy overall.</p>
+            <div class="cf-items"><span class="cf-item"><span class="up">▲</span> Chicken Bowl</span></div>
+            <div class="cf-reply-box"><textarea placeholder="Write a reply to Elena…"></textarea><div class="row"><button class="cf-btn cf-cancel">Cancel</button><button class="cf-btn primary cf-post">Post reply</button></div></div>
+            <div class="cf-rev-foot">
+              <button class="cf-act cf-reply"><svg viewBox="0 0 24 24"><path d="M3 10h11a4 4 0 010 8h-1M3 10l4-4M3 10l4 4"/></svg>Reply</button>
+              <button class="cf-act"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.3a2 2 0 002-1.7l1.4-9A2 2 0 0019.7 9z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>Helpful</button>
+            </div>
+          </div>
+
+          <div class="cf-rev" data-rating="2" data-src="customer">
+            <div class="cf-rev-top">
+              <img class="cf-av" src="assets/figma/avatar-user.png" alt="">
+              <div class="cf-who">
+                <div class="nm">Tomás Herrera <span class="cf-badge customer">Customer</span></div>
+                <div class="meta">Meridian LLC · Individual order · Order #OG-4762</div>
+              </div>
+              <div class="cf-rev-stars"><div class="s">★★<span class="off">★★★</span></div><div class="dt">Jul 27, 2026</div></div>
+            </div>
+            <p class="cf-rev-body">My order was mixed up with someone else's — I got a wrap instead of the bowl I paid for. Support sorted the refund quickly though.</p>
+            <div class="cf-items"><span class="cf-item"><span class="down">▼</span> Wrong item delivered</span></div>
+            <div class="cf-reply-box"><textarea placeholder="Write a reply to Tomás…"></textarea><div class="row"><button class="cf-btn cf-cancel">Cancel</button><button class="cf-btn primary cf-post">Post reply</button></div></div>
+            <div class="cf-rev-foot">
+              <button class="cf-act cf-reply"><svg viewBox="0 0 24 24"><path d="M3 10h11a4 4 0 010 8h-1M3 10l4-4M3 10l4 4"/></svg>Reply</button>
+              <button class="cf-act"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.3a2 2 0 002-1.7l1.4-9A2 2 0 0019.7 9z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>Helpful</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="cf-empty" id="cfEmpty">No reviews match your filters.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="figma-nav.js"></script>
+  <script>
+    (function(){
+      var list=document.getElementById('cfList');
+      var revs=[].slice.call(list.querySelectorAll('.cf-rev'));
+      var tabs=document.getElementById('cfTabs');
+      var srcBtn=document.getElementById('cfSource');
+      var search=document.getElementById('cfSearch');
+      var empty=document.getElementById('cfEmpty');
+      var state={f:'all', src:'all', q:''};
+      var SRC=['all','client','customer']; var SRC_LABEL={all:'All sources',client:'Corporate clients',customer:'Customers'};
+
+      function apply(){
+        var shown=0;
+        revs.forEach(function(r){
+          var rating=+r.getAttribute('data-rating');
+          var src=r.getAttribute('data-src');
+          var text=r.textContent.toLowerCase();
+          var okF = state.f==='all' || (state.f==='positive'&&rating>=4) || (state.f==='critical'&&rating<=3);
+          var okS = state.src==='all' || src===state.src;
+          var okQ = !state.q || text.indexOf(state.q)>-1;
+          var vis = okF&&okS&&okQ;
+          r.classList.toggle('hidden', !vis);
+          if(vis) shown++;
+        });
+        empty.classList.toggle('on', shown===0);
+      }
+
+      tabs.addEventListener('click',function(e){
+        var b=e.target.closest('.cf-tab'); if(!b) return;
+        tabs.querySelectorAll('.cf-tab').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on'); state.f=b.getAttribute('data-f'); apply();
+      });
+      srcBtn.onclick=function(){
+        var i=(SRC.indexOf(state.src)+1)%SRC.length; state.src=SRC[i];
+        srcBtn.textContent=SRC_LABEL[state.src]; srcBtn.setAttribute('data-src',state.src); apply();
+      };
+      search.oninput=function(){ state.q=search.value.trim().toLowerCase(); apply(); };
+
+      // reply composer (design-only)
+      list.addEventListener('click',function(e){
+        var reply=e.target.closest('.cf-reply');
+        var cancel=e.target.closest('.cf-cancel');
+        var post=e.target.closest('.cf-post');
+        if(reply){ reply.closest('.cf-rev').querySelector('.cf-reply-box').classList.add('open'); }
+        if(cancel){ cancel.closest('.cf-reply-box').classList.remove('open'); }
+        if(post){
+          var box=post.closest('.cf-reply-box'); var val=box.querySelector('textarea').value.trim();
+          if(!val) return;
+          var rev=box.closest('.cf-rev');
+          var rep=document.createElement('div'); rep.className='cf-replied';
+          rep.innerHTML='<div><div class="rlabel">Sofia\'s Kitchen replied</div><div class="rtext"></div></div>';
+          rep.querySelector('.rtext').textContent=val;
+          rev.insertBefore(rep, box);
+          box.classList.remove('open'); box.querySelector('textarea').value='';
+          var foot=rev.querySelector('.cf-rev-foot'); if(foot) foot.style.display='none';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "office-grubb",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 3000
+    },
+    {
+      "name": "corporate",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server-corporate.js"],
+      "port": 3001
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Order #OG-10482</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="figma-nav.css">
+  <link rel="stylesheet" href="detail.css">
+  <link rel="stylesheet" href="order-status-bar.css">
+</head>
+<body>
+  <div class="app">
+    <!-- sidebar -->
+    <aside class="rail">
+      <div class="brand">
+        <div class="brand-mark">🍽️</div>
+        <div><div class="brand-name">Office Grubb</div><div class="brand-sub">Restaurant</div></div>
+      </div>
+      <div class="nav-label">Overview</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Dashboard</a>
+      <div class="nav-label">Kitchen</div>
+      <a class="nav-item active" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>Orders <span class="badge tnum">6</span></a>
+      <a class="nav-item" href="menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v4H4zM6 7v13h12V7"/><path d="M9 11h6"/></svg>Menu</a>
+      <a class="nav-item" href="labels.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10M8 8h5"/></svg>Labels</a>
+      <a class="nav-item" href="calendar.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Calendar</a>
+      <div class="nav-label">Programs</div>
+      <a class="nav-item" href="live.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18l.9-5.5-4-3.9L9.5 8z"/></svg>Live Kitchen</a>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v6H4z"/><path d="M4 11c0 5 4 8 8 8s8-3 8-8"/></svg>Reservations</a>
+      <a class="nav-item" href="offers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V4h7z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Special Offers</a>
+      <div class="nav-label">Business</div>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Payouts</a>
+      <a class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v4l3 2"/></svg>Notifications</a>
+      <div class="rail-foot"><div class="avatar">SK</div><div><div class="who">Sofia's Kitchen</div><div class="role">Owner · Boston, MA</div></div></div>
+    </aside>
+
+    <div class="main">
+      <!-- top bar -->
+      <header class="od-top">
+        <a class="backlink" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Orders</a>
+        <div class="spacer"></div>
+        <div class="actions-wrap">
+          <button class="actions-btn" id="actionsBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8"/></svg>
+            Actions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="actions-menu" id="actionsMenu">
+            <button data-a="accept">✓&nbsp; Accept all employee orders</button>
+            <button data-a="labels">🖨&nbsp; Print all labels</button>
+            <button data-a="manifest">📋&nbsp; Print kitchen manifest</button>
+            <div class="sep"></div>
+            <button data-a="contact">💬&nbsp; Contact company</button>
+            <button data-a="issue" class="danger">⚠&nbsp; Report an issue</button>
+          </div>
+        </div>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+      </header>
+
+      <div class="od-content">
+        <!-- order header -->
+        <div class="od-head">
+          <div class="titlerow">
+            <h1 class="tnum">Order #OG-10482</h1>
+            <span class="pill st-prep"><i></i>Preparing</span>
+          </div>
+          <div class="meta">Placed on Jul 10, 2026 at 4:12 PM by <b>Sarah Lee (Office Manager)</b> · <b>Acme Corp</b></div>
+        </div>
+
+        <!-- two-timer order status bar: is it safe to start cooking? -->
+        <div class="osb-wrap" id="orderStatusBar"></div>
+
+        <!-- stat strip -->
+        <div class="statstrip">
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Delivery Date</div>
+            <div class="sv">Fri, Jul 11, 2026</div>
+          </div>
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Delivery Time</div>
+            <div class="sv tnum">12:00 – 12:30 PM</div>
+          </div>
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg>Order Deadline</div>
+            <div class="sv tnum">10:30 AM</div>
+          </div>
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M17 8h5"/></svg>Total Employees</div>
+            <div class="sv tnum" id="sEmployees">—</div>
+          </div>
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12l2 6H4z"/><path d="M5 8v12h14V8"/></svg>Total Items</div>
+            <div class="sv tnum" id="sItems">—</div>
+          </div>
+          <div class="stat">
+            <div class="sl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.8 1.8 0 010 3.5h-3a1.8 1.8 0 000 3.5h4"/></svg>Total Amount</div>
+            <div class="sv money tnum" id="sTotal">—</div>
+          </div>
+        </div>
+
+        <div class="od-grid">
+          <!-- LEFT -->
+          <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+
+            <!-- employee orders -->
+            <section class="card">
+              <div class="card-h"><h2>Employee Orders</h2></div>
+              <div class="emp-tools">
+                <label class="searchbar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                  <input type="text" id="empSearch" placeholder="Search by employee name, department…">
+                </label>
+                <button class="filter-btn" id="filterBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v5l-4 2v-7z"/></svg>Filter</button>
+              </div>
+              <table class="emp-table">
+                <thead><tr><th>Employee</th><th>Items</th><th>Qty</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+                <tbody id="empRows"></tbody>
+              </table>
+              <div class="pagi">
+                <div class="perpage">Show
+                  <select id="perPage"><option>5</option><option>10</option><option>25</option></select>
+                  per page
+                </div>
+                <div class="pages" id="pages"></div>
+              </div>
+            </section>
+
+            <!-- selected employee order -->
+            <section class="card" id="empDetail"></section>
+
+            <!-- breakdown -->
+            <section class="card">
+              <div class="card-h"><h2>Order Breakdown</h2></div>
+              <div class="breakdown">
+                <div class="bd">
+                  <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M17 8h5"/></svg></div>
+                  <div class="bv tnum" id="bEmployees">—</div><div class="bl">Employees</div>
+                </div>
+                <div class="bd">
+                  <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12l2 6H4z"/><path d="M5 8v12h14V8"/></svg></div>
+                  <div class="bv tnum" id="bItems">—</div><div class="bl">Items</div>
+                </div>
+                <div class="bd">
+                  <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.8 1.8 0 010 3.5h-3a1.8 1.8 0 000 3.5h4"/></svg></div>
+                  <div class="bv tnum" id="bSubtotal">—</div><div class="bl">Subtotal</div>
+                </div>
+                <div class="bd hi">
+                  <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 8h-3V5a2 2 0 00-2-2H5a2 2 0 00-2 2v9a2 2 0 002 2h3v3a2 2 0 002 2h10a2 2 0 002-2v-9a2 2 0 00-2-2z"/></svg></div>
+                  <div class="bv tnum" id="bTotal">—</div><div class="bl">Total Amount</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- actions -->
+            <section class="card">
+              <div class="card-h"><h2>Need to take action?</h2></div>
+              <div class="actionbar">
+                <button class="btn" data-a="pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M8 11l4 4 4-4M4 20h16"/></svg>Download Summary (PDF)</button>
+                <button class="btn" data-a="csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Export CSV</button>
+                <button class="btn" data-a="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H8l-4 3z"/></svg>Contact Company</button>
+                <button class="btn primary" data-a="labels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4v-6h16v6h-2M8 14h8v7H8z"/></svg>Print All Labels</button>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT RAIL -->
+          <div class="rail-col">
+            <div class="rc">
+              <h3>Company Information</h3>
+              <div class="biz">
+                <div class="bizlogo">🏢</div>
+                <div><div class="bn">Acme Corp</div><span class="tagchip">Tier 2 · Preferred</span></div>
+              </div>
+              <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="il">(617) 555-0142</span></div>
+              <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="il">200 State Street,<br>Boston, MA 02109</span></div>
+              <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span class="il">office@acmecorp.com</span></div>
+              <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="il">Menu closes 10:30 AM</span></div>
+            </div>
+
+            <div class="rc">
+              <h3>Delivery Information</h3>
+              <div class="infoline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span><b class="il">Acme Corp HQ</b><br>Building C, Floor 5<br>Reception Desk<br>200 State Street, Boston, MA 02109</span>
+              </div>
+              <button class="btn mapbtn" data-a="map">View on Map</button>
+            </div>
+
+            <div class="rc">
+              <h3>Order Timeline</h3>
+              <div class="tl">
+                <div class="tlrow done"><div class="tlnode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="tt">Order Submitted</div><div class="tw">Jul 10, 2026 at 4:12 PM</div></div></div>
+                <div class="tlrow done"><div class="tlnode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="tt">Restaurant Accepted</div><div class="tw">Jul 10, 2026 at 4:25 PM</div></div></div>
+                <div class="tlrow now"><div class="tlnode"><i></i></div><div><div class="tt">Preparing</div><div class="tw">Jul 11, 2026 at 9:40 AM</div></div></div>
+                <div class="tlrow pending"><div class="tlnode"></div><div><div class="tt">Out for Delivery</div><div class="tw">—</div></div></div>
+                <div class="tlrow pending"><div class="tlnode"></div><div><div class="tt">Delivered</div><div class="tw">—</div></div></div>
+              </div>
+            </div>
+
+            <div class="rc">
+              <h3>Payout Summary</h3>
+              <div class="sline"><span>Gross food sales</span><span class="sv tnum" id="pGross">—</span></div>
+              <div class="sline"><span>Tax collected (6.25%)</span><span class="sv tnum" id="pTax">—</span></div>
+              <div class="sline deduct"><span>Platform fee (10%)</span><span class="sv tnum" id="pFee">—</span></div>
+              <div class="sline deduct"><span>Performance commission (5%)</span><span class="sv tnum" id="pComm">—</span></div>
+              <div class="stotal"><span class="sl">Net Payout</span><span class="sv tnum" id="pNet">—</span></div>
+              <div class="paychip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+                <div><div class="pt">Paid by Company</div><div class="ps">Settles via ACH after delivery</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="od-foot">© 2026 Office Grubb. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ordered items modal -->
+  <div class="modal-overlay" id="itemsModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-h" id="modalHead"></div>
+      <div class="modal-b" id="modalBody"></div>
+      <div class="modal-f">
+        <button class="btn" data-a="labels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4v-6h16v6h-2M8 14h8v7H8z"/></svg>Print label</button>
+        <button class="btn primary" id="modalClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+
+  <script src="order-detail.js"></script>
+  <script src="order-status-bar.js"></script>
+  <script src="figma-nav.js"></script>
+</body>
+</html>
+

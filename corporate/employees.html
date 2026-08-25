@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Office Grubb — Employees · Beacon Yards Financial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+<body data-nav="employees">
+  <div class="app">
+    <aside class="rail"></aside>
+    <div class="main">
+      <div class="db-wrap">
+
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">People</div>
+            <h1>Employees</h1>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>3 drop points</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- toolbar -->
+        <div class="cx-toolbar">
+          <label class="cx-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input id="empSearch" type="search" placeholder="Search by name, email, department, or floor">
+          </label>
+          <div class="cx-seg" id="empTabs" role="tablist" aria-label="Filter by status">
+            <button role="tab" aria-selected="true"  class="on" data-f="all">All</button>
+            <button role="tab" aria-selected="false" data-f="active">Active</button>
+            <button role="tab" aria-selected="false" data-f="invited">Invited</button>
+            <button role="tab" aria-selected="false" data-f="deactivated">Deactivated</button>
+          </div>
+          <button class="cx-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Invite employees
+          </button>
+        </div>
+
+        <div class="cx-privacy">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.2a3.2 3.2 0 010 5.6M18.5 20c0-2.4-1-4.2-2.6-5.2"/></svg>
+          <span>Employees self-register with the company code and an address on a registered domain — <b>beaconyards.com</b> or <b>byf-capital.com</b>. You assign their floor and department, and can correct both.</span>
+        </div>
+
+        <div class="cx-count" id="empCount" role="status" aria-live="polite"></div>
+
+        <!-- table -->
+        <div class="cx-table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Employee</th>
+                <th scope="col">Department</th>
+                <th scope="col">Drop point</th>
+                <th scope="col">Status</th>
+                <th scope="col">Enrolled</th>
+                <th scope="col" class="ta-r">Orders</th>
+                <th scope="col"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="empRows"></tbody>
+          </table>
+          <div class="cx-empty" id="empEmpty" hidden>No employees match that search.</div>
+        </div>
+
+        <div class="cx-warn">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>
+          <span>Closing someone's access detaches them immediately — no menu, no credit. Scheduled orders are cancelled and refunded, and the company code stops working for that person, so they cannot simply re-enter it. The action is logged with who did it and when.</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="corp-nav.js"></script>
+  <script src="employees.js"></script>
+</body>
+</html>

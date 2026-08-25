@@ -1,0 +1,57 @@
+/* Office Grubb — Two-Timer Order Status Bar (restaurant-facing)
+   States: pre-lock (blue, info) → locked (yellow, caution) → final (green, confirmed).
+   Colour carries the risk signal, so never grey. Yellow is reserved for this bar only. */
+:root{
+  --osb-blue-bg:#E9F1FB;   --osb-blue-line:#BBD6EF;  --osb-blue-ink:#1C5789;
+  --osb-yellow-bg:#FAE4A0; --osb-yellow-line:#E7C558; --osb-yellow-ink:#6E5310;
+  --osb-green-bg:#DCF0E1;  --osb-green-line:#A6D8B4; --osb-green-ink:#1F7A47;
+  --osb-box:#FFFFFF;       --osb-box-line:rgba(0,0,0,.10);
+}
+/* Light mode only. */
+
+.osb-wrap{display:flex;flex-direction:column;gap:9px;}
+.osb{border-radius:16px;padding:15px 22px;display:flex;align-items:center;gap:20px;border:1px solid var(--c-line);background:var(--c-bg);color:var(--c-ink);}
+.osb.pre{--c-bg:var(--osb-blue-bg);--c-line:var(--osb-blue-line);--c-ink:var(--osb-blue-ink);}
+.osb.locked{--c-bg:var(--osb-yellow-bg);--c-line:var(--osb-yellow-line);--c-ink:var(--osb-yellow-ink);}
+.osb.final{--c-bg:var(--osb-green-bg);--c-line:var(--osb-green-line);--c-ink:var(--osb-green-ink);}
+
+.osb-main{display:flex;align-items:center;gap:13px;flex:1;min-width:0;}
+.osb-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--c-ink) 15%,transparent);}
+.osb-ic svg{width:19px;height:19px;}
+.osb-msg{font-size:14.5px;font-weight:600;line-height:1.35;}
+.osb-late{display:inline-flex;align-items:center;gap:5px;margin-left:10px;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;background:color-mix(in srgb,var(--c-ink) 20%,var(--c-bg));border:1px solid color-mix(in srgb,var(--c-ink) 40%,transparent);animation:osb-pop .35s ease;}
+@keyframes osb-pop{from{transform:scale(.6);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+.osb-timers{display:flex;align-items:center;gap:26px;flex:none;}
+.osb-timer{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.osb-timer .tlabel{font-size:11px;font-weight:600;letter-spacing:.02em;opacity:.9;white-space:nowrap;}
+.osb-timer .tlabel .clock{opacity:.7;font-weight:500;}
+.osb-digits{display:flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;}
+.osb-digits b{background:var(--osb-box);border:1px solid var(--osb-box-line);border-radius:7px;padding:3px 8px;min-width:34px;text-align:center;font-weight:700;}
+.osb-digits .cln{opacity:.5;font-weight:700;}
+.osb-chip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;padding:6px 12px;border-radius:9px;background:color-mix(in srgb,var(--c-ink) 14%,var(--c-bg));border:1px solid color-mix(in srgb,var(--c-ink) 34%,transparent);}
+.osb-chip svg{width:14px;height:14px;}
+
+/* demo control strip */
+.osb-demo{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-3);padding:0 4px;flex-wrap:wrap;}
+.osb-demo .lbl{font-weight:600;letter-spacing:.03em;text-transform:uppercase;font-size:10px;}
+.osb-demo button{padding:5px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink-2);font-size:11.5px;font-weight:600;cursor:pointer;}
+.osb-demo button:hover{border-color:var(--border-2);color:var(--ink);}
+.osb-demo button.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.osb-demo .demo-late{margin-left:auto;color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent);}
+
+/* in-system alert toast for timer notifications */
+.osb-alert{position:fixed;top:18px;right:18px;max-width:360px;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:13px;box-shadow:0 18px 44px -18px rgba(0,0,0,.5);padding:14px 16px;display:flex;gap:12px;z-index:80;transform:translateX(120%);transition:transform .3s ease;}
+.osb-alert.show{transform:none;}
+.osb-alert .ai{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none;}
+.osb-alert .ai svg{width:17px;height:17px;}
+.osb-alert .at{font-size:12.5px;font-weight:700;margin-bottom:2px;}
+.osb-alert .am{font-size:12px;color:var(--ink-2);line-height:1.4;}
+.osb-alert .achan{font-size:10.5px;color:var(--ink-3);margin-top:6px;display:flex;gap:6px;align-items:center;}
+
+@media (max-width:1080px){
+  .osb{flex-direction:column;align-items:flex-start;gap:14px;}
+  .osb-timers{width:100%;justify-content:space-between;gap:16px;}
+  .osb-timer{align-items:flex-start;}
+}
+@media (prefers-reduced-motion:reduce){.osb-late,.osb-alert{animation:none!important;transition:none!important;}}
