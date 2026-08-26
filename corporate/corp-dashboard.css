@@ -51,6 +51,21 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
   font-variant-numeric:tabular-nums;line-height:1.05}
 .cx-v span{font-size:15px;font-weight:500;color:var(--cx-muted);letter-spacing:0}
 .cx-m{font-size:12px;color:var(--cx-muted);margin-top:8px;line-height:1.5}
+/* KPI icon badge + trend chip */
+.cx-kpi{position:relative}
+.cx-ic{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;background:var(--cx-tint);color:var(--cx-brand-600)}
+.cx-ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cx-trend{display:inline-flex;align-items:center;gap:2px;font-weight:700;font-size:11px;
+  padding:2px 7px 2px 5px;border-radius:999px;color:#1f7a54;background:rgba(40,165,111,.13);vertical-align:middle}
+.cx-trend svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cx-trend.down{color:#c0392b;background:rgba(201,79,54,.12)}
+
+/* interactive lift on cards + ordering rows */
+.cx-kpi,.db-card{transition:box-shadow .18s ease,border-color .18s ease}
+.cx-kpi:hover,.db-card:hover{border-color:#e0d8c7;box-shadow:0 8px 24px -14px rgba(45,40,30,.28)}
+.cx-ord-r{transition:background .15s ease}
+.cx-ord-r:hover{background:var(--cx-tint)}
 
 /* ---------- fact strip ---------- */
 /* auto columns, not 6 equal ones — equal columns forced "Wednesdays · Bangkok Bites"
@@ -81,6 +96,42 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
   border-top:1px solid var(--cx-soft);font-size:12px;color:var(--cx-muted)}
 .cx-thresh b{font-weight:700;color:var(--cx-ink2);font-variant-numeric:tabular-nums}
 
+/* ---------- adoption ring (per-department colours; replaces the waffle) ---------- */
+.cx-ring-wrap{display:flex;align-items:center;gap:40px;margin:8px 0 20px}
+.cx-ring{position:relative;flex:none;width:220px;height:220px}
+.cx-ring svg{display:block;overflow:visible}
+.cx-seg{fill:none;stroke-width:17;stroke-linecap:round;
+  transition:stroke-dashoffset .9s cubic-bezier(.22,1,.36,1)}
+.cx-ring-ctr{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center}
+.cx-ring-big{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:.95;
+  color:var(--cx-ink);font-variant-numeric:tabular-nums}
+.cx-ring-big span{font-size:24px}
+.cx-ring-sub{font-size:12.5px;color:var(--cx-muted);margin-top:6px;font-variant-numeric:tabular-nums}
+/* stats sit to the right of the ring, on top — value prominent, flat (no card) 2×2 */
+.cx-ring-side{flex:1;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:20px 48px}
+.cx-kv{display:flex;flex-direction:column;gap:6px;padding:2px 0}
+.cx-kv .k{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cx-muted)}
+.cx-kv .v{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.05;
+  font-variant-numeric:tabular-nums;color:var(--cx-ink)}
+.cx-kv .v.accent{color:var(--cx-brand-600)}
+.cx-kv .v small{font-size:12.5px;font-weight:500;color:var(--cx-muted)}
+
+/* department-wise distribution — its own grid below the ring + stats */
+.cx-adopt-sub{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--cx-muted);padding-top:16px;border-top:1px solid var(--cx-soft);margin-bottom:15px}
+.cx-adopt-legend{display:grid;grid-template-columns:1fr 1fr;gap:15px 44px;margin-bottom:4px}
+.cx-li{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:10px}
+.cx-li .dot{width:10px;height:10px;border-radius:3px}
+.cx-li .nm{font-size:12.5px;font-weight:600;color:var(--cx-ink2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx-li .pc{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--cx-ink)}
+.cx-li .mb{grid-column:2 / 4;height:5px;border-radius:99px;
+  background:var(--neutral-100,#f5f5f5);overflow:hidden;margin-top:2px}
+.cx-li .mb i{display:block;height:100%;border-radius:99px}
+.cx-li .cnt{grid-column:2;font-size:10.5px;color:var(--cx-muted);
+  font-variant-numeric:tabular-nums;margin-top:2px}
+
 /* ---------- privacy note ---------- */
 .cx-privacy{display:flex;gap:10px;align-items:flex-start;margin-top:16px;border-radius:12px;
   padding:13px 15px;background:#f2f7f5;font-size:12px;line-height:1.6;color:#2f5d4f}
@@ -97,6 +148,24 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-rank-bar{height:6px;border-radius:999px;background:var(--neutral-100,#f5f5f5);overflow:hidden}
 .cx-rank-bar i{display:block;height:100%;border-radius:999px;background:var(--neutral-300,#d4d4d4)}
 .cx-rank-bar i.lead{background:var(--cx-brand)}
+
+/* ordering — thumbnail · name + category · orders · rank badge */
+.cx-seeall{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;
+  font-weight:600;color:var(--cx-ink2);cursor:pointer;text-decoration:none}
+.cx-seeall:hover{color:var(--cx-brand-600)}
+.cx-seeall svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.cx-ord-r{display:grid;grid-template-columns:48px 1fr auto auto;align-items:center;gap:16px;padding:13px 0}
+.cx-ord-r + .cx-ord-r{border-top:1px solid var(--cx-soft)}
+.cx-ord-thumb{width:48px;height:48px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:23px;line-height:1;background:var(--cx-tint);border:1px solid var(--cx-soft)}
+.cx-ord-main{min-width:0}
+.cx-ord-n{font-size:14px;font-weight:600;color:var(--cx-ink);line-height:1.3}
+.cx-ord-cat{font-size:12px;color:var(--cx-muted);margin-top:2px}
+.cx-ord-val{font-size:14px;font-weight:700;color:var(--cx-ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cx-ord-val small{font-size:11.5px;font-weight:500;color:var(--cx-muted)}
+.cx-ord-rank{font-size:12px;font-weight:700;color:var(--cx-ink2);background:var(--neutral-100,#f5f5f5);
+  border-radius:999px;padding:6px 12px;font-variant-numeric:tabular-nums;min-width:42px;text-align:center}
 
 /* ---------- credit exposure ---------- */
 .cx-exp-r{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
