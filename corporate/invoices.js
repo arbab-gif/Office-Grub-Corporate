@@ -82,4 +82,33 @@
     '<tr><th scope="row">Total</th><td></td>'
     + '<td class="ta-r mono">' + tOrders.toLocaleString('en-US') + '</td>'
     + '<td class="ta-r mono strong">' + usd(tCredit) + '</td></tr>';
+
+  /* -------------------------------------------------- real actions */
+  document.getElementById('cbExport').addEventListener('click', function(){
+    CorpActions.exportCSV('department-chargeback-' + CorpActions.stamp() + '.csv',
+      ['Department','GL code','Orders','Credit applied'],
+      CHARGEBACK.map(function(c){ return [c.dept, c.gl, c.orders, c.credit.toFixed(2)]; })
+        .concat([['Total','',tOrders, tCredit.toFixed(2)]]));
+  });
+
+  // Payroll needs GL code and amount only — no order counts, no department detail
+  // beyond the code it posts against.
+  document.getElementById('cbPayroll').addEventListener('click', function(){
+    CorpActions.exportCSV('payroll-tax-' + CorpActions.stamp() + '.csv',
+      ['GL code','Description','Amount','Tax treatment'],
+      CHARGEBACK.map(function(c){
+        return [c.gl, c.dept + ' — employee meal benefit', c.credit.toFixed(2), 'Taxable benefit'];
+      }));
+  });
+
+  document.getElementById('invDownloadAll').addEventListener('click', function(){
+    CorpActions.exportCSV('invoice-history-' + CorpActions.stamp() + '.csv',
+      ['Invoice','Period','Due','Amount','Status'],
+      HISTORY.map(function(h){ return [h.no, h.period, h.due, h.amount.toFixed(2), h.status]; }));
+  });
+
+  // Print the current-period statement as an actual document
+  document.getElementById('invPrint').addEventListener('click', function(){
+    CorpActions.printRegion(document.querySelector('.cx-period'), 'Current period — Beacon Yards Financial');
+  });
 })();

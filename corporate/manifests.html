@@ -34,10 +34,10 @@
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
             <input id="mfSearch" type="search" placeholder="Search by manifest ID, date, or drop point">
           </label>
-          <button class="cx-btn ghost auto">
+          <button class="cx-btn ghost auto" id="mfExport">
             <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Export
           </button>
-          <button class="cx-btn">
+          <button class="cx-btn" id="mfPrintToday">
             <svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 18H5v-6h14v6h-2M8 15h8v6H8z"/></svg>Print today's manifest
           </button>
         </div>
@@ -77,6 +77,10 @@
     </div>
   </div>
 
+  <!-- print-only region, populated on demand -->
+  <div id="mfPrint" class="cx-printhost" aria-hidden="true"></div>
+
+  <script src="corp-actions.js"></script>
   <script src="corp-nav.js"></script>
   <script src="manifests.js"></script>
 </body>

@@ -41,7 +41,7 @@
             <button role="tab" aria-selected="false" data-f="invited">Invited</button>
             <button role="tab" aria-selected="false" data-f="deactivated">Deactivated</button>
           </div>
-          <button class="cx-btn">
+          <button class="cx-btn" id="empInvite">
             <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Invite employees
           </button>
         </div>
@@ -81,6 +81,19 @@
     </div>
   </div>
 
+  <!-- row action menu -->
+  <div id="empMenu" class="cx-menu" hidden></div>
+
+  <!-- profile / edit drawer -->
+  <div id="empScrim" class="cx-scrim" hidden></div>
+  <aside id="empDrawer" class="cx-drawer" hidden role="dialog" aria-modal="true" aria-label="Employee"></aside>
+
+  <!-- confirmation dialog -->
+  <div id="empDialog" class="cx-dialog-wrap" hidden role="dialog" aria-modal="true"></div>
+
+  <div id="empToast" class="cx-toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="corp-actions.js"></script>
   <script src="corp-nav.js"></script>
   <script src="employees.js"></script>
 </body>

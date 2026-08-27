@@ -32,7 +32,11 @@ http.createServer((req, res) => {
       res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
       return res.end("<h1>404 — Not found</h1>");
     }
-    res.writeHead(200, { "Content-Type": mime[path.extname(fp).toLowerCase()] || "application/octet-stream" });
+    res.writeHead(200, {
+      "Content-Type": mime[path.extname(fp).toLowerCase()] || "application/octet-stream",
+      // prototypes change constantly — never let a browser serve a stale CSS/JS copy
+      "Cache-Control": "no-store, must-revalidate"
+    });
     res.end(data);
   });
 }).listen(port, () => {

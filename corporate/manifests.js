@@ -41,8 +41,8 @@
         + '<td><i class="cx-status ' + slug(m.status) + '">'
           + (m.status === 'Closed out' ? CHECK : '') + m.status + '</i></td>'
         + '<td class="mono">' + (m.closed || '—') + '</td>'
-        + '<td class="ta-r"><button class="cx-print" aria-label="Print manifest ' + esc(m.id) + '">'
-          + PRINT + 'Print</button></td>'
+        + '<td class="ta-r"><button class="cx-print" data-print="' + esc(m.id) + '"'
+          + ' aria-label="Print manifest ' + esc(m.id) + '">' + PRINT + 'Print</button></td>'
         + '</tr>';
     }).join('');
     empty.hidden = list.length > 0;
@@ -52,6 +52,49 @@
     term = this.value.trim().toLowerCase();
     render();
   });
+
+  /* -------------------------------------------------- real actions */
+  // Export reads the rendered table, so what downloads always matches what is
+  // on screen — search filter included.
+  document.getElementById('mfExport').addEventListener('click', function(){
+    CorpActions.exportTable('manifests-' + CorpActions.stamp() + '.csv',
+      document.querySelector('.cx-table table'));
+  });
+
+  // "Print today's manifest" prints only the open manifest — today's is the one
+  // still Open, since a closed batch is already settled.
+  document.getElementById('mfPrintToday').addEventListener('click', function(){
+    var open = MANIFESTS.filter(function(m){ return m.status === 'Open'; })[0];
+    if (!open){ CorpActions.toast('No open manifest today — every batch is closed out.'); return; }
+    printOne(open);
+  });
+
+  document.getElementById('mfRows').addEventListener('click', function(e){
+    var b = e.target.closest('[data-print]'); if (!b) return;
+    printOne(MANIFESTS.filter(function(m){ return m.id === b.dataset.print; })[0]);
+  });
+
+  function printOne(m){
+    var host = document.getElementById('mfPrint');
+    host.innerHTML =
+        '<div class="cx-band">Manifest B · Corporation</div>'
+      + '<div class="cx-pr-body">'
+        + '<div class="cx-pr-h"><div><div class="cx-pr-id">' + esc(m.id) + '</div>'
+          + '<div class="cx-pr-sub">Beacon Yards Financial · OG-BLFB-6KKM-BBUL</div></div>'
+          + '<div class="cx-pr-date">' + esc(m.date) + '</div></div>'
+        + '<table class="cx-pr-t"><tbody>'
+          + pr('Drop point', m.drop) + pr('Items', m.items)
+          + pr('Driver', m.driver) + pr('Status', m.status)
+          + pr('Closed out', m.closed || 'Not yet closed')
+        + '</tbody></table>'
+        + '<div class="cx-pr-sign"><div class="cx-pr-line"></div>'
+          + '<span>Received by — print name, sign and date</span></div>'
+        + '<p class="cx-pr-note">Scan the close-out QR once every item is accounted for. '
+          + 'That timestamp is what settles this delivery on your invoice.</p>'
+      + '</div>';
+    CorpActions.printRegion(host, 'Manifest ' + m.id);
+  }
+  function pr(k, v){ return '<tr><th>' + k + '</th><td>' + esc(v) + '</td></tr>'; }
 
   render();
 })();

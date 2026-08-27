@@ -38,23 +38,23 @@
         <div class="db-grid">
           <div class="cx-kpi col-3">
             <div class="cx-k">Enrolled employees</div>
-            <div class="cx-v accent">500</div>
-            <div class="cx-m">50.0% of 1,000 headcount</div>
+            <div class="cx-v accent" id="kEnrolled">500</div>
+            <div class="cx-m" id="kEnrolledSub">50.0% of 1,000 headcount</div>
           </div>
           <div class="cx-kpi col-3">
-            <div class="cx-k">Orders this period</div>
-            <div class="cx-v">2,602</div>
-            <div class="cx-m">Up 11.4% on the prior 30 days</div>
+            <div class="cx-k" id="kOrdersLabel">Orders this period</div>
+            <div class="cx-v" id="kOrders">2,602</div>
+            <div class="cx-m" id="kOrdersSub">Up 11.4% on the prior 30 days</div>
           </div>
           <div class="cx-kpi col-3">
             <div class="cx-k">Credit applied</div>
-            <div class="cx-v">$39,030.00</div>
+            <div class="cx-v" id="kCredit">$39,030.00</div>
             <div class="cx-m">$15.00 daily credit, no rollover</div>
           </div>
           <div class="cx-kpi col-3">
             <div class="cx-k">Active guests</div>
-            <div class="cx-v">4</div>
-            <div class="cx-m">$1,290.00 guest credit this period</div>
+            <div class="cx-v" id="kGuests">4</div>
+            <div class="cx-m" id="kGuestsSub">$1,290.00 guest credit this period</div>
           </div>
         </div>
 
@@ -66,7 +66,7 @@
             <div class="cx-fact"><div class="cx-k">Delivery</div><div class="cx-fv mono">12:00 PM</div></div>
             <div class="cx-fact"><div class="cx-k">Service days</div><div class="cx-fv">Mon · Tue · Wed · Thu</div></div>
             <div class="cx-fact"><div class="cx-k">Live Kitchen</div><div class="cx-fv">Wednesdays · Bangkok Bites</div></div>
-            <div class="cx-fact"><div class="cx-k">Covered to date</div><div class="cx-fv accent mono">$486,210.50</div></div>
+            <div class="cx-fact"><div class="cx-k">Covered to date</div><div class="cx-fv accent mono" id="fCovered">$486,210.50</div></div>
           </div>
         </div>
 
@@ -79,10 +79,13 @@
                 <span><i class="sw on"></i>Enrolled</span>
                 <span><i class="sw"></i>Not yet</span>
               </div>
+              <button class="cx-btn ghost sm" id="dashExport" style="margin-left:14px">
+                <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Export
+              </button>
             </div>
             <div class="cx-adopt-hero">
-              <div class="cx-v">500 <span>of 1,000 employees</span></div>
-              <div class="cx-m accent">50.0% enrolled · one square is one person</div>
+              <div class="cx-v"><span id="adoptN">500</span> <span>of 1,000 employees</span></div>
+              <div class="cx-m accent" id="adoptSub">50.0% enrolled · one square is one person</div>
             </div>
             <div id="waffle"></div>
             <div class="cx-thresh">
@@ -101,7 +104,7 @@
           <section class="db-card col-7">
             <div class="db-ch">
               <h2>Where employees are ordering</h2>
-              <span class="cx-pill">Aggregate · last 30 days</span>
+              <span class="cx-pill" id="rankLabel">Aggregate · last 30 days</span>
             </div>
             <div id="rank"></div>
           </section>
@@ -112,17 +115,17 @@
               <div class="cx-exp-r">
                 <div><div class="cx-exp-t">Maximum daily exposure</div>
                      <div class="cx-exp-s">If every enrolled employee used the full credit</div></div>
-                <div class="cx-exp-v mono">$7,500.00</div>
+                <div class="cx-exp-v mono" id="expMax">$7,500.00</div>
               </div>
               <div class="cx-exp-r">
                 <div><div class="cx-exp-t">Actual, this period</div>
-                     <div class="cx-exp-s">2,602 orders · credit does not roll over</div></div>
-                <div class="cx-exp-v mono accent">$39,030.00</div>
+                     <div class="cx-exp-s" id="expActualSub">2,602 orders · credit does not roll over</div></div>
+                <div class="cx-exp-v mono accent" id="expActual">$39,030.00</div>
               </div>
               <div class="cx-exp-r">
                 <div><div class="cx-exp-t">Guest credit</div>
                      <div class="cx-exp-s">Counted separately, never inside a department figure</div></div>
-                <div class="cx-exp-v mono">$1,290.00</div>
+                <div class="cx-exp-v mono" id="expGuest">$1,290.00</div>
               </div>
             </div>
             <div class="cx-privacy">
@@ -136,6 +139,7 @@
     </div>
   </div>
 
+  <script src="corp-actions.js"></script>
   <script src="corp-nav.js"></script>
   <script src="corp-dashboard.js"></script>
 </body>

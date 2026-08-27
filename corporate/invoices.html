@@ -34,7 +34,10 @@
           <section class="db-card col-5 cx-period">
             <div class="db-ch">
               <h2>Current period</h2>
-              <span class="cx-closes">Closes Jul 31</span>
+              <button class="cx-btn ghost sm" id="invPrint" style="margin-left:auto">
+                <svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 18H5v-6h14v6h-2M8 15h8v6H8z"/></svg>Print
+              </button>
+              <span class="cx-closes" style="margin-left:10px">Closes Jul 31</span>
             </div>
             <div id="periodRows"></div>
           </section>
@@ -43,7 +46,7 @@
           <section class="db-card col-7">
             <div class="db-ch">
               <h2>Invoice history</h2>
-              <button class="cx-btn ghost sm auto">
+              <button class="cx-btn ghost sm auto" id="invDownloadAll">
                 <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Download all
               </button>
             </div>
@@ -70,10 +73,10 @@
             <h2>Department chargeback</h2>
             <p>Aggregate spend by department, keyed to your GL codes, for allocation back to cost centres.</p>
           </div>
-          <button class="cx-btn ghost auto">
+          <button class="cx-btn ghost auto" id="cbPayroll">
             <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h4"/></svg>Payroll tax export
           </button>
-          <button class="cx-btn">
+          <button class="cx-btn" id="cbExport">
             <svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Export CSV
           </button>
         </div>
@@ -97,6 +100,7 @@
     </div>
   </div>
 
+  <script src="corp-actions.js"></script>
   <script src="corp-nav.js"></script>
   <script src="invoices.js"></script>
 </body>
