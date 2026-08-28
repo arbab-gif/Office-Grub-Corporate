@@ -405,7 +405,12 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-menu-div{height:1px;background:var(--cx-soft);margin:5px 4px}
 .cx-table tr.off th,.cx-table tr.off td{opacity:.62}
 
-/* ---------- scrim, drawer, dialog ---------- */
+/* ---------- scrim, drawer, dialog ----------
+   These set display:flex / display:grid, which beat the UA's [hidden]{display:none}.
+   Without this the hidden attribute stops hiding them and two modals can stack. */
+.cx-drawer[hidden],.cx-dialog-wrap[hidden],.cx-scrim[hidden],.cx-menu[hidden],
+.cx-toast[hidden],#anFlow[hidden],#anList[hidden]{display:none !important}
+
 .cx-scrim{position:fixed;inset:0;background:rgba(23,23,23,.32);z-index:70}
 .cx-drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,92vw);background:#fff;z-index:80;
   display:flex;flex-direction:column;box-shadow:-18px 0 44px -18px rgba(23,23,23,.3);
@@ -448,7 +453,9 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-dialog-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px}
 .cx-dialog{background:#fff;border-radius:16px;padding:26px;max-width:440px;
   box-shadow:0 24px 60px rgba(23,23,23,.24)}
-.cx-dialog h3{margin:0 0 12px;font-size:18px;font-weight:700;letter-spacing:-.015em}
+.cx-dialog{position:relative}
+.cx-dialog-x{position:absolute;top:14px;right:14px}
+.cx-dialog h3{margin:0 0 12px;font-size:18px;font-weight:700;letter-spacing:-.015em;padding-right:28px}
 .cx-dialog p{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--cx-ink2)}
 .cx-dialog-note{font-size:12.5px !important;color:var(--cx-muted) !important}
 .cx-dialog-foot{display:flex;gap:10px;margin-top:20px}
@@ -459,6 +466,39 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:95;
   background:#231f1e;color:#fff;border-radius:12px;padding:13px 20px;font-size:13px;font-weight:600;
   box-shadow:0 14px 34px -10px rgba(23,23,23,.5)}
+
+/* ---------- flow progress + lightweight choice rows ---------- */
+.cx-istrip{display:flex;gap:5px;padding:0 22px 14px}
+.cx-istrip i{flex:1;height:3px;border-radius:999px;background:var(--neutral-200,#e5e5e5)}
+.cx-istrip i.on{background:var(--cx-brand)}
+.cx-dsteps{display:flex;gap:5px;margin-bottom:18px}
+.cx-dsteps i{flex:1;height:3px;border-radius:999px;background:var(--neutral-200,#e5e5e5)}
+.cx-dsteps i.on{background:#b91c1c}
+.choice-lite{display:flex;gap:12px;align-items:flex-start;cursor:pointer;background:#fff;
+  border:1px solid var(--cx-line);border-radius:12px;padding:13px 15px;margin-bottom:10px}
+.choice-lite:hover{border-color:var(--neutral-300,#d4d4d4)}
+.choice-lite.on{border-color:var(--cx-brand);border-width:2px;padding:12px 14px;background:#fff8f5}
+.choice-lite .radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #c8c8c8;flex:none;
+  margin-top:2px;display:grid;place-items:center}
+.choice-lite.on .radio{border-color:var(--cx-brand)}
+.choice-lite.on .radio::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--cx-brand)}
+.choice-lite b{display:block;font-size:13.5px;font-weight:700}
+.choice-lite em{display:block;font-style:normal;font-size:12px;color:var(--cx-muted);margin-top:4px;line-height:1.5}
+.cx-dialog .stack{display:block}
+
+/* invitation preview */
+.cx-mail{border:1px solid var(--cx-line);border-radius:12px;overflow:hidden}
+.cx-mail-h{padding:12px 15px;background:#fafafa;border-bottom:1px solid var(--cx-soft)}
+.cx-mail-from{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--cx-brand-600)}
+.cx-mail-sub{display:block;font-size:13.5px;font-weight:700;margin-top:5px}
+.cx-mail-b{padding:15px}
+.cx-mail-b p{margin:0 0 10px;font-size:12.5px;line-height:1.6;color:var(--cx-ink2)}
+.cx-mail-code{background:#fafafa;border:1px dashed var(--cx-line);border-radius:8px;padding:9px 12px;
+  font-size:11.5px;color:var(--cx-muted);margin:12px 0}
+.cx-mail-code b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--cx-ink);margin-left:6px}
+.cx-mail-btn{display:inline-block;background:var(--cx-brand-600);color:#fff;border-radius:8px;
+  padding:9px 16px;font-size:12.5px;font-weight:700}
 
 /* ---------- invite flow ---------- */
 .cx-inv-emails{border:1px solid var(--cx-line);border-radius:10px;padding:9px;min-height:96px;

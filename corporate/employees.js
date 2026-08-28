@@ -10,14 +10,14 @@
   var DROPS = ['Floor 3','Floor 6','Braintree'];
 
   var PEOPLE = [
-    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026' },
-    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026' },
-    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026' },
-    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null },
-    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026' },
-    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026' },
-    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026' },
-    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026' }
+    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026', pending:1, scheduled:3 },
+    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026', pending:1, scheduled:4 },
+    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026', pending:0, scheduled:0 },
+    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null,           pending:0, scheduled:0 },
+    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026', pending:1, scheduled:2 },
+    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026', pending:0, scheduled:0 },
+    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026', pending:1, scheduled:1 },
+    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026', pending:0, scheduled:2 }
   ];
 
   var KEBAB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">'
@@ -104,6 +104,7 @@
   }
 
   function openDrawer(id, mode){
+    hideDialog();
     var p = byId(id); openId = id;
     var head = '<div class="cx-d-head">'
       + '<div class="cx-avatar">' + initials(p.name) + '</div>'
@@ -162,27 +163,99 @@
   function stat(v, l){ return '<div class="cx-d-stat"><b>' + esc(v) + '</b><em>' + l + '</em></div>'; }
 
   function closeDrawer(){
-    drawer.classList.remove('in');
-    drawer.hidden = true; scrim.hidden = true; openId = null;
+    hideDrawer();
+    if (dialog.hidden) scrim.hidden = true;
   }
 
-  /* ------------------------------------------------------ confirm */
-  function confirmDeactivate(id){
+  /* -------------------------------------------------- deactivation */
+  // Two steps, not one confirm. Offboarding almost always happens mid-day, when the
+  // person has already ordered lunch — so what happens to their in-flight order is a
+  // real decision, not a footnote. Defaults follow the intent: immediate cut-off
+  // cancels everything, end-of-day lets today's lunch arrive.
+  var DEA = null;
+
+  // The drawer and the dialog are both modal, so only one may be open at a time —
+  // otherwise the dialog lands on top of a still-open drawer.
+  function startDeactivate(id){
     var p = byId(id);
+    hideDrawer();
+    DEA = { id:id, step:1, when:(p.pending ? 'eod' : 'now') };
+    renderDeactivate();
+  }
+  function hideDrawer(){
+    drawer.classList.remove('in');
+    drawer.hidden = true;
+    openId = null; INV = null;
+  }
+  function hideDialog(){ dialog.hidden = true; DEA = null; }
+
+  function renderDeactivate(){
+    var p = byId(DEA.id);
+    var body;
+
+    if (DEA.step === 1){
+      body = '<h3>Deactivate ' + esc(p.name) + '?</h3>'
+        + '<p>They lose the menu and their credit the moment this takes effect, and the '
+        + 'company code stops working for them — they cannot simply re-enter it.</p>'
+        + '<div class="cx-mf-rows" style="margin:16px 0">'
+          + '<div class="cx-mf-r"><span>Ordered for today</span><b>'
+            + (p.pending ? p.pending + ' order awaiting delivery' : 'Nothing pending') + '</b></div>'
+          + '<div class="cx-mf-r"><span>Scheduled ahead</span><b>'
+            + (p.scheduled ? p.scheduled + ' order' + (p.scheduled > 1 ? 's' : '') + ' in the next 5 days'
+                           : 'None') + '</b></div>'
+          + '<div class="cx-mf-r"><span>Credit used to date</span><b>' + usd(p.credit) + '</b></div>'
+        + '</div>'
+        + (p.pending
+            ? '<div class="cx-warn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/>'
+              + '<path d="M12 8v5M12 16h.01"/></svg><span>' + esc(p.name.split(' ')[0])
+              + ' has lunch arriving today. Cutting access now cancels it — the food is already being prepared.</span></div>'
+            : '')
+        + '<div class="cx-dialog-foot">'
+          + '<button class="cx-btn ghost" data-dclose="1">Keep active</button>'
+          + '<button class="cx-btn" data-dstep="2">Continue</button>'
+        + '</div>';
+    } else {
+      var cancels = (DEA.when === 'now' ? p.pending : 0) + p.scheduled;
+      body = '<h3>When does it take effect?</h3>'
+        + '<div class="stack" style="margin:16px 0 4px">'
+          + dchoice('eod', 'After today\'s delivery',
+              p.pending ? 'Today\'s order still arrives. Access ends tonight.'
+                        : 'Access ends tonight. Nothing is in flight today.')
+          + dchoice('now', 'Immediately',
+              p.pending ? 'Today\'s order is cancelled and refunded before billing.'
+                        : 'Access ends the moment you confirm.')
+        + '</div>'
+        + '<div class="cx-mf-rows" style="margin:16px 0">'
+          + '<div class="cx-mf-r"><span>Orders cancelled</span><b>' + cancels + '</b></div>'
+          + '<div class="cx-mf-r"><span>Refunded</span><b>'
+            + (cancels ? usd(cancels * 15) + ' — before billing, never reaches your invoice' : 'Nothing to refund')
+            + '</b></div>'
+        + '</div>'
+        + '<p class="cx-dialog-note">Logged with who did it and when. You can reactivate '
+        + esc(p.name.split(' ')[0]) + ' later, but they will need a fresh invitation.</p>'
+        + '<div class="cx-dialog-foot">'
+          + '<button class="cx-btn ghost" data-dstep="1">Back</button>'
+          + '<button class="cx-btn danger" data-confirm="' + DEA.id + '">'
+            + (DEA.when === 'now' ? 'Deactivate now' : 'Deactivate tonight') + '</button>'
+        + '</div>';
+    }
+
+    // every step needs a visible way out — Back is not a cancel
     dialog.innerHTML = '<div class="cx-dialog">'
-      + '<h3>Deactivate ' + esc(p.name) + '?</h3>'
-      + '<p>They are detached immediately — no menu, no credit. Any scheduled orders are '
-      + 'cancelled and refunded, and the company code stops working for them, so they cannot '
-      + 'simply re-enter it.</p>'
-      + '<p class="cx-dialog-note">This is logged with who did it and when. You can reactivate them later, '
-      + 'but they will need a fresh invitation.</p>'
-      + '<div class="cx-dialog-foot">'
-        + '<button class="cx-btn ghost" data-dclose="1">Keep active</button>'
-        + '<button class="cx-btn danger" data-confirm="' + id + '">Deactivate access</button>'
-      + '</div></div>';
+      + '<button class="cx-d-x cx-dialog-x" data-dclose="1" aria-label="Cancel">✕</button>'
+      + '<div class="cx-dsteps"><i class="' + (DEA.step >= 1 ? 'on' : '') + '"></i>'
+      + '<i class="' + (DEA.step >= 2 ? 'on' : '') + '"></i></div>'
+      + body + '</div>';
     dialog.hidden = false; scrim.hidden = false;
   }
-  function closeDialog(){ dialog.hidden = true; if (drawer.hidden) scrim.hidden = true; }
+
+  function dchoice(val, title, desc){
+    var on = DEA.when === val;
+    return '<div class="choice-lite' + (on ? ' on' : '') + '" data-dwhen="' + val + '">'
+      + '<span class="radio"></span><span><b>' + title + '</b><em>' + desc + '</em></span></div>';
+  }
+
+  function closeDialog(){ hideDialog(); if (drawer.hidden) scrim.hidden = true; }
 
   function say(msg){
     toast.textContent = msg; toast.hidden = false;
@@ -198,8 +271,9 @@
   var DOMAINS = ['beaconyards.com', 'byf-capital.com'];
   var INV = null;
 
+  var ISTEPS = ['How', 'Who', 'Review'];
   function blankInvite(){
-    return { step:1, emails:[], draft:'', dept:'Engineering', drop:'Floor 3', method:'email', file:'' };
+    return { step:1, method:'', emails:[], draft:'', dept:'Engineering', drop:'Floor 3', file:'' };
   }
   function domainOf(e){ var m = /@(.+)$/.exec(e.trim()); return m ? m[1].toLowerCase() : ''; }
   function validEmail(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e.trim()); }
@@ -214,11 +288,37 @@
     var head = '<div class="cx-d-head">'
       + '<div class="cx-avatar">+</div>'
       + '<div class="cx-d-who"><b>Invite employees</b>'
-        + '<em>Step ' + INV.step + ' of 2 · ' + (INV.step === 1 ? 'Who and where' : 'Review and send') + '</em></div>'
-      + '<button class="cx-d-x" data-iclose="1" aria-label="Close">✕</button></div>';
+        + '<em>Step ' + INV.step + ' of 3 · ' + ISTEPS[INV.step - 1] + '</em></div>'
+      + '<button class="cx-d-x" data-iclose="1" aria-label="Close">✕</button></div>'
+      + '<div class="cx-istrip">' + ISTEPS.map(function(s, i){
+          return '<i class="' + (i < INV.step ? 'on' : '') + '"></i>'; }).join('') + '</div>';
 
     var body;
     if (INV.step === 1){
+      // How first: pasting five addresses and importing two hundred are different jobs
+      body = '<div class="cx-d-body">'
+        + '<div class="cx-d-label">How are you adding people?</div>'
+        + '<div class="stack">'
+          + imethod('email', 'Enter addresses', 'Type or paste work emails. Best for a handful of people.')
+          + imethod('csv', 'Upload a CSV', 'Bulk import. Columns: First name, Last name, Work email, Department.')
+        + '</div>'
+        + (INV.method === 'csv'
+            ? '<div class="cx-d-f" style="margin-top:18px"><label>CSV file</label>'
+              + '<input type="file" accept=".csv" data-icsv="1" style="height:auto;padding:11px 12px">'
+              + '<div class="cx-d-help">' + (INV.file
+                  ? '<b style="color:#186a3b">' + esc(INV.file) + '</b> — addresses are validated against your registered domains on the next step.'
+                  : 'Every row is checked against your registered domains before anything is sent.') + '</div></div>'
+            : '')
+        + '<div class="cx-privacy" style="margin-top:18px">'
+          + '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/></svg>'
+          + '<span>Whichever route you take, people finish registration themselves with the company code. '
+          + 'You never set a password for them.</span></div>'
+        + '</div>'
+        + '<div class="cx-d-foot">'
+          + '<button class="cx-btn ghost" data-iclose="1">Cancel</button>'
+          + '<button class="cx-btn" data-istep="2"' + (INV.method ? '' : ' disabled') + '>Continue</button>'
+        + '</div>';
+    } else if (INV.step === 2){
       body = '<div class="cx-d-body">'
         + '<div class="cx-d-label">Work emails</div>'
         + '<div class="cx-inv-emails" id="invBox">'
@@ -247,8 +347,8 @@
                + 'and where their order is delivered.' })
         + '</div>'
         + '<div class="cx-d-foot">'
-          + '<button class="cx-btn ghost" data-iclose="1">Cancel</button>'
-          + '<button class="cx-btn" data-istep="2"' + (good.length ? '' : ' disabled') + '>'
+          + '<button class="cx-btn ghost" data-istep="1">Back</button>'
+          + '<button class="cx-btn" data-istep="3"' + (good.length ? '' : ' disabled') + '>'
             + (good.length ? 'Review ' + good.length : 'Review') + '</button>'
         + '</div>';
     } else {
@@ -264,14 +364,27 @@
         + '<div class="cx-inv-emails" style="min-height:0">'
           + good.map(function(e){ return '<span class="cx-echip"><span>' + esc(e) + '</span></span>'; }).join('')
         + '</div>'
+        // show the actual invitation — nobody should send 200 of something unseen
+        + '<div class="cx-d-label" style="margin-top:22px">What they receive</div>'
+        + '<div class="cx-mail">'
+          + '<div class="cx-mail-h"><span class="cx-mail-from">Office Grubb</span>'
+            + '<span class="cx-mail-sub">Lunch is on Beacon Yards Financial</span></div>'
+          + '<div class="cx-mail-b">'
+            + '<p>You have been added to the Office Grubb meal programme at '
+            + '<b>' + esc(INV.drop) + '</b>.</p>'
+            + '<p><b>$15.00</b> of credit each service day — Mon, Tue, Wed and Thu. '
+            + 'Order by <b>10:30&nbsp;AM</b>, lunch arrives at <b>12:00&nbsp;PM</b>.</p>'
+            + '<div class="cx-mail-code">Company code <b>OG-BLFB-6KKM-BBUL</b></div>'
+            + '<span class="cx-mail-btn">Set up my account</span>'
+          + '</div>'
+        + '</div>'
         + '<div class="cx-privacy" style="margin-top:18px">'
           + '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>'
-          + '<span>Each person receives the company code and completes their own registration. '
-          + 'They appear as <b>Invited</b> until they do — no credit is used and nothing is billed until they order.</span>'
+          + '<span>They appear as <b>Invited</b> until they register — no credit is used and nothing is billed until they order.</span>'
         + '</div>'
         + '</div>'
         + '<div class="cx-d-foot">'
-          + '<button class="cx-btn ghost" data-istep="1">Back</button>'
+          + '<button class="cx-btn ghost" data-istep="2">Back</button>'
           + '<button class="cx-btn" data-isend="1">Send ' + good.length + ' invitation'
             + (good.length === 1 ? '' : 's') + '</button>'
         + '</div>';
@@ -281,6 +394,12 @@
     requestAnimationFrame(function(){ drawer.classList.add('in'); });
     var inp = document.getElementById('invInput');
     if (inp){ inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+  }
+
+  function imethod(val, title, desc){
+    var on = INV.method === val;
+    return '<div class="choice-lite' + (on ? ' on' : '') + '" data-imethod="' + val + '">'
+      + '<span class="radio"></span><span><b>' + title + '</b><em>' + desc + '</em></span></div>';
   }
 
   function commitDraft(){
@@ -293,10 +412,33 @@
 
   var inviteBtn = document.getElementById('empInvite');
   if (inviteBtn) inviteBtn.addEventListener('click', function(){
+    hideDialog();
     INV = blankInvite(); renderInvite();
   });
 
+  drawer.addEventListener('change', function(e){
+    if (!INV || !e.target.dataset || !e.target.dataset.icsv) return;
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    INV.file = f.name;
+    // parse the CSV client-side so the validation step sees real addresses
+    var r = new FileReader();
+    r.onload = function(){
+      String(r.result).split(/\r?\n/).forEach(function(line, i){
+        if (!line.trim()) return;
+        var cols = line.split(',').map(function(c){ return c.trim().replace(/^"|"$/g,''); });
+        var addr = cols.filter(function(c){ return c.indexOf('@') > -1; })[0];
+        if (!addr) return;                                  // header row or junk
+        if (INV.emails.indexOf(addr) === -1) INV.emails.push(addr);
+      });
+      renderInvite();
+    };
+    r.readAsText(f);
+    renderInvite();
+  });
+
   drawer.addEventListener('input', function(e){
+    if (!INV) return;
     if (e.target.id === 'invInput'){
       var v = e.target.value;
       if (/[,\s;]$/.test(v)){ INV.draft = v; commitDraft(); renderInvite(); }
@@ -307,7 +449,7 @@
     if (e.target.dataset.fld === 'idrop') INV.drop = e.target.value;
   });
   drawer.addEventListener('keydown', function(e){
-    if (e.target.id !== 'invInput') return;
+    if (!INV || e.target.id !== 'invInput') return;
     if (e.key === 'Enter'){ e.preventDefault(); commitDraft(); renderInvite(); }
     if (e.key === 'Backspace' && !e.target.value && INV.emails.length){
       INV.emails.pop(); renderInvite();
@@ -339,7 +481,7 @@
       closeMenu();
       if (act === 'profile') return openDrawer(id, 'view');
       if (act === 'edit')    return openDrawer(id, 'edit');
-      if (act === 'deactivate') return confirmDeactivate(id);
+      if (act === 'deactivate') return startDeactivate(id);
       if (act === 'reactivate'){
         byId(id).status = 'Invited';
         render(); say(byId(id).name + ' reactivated — a fresh invitation has been sent.');
@@ -349,11 +491,23 @@
     if ((el = e.target.closest('[data-edit]')))  return openDrawer(el.dataset.edit, 'edit');
     if ((el = e.target.closest('[data-close]'))) return closeDrawer();
     if ((el = e.target.closest('[data-dclose]')))return closeDialog();
+    // every handler below reads flow state that a close/Escape may have cleared
+    if ((el = e.target.closest('[data-dstep]'))){
+      if (!DEA) return; DEA.step = +el.dataset.dstep; return renderDeactivate(); }
+    if ((el = e.target.closest('[data-dwhen]'))){
+      if (!DEA) return; DEA.when = el.dataset.dwhen; return renderDeactivate(); }
     if ((el = e.target.closest('[data-confirm]'))){
+      if (!DEA) return;
       var p = byId(el.dataset.confirm);
+      var immediate = DEA.when === 'now';
+      var cancels = (immediate ? p.pending : 0) + p.scheduled;
       p.status = 'Deactivated';
+      p.pending = immediate ? 0 : p.pending;
+      p.scheduled = 0;
       closeDialog(); closeDrawer(); render();
-      say(p.name + ' deactivated. Scheduled orders cancelled and refunded.');
+      say(p.name + (immediate ? ' deactivated.' : ' deactivates after today\'s delivery.')
+        + (cancels ? ' ' + cancels + ' order' + (cancels > 1 ? 's' : '') + ' cancelled and refunded.'
+                   : ' No orders affected.'));
       return;
     }
     if ((el = e.target.closest('[data-save]'))){
@@ -367,13 +521,17 @@
       return;
     }
     if ((el = e.target.closest('[data-remail]'))){
-      INV.emails.splice(+el.dataset.remail, 1); return renderInvite();
+      if (!INV) return; INV.emails.splice(+el.dataset.remail, 1); return renderInvite();
+    }
+    if ((el = e.target.closest('[data-imethod]'))){
+      if (!INV) return; INV.method = el.dataset.imethod; return renderInvite();
     }
     if ((el = e.target.closest('[data-istep]'))){
-      commitDraft(); INV.step = +el.dataset.istep; return renderInvite();
+      if (!INV) return; commitDraft(); INV.step = +el.dataset.istep; return renderInvite();
     }
     if ((el = e.target.closest('[data-iclose]'))){ INV = null; return closeDrawer(); }
     if ((el = e.target.closest('[data-isend]'))){
+      if (!INV) return;
       var sent = goodEmails();
       sent.forEach(function(addr){
         PEOPLE.push({ id: Date.now() + Math.floor(sent.indexOf(addr)),
