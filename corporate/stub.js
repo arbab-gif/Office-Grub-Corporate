@@ -5,7 +5,7 @@
   var S = {
     guests: {
       eyebrow:'People', title:'Guests',
-      lead:'Visitors who order on your account. Guest credit is billed separately and never sits inside a department figure.',
+      lead:'Visitors who order on your account.',
       stats:[['4','Active guests'],['$1,290.00','Guest credit this period'],['86','Guest orders']],
       rows:[
         ['Guest passes','Issued by an employee, valid for one service day'],
@@ -17,7 +17,7 @@
     },
     benefit: {
       eyebrow:'Program', title:'Meal benefit', locked:true,
-      lead:'The shape of your programme. Office Grubb configures these because they drive restaurant prep and driver dispatch.',
+      lead:'The shape of your programme. Set by Office Grubb.',
       stats:[['$15.00','Daily credit'],['10:30 AM','Ordering closes'],['12:00 PM','Delivery']],
       rows:[
         ['Service days','Mon · Tue · Wed · Thu'],
@@ -30,7 +30,7 @@
     },
     drops: {
       eyebrow:'Program', title:'Drop points',
-      lead:'The buildings we deliver to. Each drop point has its own manifest, its own delivery contact, and its own close-out.',
+      lead:'The buildings we deliver to.',
       stats:[['3','Drop points'],['500','Enrolled across all'],['142','Orders on the last service day']],
       table:{ head:['Drop point','Code','Enrolled','Delivery contact'],
               rows:[['Floor 3','BYF-03','214','Dana Whitfield'],
@@ -41,7 +41,7 @@
     },
     live: {
       eyebrow:'Program', title:'Live Kitchen',
-      lead:'A restaurant sets up on site and cooks for your team. Included in your subscription at no extra charge.',
+      lead:'A restaurant cooks on site, included in your plan.',
       stats:[['Wednesdays','Cadence'],['Bangkok Bites','Next restaurant'],['$0','Setup fee']],
       rows:[
         ['What it costs you','Nothing extra. Employees pay the restaurant directly on site.'],
@@ -53,7 +53,7 @@
     },
     integrations: {
       eyebrow:'Program', title:'Integrations',
-      lead:'Connect Office Grubb to the systems you already run, so invoices and alerts land where your team already works. Nothing here changes what employees see.',
+      lead:'Connect the systems you already run.',
       table:{ head:['System','Purpose','Phase'],
               rows:[['Stripe','Subscription billing and invoicing','Launch'],
                     ['DocuSign','Corporate agreement e-signature','Launch'],
@@ -67,7 +67,7 @@
     },
     schedule: {
       eyebrow:'Service', title:'Schedule',
-      lead:'Which restaurant is coming, and when. Everyone on the account sees the same rotation.',
+      lead:'Which restaurant is coming, and when.',
       stats:[['Mon · Tue · Wed · Thu','Service days'],['12:00 PM','Delivery'],['4','Restaurants in rotation']],
       table:{ head:['Day','Restaurant','Cuisine','Note'],
               rows:[['Monday',"Anna's Taqueria",'Mexican','—'],
@@ -80,7 +80,7 @@
     },
     issues: {
       eyebrow:'Service', title:'Service issues',
-      lead:'Anything that went wrong with a delivery, and what happened about it. Every refund here is traceable to the invoice it affected — caught before billing it never reached you, caught after it appears as a credit note.',
+      lead:'What went wrong with a delivery, and what happened about it.',
       stats:[['2','Open this period'],['$645.00','Refunded this period'],['1','Awaiting restaurant']],
       table:{ head:['Date','Drop point','Issue','Status'],
               rows:[['Jul 20','BYF-BT2','1 order missing at scan — Clover Food Lab','Refunded before billing'],
@@ -92,7 +92,7 @@
     },
     settings: {
       eyebrow:'', title:'Settings',
-      lead:'Account, billing and notification preferences for Beacon Yards Financial. Changes to the checkout model take effect on new orders only — never on orders already placed.',
+      lead:'Account, billing and notification preferences.',
       rows:[
         ['Account','Company details, registered domains, corporate agreement'],
         ['Billing','Billing contact, payment method, PO number, tax exemption'],
