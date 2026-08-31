@@ -305,6 +305,48 @@
     dialog.hidden = false; scrim.hidden = false;
   }
 
+  // Reactivation is not the inverse of deactivation: access does not simply resume.
+  // The person must register again, so the modal says so rather than implying a toggle.
+  function startReactivate(id){
+    hideDrawer();
+    DEA = { id:id, mode:'reactivate' };
+    renderReactivate();
+  }
+
+  function renderReactivate(){
+    var p = byId(DEA.id);
+    dialog.innerHTML = '<div class="cx-dialog wide">'
+      + '<button class="cx-d-x cx-dialog-x" data-dclose="1" aria-label="Cancel">✕</button>'
+      + '<h3>Reactivate Employee?</h3>'
+      + '<p>' + esc(p.name) + ' will be invited back to Office Grubb. They stay <b>Invited</b> '
+        + 'until they complete registration — access does not resume on its own.</p>'
+
+      + '<div class="cx-d-label" style="margin:20px 0 10px">What comes back</div>'
+      + '<div class="cx-mf-rows">'
+        + '<div class="cx-mf-r"><span>Invitation sent to</span><b>' + esc(p.email) + '</b></div>'
+        + '<div class="cx-mf-r"><span>Department</span><b>' + esc(p.dept) + '</b></div>'
+        + '<div class="cx-mf-r"><span>Drop point</span><b>' + esc(p.drop) + '</b></div>'
+        + '<div class="cx-mf-r"><span>Subsidy</span><b>' + usd(subsidyOf(p)) + ' / day · '
+          + (isOverride(p) ? 'their own amount' : 'account default') + '</b></div>'
+      + '</div>'
+
+      + '<div class="cx-d-label" style="margin:20px 0 10px">What does not</div>'
+      + '<div class="cx-mf-rows">'
+        + '<div class="cx-mf-r"><span>Cancelled orders</span><b>Not restored — they order again themselves</b></div>'
+        + '<div class="cx-mf-r"><span>Order history</span><b>' + (p.orders || 0)
+          + ' past orders stay on the account</b></div>'
+      + '</div>'
+
+      + '<p class="cx-dialog-note" style="margin-top:14px">The company code starts working for them '
+      + 'again once they accept. Logged with who did it and when.</p>'
+
+      + '<div class="cx-dialog-foot">'
+        + '<button class="cx-btn ghost" data-dclose="1">Cancel</button>'
+        + '<button class="cx-btn" data-reconfirm="' + DEA.id + '">Reactivate Employee</button>'
+      + '</div></div>';
+    dialog.hidden = false; scrim.hidden = false;
+  }
+
   function closeDialog(){ hideDialog(); if (drawer.hidden) scrim.hidden = true; }
 
   function say(msg){
@@ -532,11 +574,7 @@
       if (act === 'profile') return openDrawer(id, 'view');
       if (act === 'edit')    return openDrawer(id, 'edit');
       if (act === 'deactivate') return startDeactivate(id);
-      if (act === 'reactivate'){
-        byId(id).status = 'Invited';
-        render(); say(byId(id).name + ' reactivated — a fresh invitation has been sent.');
-        return;
-      }
+      if (act === 'reactivate') return startReactivate(id);
     }
     if ((el = e.target.closest('[data-subs]'))){
       if (openId == null) return;
@@ -548,6 +586,14 @@
     if ((el = e.target.closest('[data-close]'))) return closeDrawer();
     if ((el = e.target.closest('[data-dclose]')))return closeDialog();
     // every handler below reads flow state that a close/Escape may have cleared
+    if ((el = e.target.closest('[data-reconfirm]'))){
+      if (!DEA) return;
+      var r = byId(el.dataset.reconfirm);
+      r.status = 'Invited';
+      closeDialog(); render();
+      say(r.name + ' reactivated — invitation sent to ' + r.email + '.');
+      return;
+    }
     if ((el = e.target.closest('[data-confirm]'))){
       if (!DEA) return;
       var p = byId(el.dataset.confirm);
