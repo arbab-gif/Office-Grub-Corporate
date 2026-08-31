@@ -53,7 +53,7 @@
     },
     integrations: {
       eyebrow:'Program', title:'Integrations',
-      lead:'Connect Office Grubb to the systems you already run.',
+      lead:'Connect Office Grubb to the systems you already run, so invoices and alerts land where your team already works. Nothing here changes what employees see.',
       table:{ head:['System','Purpose','Phase'],
               rows:[['Stripe','Subscription billing and invoicing','Launch'],
                     ['DocuSign','Corporate agreement e-signature','Launch'],
@@ -80,7 +80,7 @@
     },
     issues: {
       eyebrow:'Service', title:'Service issues',
-      lead:'Anything that went wrong with a delivery, and what happened about it.',
+      lead:'Anything that went wrong with a delivery, and what happened about it. Every refund here is traceable to the invoice it affected — caught before billing it never reached you, caught after it appears as a credit note.',
       stats:[['2','Open this period'],['$645.00','Refunded this period'],['1','Awaiting restaurant']],
       table:{ head:['Date','Drop point','Issue','Status'],
               rows:[['Jul 20','BYF-BT2','1 order missing at scan — Clover Food Lab','Refunded before billing'],
@@ -92,7 +92,7 @@
     },
     settings: {
       eyebrow:'', title:'Settings',
-      lead:'Account, billing and notification preferences for Beacon Yards Financial.',
+      lead:'Account, billing and notification preferences for Beacon Yards Financial. Changes to the checkout model take effect on new orders only — never on orders already placed.',
       rows:[
         ['Account','Company details, registered domains, corporate agreement'],
         ['Billing','Billing contact, payment method, PO number, tax exemption'],
@@ -119,6 +119,7 @@
     + '<h1>' + esc(d.title) + (d.locked ? ' <i class="cx-lockchip" style="vertical-align:middle">'
         + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4.5" y="10" width="15" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Set by Office Grubb</i>' : '')
     + '</h1>'
+    + '<p class="cx-subtext">' + d.lead + '</p>'
     + '<div class="cx-meta">'
       + '<span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>'
       + '<span class="mono">OG-BLFB-6KKM-BBUL</span>'
@@ -132,7 +133,6 @@
     }).join('') + '</div>';
   }
 
-  html += '<p class="cx-lead">' + esc(d.lead) + '</p>';
 
   if (d.table){
     html += '<div class="cx-table"><table><thead><tr>'

@@ -45,6 +45,9 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-head h1{font-size:31px;letter-spacing:-.03em;line-height:1.15}
 .cx-eyebrow{margin-bottom:9px}
 .cx-meta{margin-top:11px;gap:20px}
+/* one line under every page title saying what the page is for */
+.cx-subtext{margin-top:9px;font-size:14px;line-height:1.6;color:var(--cx-ink2);max-width:78ch}
+.cx-subtext b{font-weight:600;color:var(--cx-ink)}
 
 /* ---------- header ---------- */
 /* the range control belongs on the title's baseline, not floating up by the eyebrow */
