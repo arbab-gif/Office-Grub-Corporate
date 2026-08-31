@@ -14,15 +14,24 @@
   // explicit override for that one person.
   var ACCOUNT_SUBSIDY = 15.00;
 
+  // Scheduled orders carry their own lock state. An order locks at the cancellation
+  // cutoff — once the kitchen is preparing it, it is going to be made and delivered
+  // whatever happens to the account it was placed on.
+  // Locked means past the cancellation cutoff — which in practice is today's order,
+  // not simply the earliest one. Someone whose next order is Sep 1 has nothing locked.
+  function sched(dates){
+    return dates.map(function(d){ return { date:d, locked:/^Today/.test(d) }; });
+  }
+
   var PEOPLE = [
-    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026', pending:1, scheduled:3, subsidy:null },
-    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026', pending:1, scheduled:4, subsidy:null },
-    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026', pending:0, scheduled:0, subsidy:null },
-    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null,           pending:0, scheduled:0, subsidy:null },
-    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026', pending:1, scheduled:2, subsidy:null },
-    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026', pending:0, scheduled:0, subsidy:20.00 },
-    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026', pending:1, scheduled:1, subsidy:null },
-    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026', pending:0, scheduled:2, subsidy:10.00 }
+    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026', orders_sched:sched(['Today — Aug 31','Sep 1','Sep 2','Sep 3']), subsidy:null },
+    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026', orders_sched:sched(['Today — Aug 31','Sep 1','Sep 2','Sep 3','Sep 4']), subsidy:null },
+    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026', orders_sched:[], subsidy:null },
+    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null,           orders_sched:[], subsidy:null },
+    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026', orders_sched:sched(['Today — Aug 31','Sep 2','Sep 3']), subsidy:null },
+    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026', orders_sched:[], subsidy:20.00 },
+    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026', orders_sched:sched(['Today — Aug 31','Sep 1']), subsidy:null },
+    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026', orders_sched:sched(['Sep 1','Sep 2']), subsidy:10.00 }
   ];
 
   var KEBAB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">'
@@ -210,9 +219,8 @@
   // The drawer and the dialog are both modal, so only one may be open at a time —
   // otherwise the dialog lands on top of a still-open drawer.
   function startDeactivate(id){
-    var p = byId(id);
     hideDrawer();
-    DEA = { id:id, step:1, when:(p.pending ? 'eod' : 'now') };
+    DEA = { id:id };
     renderDeactivate();
   }
   function hideDrawer(){
@@ -222,70 +230,49 @@
   }
   function hideDialog(){ dialog.hidden = true; DEA = null; }
 
+  // No choice is offered here. The order lock already decides each order's fate, so
+  // the modal states the outcome rather than asking the admin to reason it out.
   function renderDeactivate(){
     var p = byId(DEA.id);
-    var body;
+    var list = p.orders_sched || [];
+    var willCancel = list.filter(function(o){ return !o.locked; });
 
-    if (DEA.step === 1){
-      body = '<h3>Deactivate ' + esc(p.name) + '?</h3>'
-        + '<p>They lose the menu and their credit the moment this takes effect, and the '
-        + 'company code stops working for them — they cannot simply re-enter it.</p>'
-        + '<div class="cx-mf-rows" style="margin:16px 0">'
-          + '<div class="cx-mf-r"><span>Ordered for today</span><b>'
-            + (p.pending ? p.pending + ' order awaiting delivery' : 'Nothing pending') + '</b></div>'
-          + '<div class="cx-mf-r"><span>Scheduled ahead</span><b>'
-            + (p.scheduled ? p.scheduled + ' order' + (p.scheduled > 1 ? 's' : '') + ' in the next 5 days'
-                           : 'None') + '</b></div>'
-          + '<div class="cx-mf-r"><span>Credit used to date</span><b>' + usd(p.credit) + '</b></div>'
-        + '</div>'
-        + (p.pending
-            ? '<div class="cx-warn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/>'
-              + '<path d="M12 8v5M12 16h.01"/></svg><span>' + esc(p.name.split(' ')[0])
-              + ' has lunch arriving today. Cutting access now cancels it — the food is already being prepared.</span></div>'
-            : '')
-        + '<div class="cx-dialog-foot">'
-          + '<button class="cx-btn ghost" data-dclose="1">Keep active</button>'
-          + '<button class="cx-btn" data-dstep="2">Continue</button>'
-        + '</div>';
+    var body = '<h3>Deactivate Employee?</h3>'
+      + '<p>' + esc(p.name) + ' will no longer have access to Office Grubb.</p>';
+
+    if (list.length){
+      body += '<div class="cx-d-label" style="margin:20px 0 10px">Scheduled orders</div>'
+        + '<p class="cx-dialog-note" style="margin-bottom:12px">This employee has '
+        + list.length + ' scheduled order' + (list.length > 1 ? 's' : '')
+        + '. Based on their current order status:</p>'
+        + '<div class="cx-orders">' + list.map(function(o){
+            return '<div class="cx-order' + (o.locked ? ' locked' : '') + '">'
+              + '<span class="cx-order-d">' + esc(o.date) + '</span>'
+              + '<span class="cx-order-s"><i></i>'
+                + (o.locked ? 'Order locked' : 'Will be cancelled') + '</span>'
+              + '<span class="cx-order-n">' + (o.locked
+                  ? 'This order will remain active and be delivered.'
+                  : 'This order is still within the cancellation window.') + '</span>'
+              + '</div>';
+          }).join('') + '</div>'
+        + '<p class="cx-dialog-note" style="margin-top:12px">Any order that has passed the '
+        + 'cancellation lock will remain active. Future unlocked orders will be cancelled and '
+        + 'refunded if eligible.</p>';
     } else {
-      var cancels = (DEA.when === 'now' ? p.pending : 0) + p.scheduled;
-      body = '<h3>When does it take effect?</h3>'
-        + '<div class="stack" style="margin:16px 0 4px">'
-          + dchoice('eod', 'After today\'s delivery',
-              p.pending ? 'Today\'s order still arrives. Access ends tonight.'
-                        : 'Access ends tonight. Nothing is in flight today.')
-          + dchoice('now', 'Immediately',
-              p.pending ? 'Today\'s order is cancelled and refunded before billing.'
-                        : 'Access ends the moment you confirm.')
-        + '</div>'
-        + '<div class="cx-mf-rows" style="margin:16px 0">'
-          + '<div class="cx-mf-r"><span>Orders cancelled</span><b>' + cancels + '</b></div>'
-          + '<div class="cx-mf-r"><span>Refunded</span><b>'
-            + (cancels ? usd(cancels * 15) + ' — before billing, never reaches your invoice' : 'Nothing to refund')
-            + '</b></div>'
-        + '</div>'
-        + '<p class="cx-dialog-note">Logged with who did it and when. You can reactivate '
-        + esc(p.name.split(' ')[0]) + ' later, but they will need a fresh invitation.</p>'
-        + '<div class="cx-dialog-foot">'
-          + '<button class="cx-btn ghost" data-dstep="1">Back</button>'
-          + '<button class="cx-btn danger" data-confirm="' + DEA.id + '">'
-            + (DEA.when === 'now' ? 'Deactivate now' : 'Deactivate tonight') + '</button>'
-        + '</div>';
+      body += '<div class="cx-d-label" style="margin:20px 0 10px">Scheduled orders</div>'
+        + '<p class="cx-dialog-note">This employee has no scheduled orders. '
+        + 'Nothing will be cancelled or refunded.</p>';
     }
 
-    // every step needs a visible way out — Back is not a cancel
-    dialog.innerHTML = '<div class="cx-dialog">'
+    body += '<div class="cx-dialog-foot">'
+        + '<button class="cx-btn ghost" data-dclose="1">Cancel</button>'
+        + '<button class="cx-btn danger" data-confirm="' + DEA.id + '">Deactivate Employee</button>'
+      + '</div>';
+
+    dialog.innerHTML = '<div class="cx-dialog wide">'
       + '<button class="cx-d-x cx-dialog-x" data-dclose="1" aria-label="Cancel">✕</button>'
-      + '<div class="cx-dsteps"><i class="' + (DEA.step >= 1 ? 'on' : '') + '"></i>'
-      + '<i class="' + (DEA.step >= 2 ? 'on' : '') + '"></i></div>'
       + body + '</div>';
     dialog.hidden = false; scrim.hidden = false;
-  }
-
-  function dchoice(val, title, desc){
-    var on = DEA.when === val;
-    return '<div class="choice-lite' + (on ? ' on' : '') + '" data-dwhen="' + val + '">'
-      + '<span class="radio"></span><span><b>' + title + '</b><em>' + desc + '</em></span></div>';
   }
 
   function closeDialog(){ hideDialog(); if (drawer.hidden) scrim.hidden = true; }
@@ -531,22 +518,23 @@
     if ((el = e.target.closest('[data-close]'))) return closeDrawer();
     if ((el = e.target.closest('[data-dclose]')))return closeDialog();
     // every handler below reads flow state that a close/Escape may have cleared
-    if ((el = e.target.closest('[data-dstep]'))){
-      if (!DEA) return; DEA.step = +el.dataset.dstep; return renderDeactivate(); }
-    if ((el = e.target.closest('[data-dwhen]'))){
-      if (!DEA) return; DEA.when = el.dataset.dwhen; return renderDeactivate(); }
     if ((el = e.target.closest('[data-confirm]'))){
       if (!DEA) return;
       var p = byId(el.dataset.confirm);
-      var immediate = DEA.when === 'now';
-      var cancels = (immediate ? p.pending : 0) + p.scheduled;
+      var list = p.orders_sched || [];
+      var cancelled = list.filter(function(o){ return !o.locked; }).length;
+      var kept = list.length - cancelled;
+
+      // access ends immediately; locked orders survive because the kitchen is
+      // already making them
       p.status = 'Deactivated';
-      p.pending = immediate ? 0 : p.pending;
-      p.scheduled = 0;
+      p.orders_sched = list.filter(function(o){ return o.locked; });
+
       closeDialog(); closeDrawer(); render();
-      say(p.name + (immediate ? ' deactivated.' : ' deactivates after today\'s delivery.')
-        + (cancels ? ' ' + cancels + ' order' + (cancels > 1 ? 's' : '') + ' cancelled and refunded.'
-                   : ' No orders affected.'));
+      say(p.name + ' deactivated.'
+        + (cancelled ? ' ' + cancelled + ' order' + (cancelled > 1 ? 's' : '') + ' cancelled and refunded.' : '')
+        + (kept ? ' ' + kept + ' locked order will still be delivered.' : '')
+        + (!cancelled && !kept ? ' No scheduled orders affected.' : ''));
       return;
     }
     if ((el = e.target.closest('[data-save]'))){
