@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+
+  <!-- 1 · Rename this -->
+  <title>Office Grubb — New screen · Beacon Yards Financial</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+
+  <!-- the restaurant portal's own stylesheets — never copy these, always link them -->
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../figma-tokens.css">
+  <link rel="stylesheet" href="../figma-nav.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <link rel="stylesheet" href="corp-dashboard.css">
+</head>
+
+<!-- 2 · data-nav highlights the matching sidebar item. Keys live in corp-nav.js:
+     dashboard · employees · guests · benefit · drops · live · integrations
+     schedule · manifests · issues · announce · invoices · plans · onboard -->
+<body data-nav="">
+
+  <div class="app">
+    <aside class="rail"></aside>   <!-- corp-nav.js replaces this with the sidebar -->
+    <div class="main">
+      <div class="db-wrap">
+
+        <!-- ============================ PAGE HEADER ============================ -->
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">Section</div>          <!-- Overview · People · Program · Service · Billing -->
+            <h1>Page title</h1>
+            <p class="cx-subtext">One short line saying what this page is for.</p>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>3 drop points</span>
+            </div>
+          </div>
+          <!-- optional right-hand control, e.g. a range switcher:
+          <div class="cx-range" id="cxRange">
+            <button class="on">30 days</button><button>Quarter</button>
+          </div> -->
+        </div>
+
+        <!-- ============================== CONTENT ==============================
+             Everything below is a working example. Delete what you do not need.
+             Grid is 12 columns: col-3 col-4 col-5 col-7 col-8 col-12.
+        ====================================================================== -->
+
+        <!-- KPI row -->
+        <div class="db-grid">
+          <div class="cx-kpi col-3">
+            <div class="cx-k">Label</div>
+            <div class="cx-v">0</div>
+            <div class="cx-m">Supporting detail</div>
+          </div>
+        </div>
+
+        <!-- toolbar: search · segmented filter · primary action -->
+        <div class="cx-toolbar">
+          <label class="cx-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" placeholder="Search…">
+          </label>
+          <div class="cx-seg" role="tablist" aria-label="Filter">
+            <button role="tab" aria-selected="true" class="on" data-f="all">All</button>
+            <button role="tab" aria-selected="false" data-f="other">Other</button>
+          </div>
+          <button class="cx-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Primary action
+          </button>
+        </div>
+
+        <!-- card -->
+        <div class="db-grid">
+          <section class="db-card col-12">
+            <div class="db-ch">
+              <h2>Card title</h2>
+              <span class="cx-pill">Badge</span>
+            </div>
+            <p class="cx-subtext" style="margin:0">Card body.</p>
+          </section>
+        </div>
+
+        <!-- table — always a real <table>, with scope on the headers -->
+        <div class="cx-count" role="status" aria-live="polite">0 items</div>
+        <div class="cx-table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Column</th>
+                <th scope="col" class="ta-r">Number</th>
+                <th scope="col">Status</th>
+                <th scope="col"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <tr>
+                <th scope="row">Row label</th>
+                <td class="ta-r mono">0</td>
+                <td><i class="cx-status active">Active</i></td>
+                <td class="ta-r"><button class="cx-row-act" aria-label="Actions">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="cx-empty" hidden>Nothing matches that search.</div>
+        </div>
+
+        <!-- notes: privacy (green) · warn (amber) -->
+        <div class="cx-privacy">
+          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>Use this for a rule that protects someone — what is not shared, what is aggregated.</span>
+        </div>
+        <div class="cx-warn">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span>Use this for a consequence — what an action will destroy, cancel or charge.</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OVERLAYS — delete if unused =====================
+       Only one may be open at a time. Hiding is by the hidden attribute;
+       corp-dashboard.css has the [hidden] rule that makes that actually work.
+  ======================================================================= -->
+  <div id="menu" class="cx-menu" hidden></div>
+  <div id="scrim" class="cx-scrim" hidden></div>
+  <aside id="drawer" class="cx-drawer" hidden role="dialog" aria-modal="true" aria-label=""></aside>
+  <div id="dialog" class="cx-dialog-wrap" hidden role="dialog" aria-modal="true"></div>
+  <div id="toast" class="cx-toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="corp-actions.js"></script>   <!-- CorpActions.exportTable / printRegion / toast -->
+  <script src="corp-nav.js"></script>       <!-- builds the sidebar and topbar -->
+  <!-- <script src="your-screen.js"></script> -->
+</body>
+</html>
