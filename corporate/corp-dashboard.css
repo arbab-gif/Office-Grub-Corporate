@@ -175,6 +175,27 @@ html.nav-collapsed .fnav-item .fnav-lock{display:none}
 .cx-table th:nth-child(5),.cx-table td:nth-child(5){width:14%}
 .cx-table th:nth-child(6),.cx-table td:nth-child(6){width:10%}
 .cx-table th:nth-child(7),.cx-table td:nth-child(7){width:64px}
+/* employee roster gained a subsidy column — 8 columns now */
+body[data-nav=employees] .cx-table th:nth-child(1),body[data-nav=employees] .cx-table td:nth-child(1){width:23%}
+body[data-nav=employees] .cx-table th:nth-child(2),body[data-nav=employees] .cx-table td:nth-child(2){width:12%}
+body[data-nav=employees] .cx-table th:nth-child(3),body[data-nav=employees] .cx-table td:nth-child(3){width:11%}
+body[data-nav=employees] .cx-table th:nth-child(4),body[data-nav=employees] .cx-table td:nth-child(4){width:11%}
+body[data-nav=employees] .cx-table th:nth-child(5),body[data-nav=employees] .cx-table td:nth-child(5){width:11%}
+body[data-nav=employees] .cx-table th:nth-child(6),body[data-nav=employees] .cx-table td:nth-child(6){width:13%}
+body[data-nav=employees] .cx-table th:nth-child(7),body[data-nav=employees] .cx-table td:nth-child(7){width:9%}
+body[data-nav=employees] .cx-table th:nth-child(8),body[data-nav=employees] .cx-table td:nth-child(8){width:56px}
+
+/* subsidy cell: amount over its source */
+.cx-subs b{display:block;font-size:13.5px;font-weight:700;color:var(--cx-ink)}
+.cx-subs em{display:block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--cx-muted);margin-top:3px}
+.cx-subs em.over{color:var(--cx-brand-600)}
+.cx-money{display:flex;align-items:center;border:1px solid var(--cx-line);border-radius:10px;
+  overflow:hidden;background:#fff}
+.cx-money span{width:38px;flex:none;text-align:center;font-size:13.5px;color:var(--cx-muted);
+  border-right:1px solid var(--cx-line);align-self:stretch;display:grid;place-items:center}
+.cx-money input{border:0 !important;border-radius:0 !important;flex:1}
+.cx-money:focus-within{border-color:var(--cx-brand);box-shadow:0 0 0 3px rgba(255,79,47,.12)}
 /* manifests table has 8 columns and its own proportions */
 .cx-table.flush th:nth-child(1),.cx-table.flush td:nth-child(1){width:15%}
 .cx-table.flush th:nth-child(2),.cx-table.flush td:nth-child(2){width:14%}

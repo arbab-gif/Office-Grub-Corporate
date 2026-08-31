@@ -9,15 +9,20 @@
   var DEPTS = ['Engineering','Operations','Marketing','Finance','Legal','Compliance','People & HR','Facilities'];
   var DROPS = ['Floor 3','Floor 6','Braintree'];
 
+  // The subsidy is set once at onboarding and applies to the whole account.
+  // A person's `subsidy` is null when they simply inherit it; a number is an
+  // explicit override for that one person.
+  var ACCOUNT_SUBSIDY = 15.00;
+
   var PEOPLE = [
-    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026', pending:1, scheduled:3 },
-    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026', pending:1, scheduled:4 },
-    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026', pending:0, scheduled:0 },
-    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null,           pending:0, scheduled:0 },
-    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026', pending:1, scheduled:2 },
-    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026', pending:0, scheduled:0 },
-    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026', pending:1, scheduled:1 },
-    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026', pending:0, scheduled:2 }
+    { id:1, name:'Dana Whitfield',    email:'dwhitfield@beaconyards.com',   dept:'Marketing',   drop:'Floor 3',   status:'Active',      enrolled:'Feb 3, 2026',  orders:84,  credit:1260.00, last:'Aug 18, 2026', pending:1, scheduled:3, subsidy:null },
+    { id:2, name:'Marcus Oyelaran',   email:'moyelaran@beaconyards.com',    dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Jan 12, 2026', orders:122, credit:1830.00, last:'Aug 19, 2026', pending:1, scheduled:4, subsidy:null },
+    { id:3, name:'Priya Raghunathan', email:'praghunathan@beaconyards.com', dept:'Legal',       drop:'Floor 3',   status:'Active',      enrolled:'Mar 21, 2026', orders:47,  credit:705.00,  last:'Aug 15, 2026', pending:0, scheduled:0, subsidy:null },
+    { id:4, name:'Tom Beaulieu',      email:'tbeaulieu@beaconyards.com',    dept:'Operations',  drop:'Floor 3',   status:'Invited',     enrolled:null,           orders:null, credit:0,      last:null,           pending:0, scheduled:0, subsidy:null },
+    { id:5, name:'Aisha Nkemdirim',   email:'ankemdirim@beaconyards.com',   dept:'Compliance',  drop:'Braintree', status:'Active',      enrolled:'Feb 28, 2026', orders:63,  credit:945.00,  last:'Aug 19, 2026', pending:1, scheduled:2, subsidy:null },
+    { id:6, name:'Grant Sollazzo',    email:'gsollazzo@byf-capital.com',    dept:'Finance',     drop:'Floor 6',   status:'Deactivated', enrolled:'Nov 4, 2025',  orders:210, credit:3150.00, last:'Jun 30, 2026', pending:0, scheduled:0, subsidy:20.00 },
+    { id:7, name:'Yuki Tanabe',       email:'ytanabe@beaconyards.com',      dept:'Engineering', drop:'Floor 6',   status:'Active',      enrolled:'Apr 9, 2026',  orders:38,  credit:570.00,  last:'Aug 19, 2026', pending:1, scheduled:1, subsidy:null },
+    { id:8, name:'Rosalind Achebe',   email:'rachebe@beaconyards.com',      dept:'People & HR', drop:'Floor 3',   status:'Active',      enrolled:'Jan 8, 2026',  orders:91,  credit:1365.00, last:'Aug 18, 2026', pending:0, scheduled:2, subsidy:10.00 }
   ];
 
   var KEBAB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">'
@@ -39,6 +44,8 @@
   function byId(id){ return PEOPLE.filter(function(p){ return p.id === +id; })[0]; }
   function initials(n){ return n.split(/\s+/).map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase(); }
   function usd(n){ return '$' + Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function subsidyOf(p){ return p.subsidy == null ? ACCOUNT_SUBSIDY : p.subsidy; }
+  function isOverride(p){ return p.subsidy != null; }
 
   /* ------------------------------------------------------------- table */
   function matches(p){
@@ -55,6 +62,9 @@
         + '<td>' + esc(p.dept) + '</td>'
         + '<td>' + esc(p.drop) + '</td>'
         + '<td><i class="cx-status ' + p.status.toLowerCase() + '">' + p.status + '</i></td>'
+        + '<td class="ta-r cx-subs">' + '<b class="mono">' + usd(subsidyOf(p)) + '</b>'
+          + '<em class="' + (isOverride(p) ? 'over' : '') + '">'
+          + (isOverride(p) ? 'Custom' : 'Default') + '</em></td>'
         + '<td class="mono">' + (p.enrolled || '—') + '</td>'
         + '<td class="ta-r mono">' + (p.orders == null ? '–' : p.orders) + '</td>'
         + '<td class="ta-r"><button class="cx-row-act" data-menu="' + p.id + '"'
@@ -125,6 +135,22 @@
             help:'Drives spend-by-department reporting.' })
         + field('Drop point', p.drop, { key:'drop', select:true, options:DROPS,
             help:'Where this person\'s order is delivered. Changing it moves them to that building\'s manifest from the next order.' })
+        + '<div class="divider" style="margin:4px 0 16px"></div>'
+        + '<div class="cx-d-label">Daily subsidy</div>'
+        + '<div class="stack">'
+          + subsChoice(p, false, 'Use the account default',
+              usd(ACCOUNT_SUBSIDY) + ' per service day, set when the account was onboarded.')
+          + subsChoice(p, true, 'Set an amount for this person',
+              'Overrides the account default for ' + esc(p.name.split(' ')[0]) + ' only.')
+        + '</div>'
+        + (isOverride(p)
+            ? '<div class="cx-d-f" style="margin-top:14px"><label>Amount per service day</label>'
+              + '<div class="cx-money"><span>$</span>'
+              + '<input data-fld="subsidy" type="number" step="0.50" min="0" value="'
+              + Number(p.subsidy).toFixed(2) + '"></div>'
+              + '<div class="cx-d-help">Applies from their next order. Orders already placed keep the '
+              + 'amount they were made under.</div></div>'
+            : '')
         + '</div>'
         + '<div class="cx-d-foot">'
           + '<button class="cx-btn ghost" data-close="1">Cancel</button>'
@@ -136,6 +162,8 @@
         + '<div class="cx-mf-rows">'
           + row('Department', p.dept)
           + row('Drop point', p.drop)
+          + row('Subsidy', usd(subsidyOf(p)) + ' / day · '
+              + (isOverride(p) ? 'set for this person' : 'account default'))
           + row('Status', p.status)
           + row('Enrolled', p.enrolled || 'Not yet — invitation outstanding')
         + '</div>'
@@ -160,6 +188,11 @@
     requestAnimationFrame(function(){ drawer.classList.add('in'); });
   }
   function row(k, v){ return '<div class="cx-mf-r"><span>' + k + '</span><b>' + esc(v) + '</b></div>'; }
+  function subsChoice(p, custom, title, desc){
+    var on = isOverride(p) === custom;
+    return '<div class="choice-lite' + (on ? ' on' : '') + '" data-subs="' + (custom ? 'custom' : 'default') + '">'
+      + '<span class="radio"></span><span><b>' + title + '</b><em>' + desc + '</em></span></div>';
+  }
   function stat(v, l){ return '<div class="cx-d-stat"><b>' + esc(v) + '</b><em>' + l + '</em></div>'; }
 
   function closeDrawer(){
@@ -488,6 +521,12 @@
         return;
       }
     }
+    if ((el = e.target.closest('[data-subs]'))){
+      if (openId == null) return;
+      var q = byId(openId);
+      q.subsidy = el.dataset.subs === 'custom' ? subsidyOf(q) : null;
+      return openDrawer(openId, 'edit');
+    }
     if ((el = e.target.closest('[data-edit]')))  return openDrawer(el.dataset.edit, 'edit');
     if ((el = e.target.closest('[data-close]'))) return closeDrawer();
     if ((el = e.target.closest('[data-dclose]')))return closeDialog();
@@ -515,7 +554,7 @@
       drawer.querySelectorAll('[data-fld]').forEach(function(f){
         var k = f.dataset.fld;
         if (!k || f.hasAttribute('readonly')) return;   // email never written back
-        q[k] = f.value;
+        q[k] = k === 'subsidy' ? (parseFloat(f.value) || 0) : f.value;
       });
       closeDrawer(); render(); say(q.name + '’s details updated.');
       return;
