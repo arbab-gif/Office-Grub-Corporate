@@ -63,7 +63,37 @@
     return (p.name + ' ' + p.email + ' ' + p.dept + ' ' + p.drop).toLowerCase().indexOf(term) > -1;
   }
 
+  // ?empty=1 shows the before-anyone-exists state without deleting the sample roster
+  if (/[?&]empty=1/.test(location.search)) PEOPLE.length = 0;
+
+  function renderBlank(){
+    document.querySelector('.cx-toolbar').hidden = true;
+    document.querySelector('.cx-privacy').hidden = true;
+    document.querySelector('.cx-warn').hidden = true;
+    count.hidden = true;
+    var host = document.querySelector('.cx-table');
+    host.className = 'cx-blank';
+    host.innerHTML =
+        '<div class="cx-blank-mark"><svg viewBox="0 0 24 24">'
+      + '<circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/>'
+      + '<path d="M18 8v6M21 11h-6"/></svg></div>'
+      + '<h2>No employees yet</h2>'
+      + '<p>Nobody has been added to Beacon Yards Financial. Invite people and they '
+      + 'register themselves — you never set a password for them.</p>'
+      + '<button class="cx-btn" id="empInviteBlank">'
+        + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Invite employees</button>'
+      + '<div class="cx-blank-steps">'
+        + step(1,'You invite','Send work emails on a registered domain — beaconyards.com or byf-capital.com.')
+        + step(2,'They register','Each person completes their own sign-up with the company code.')
+        + step(3,'They order','Credit applies from their first order. Nothing is billed until then.')
+      + '</div>';
+  }
+  function step(n, t, d){
+    return '<div class="cx-blank-step"><i>' + n + '</i><span><b>' + t + '</b><em>' + d + '</em></span></div>';
+  }
+
   function render(){
+    if (!PEOPLE.length) return renderBlank();
     var list = PEOPLE.filter(matches);
     rows.innerHTML = list.map(function(p){
       return '<tr' + (p.status === 'Deactivated' ? ' class="off"' : '') + '>'
@@ -430,8 +460,8 @@
     INV.draft = '';
   }
 
-  var inviteBtn = document.getElementById('empInvite');
-  if (inviteBtn) inviteBtn.addEventListener('click', function(){
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('#empInvite, #empInviteBlank')) return;
     hideDialog();
     INV = blankInvite(); renderInvite();
   });

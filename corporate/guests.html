@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1440">
-  <title>Office Grubb — Beacon Yards Financial</title>
+  <title>Office Grubb — Guests · Beacon Yards Financial</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../figma-tokens.css">
@@ -11,13 +11,75 @@
   <link rel="stylesheet" href="../dashboard.css">
   <link rel="stylesheet" href="corp-dashboard.css">
 </head>
-<body data-nav="guests" data-stub="guests">
+<body data-nav="guests">
   <div class="app">
     <aside class="rail"></aside>
-    <div class="main"><div class="db-wrap"></div></div>
+    <div class="main">
+      <div class="db-wrap">
+
+        <div class="db-head cx-head">
+          <div>
+            <div class="cx-eyebrow">People</div>
+            <h1>Guests</h1>
+            <p class="cx-subtext">Visitors who order on your account.</p>
+            <div class="cx-meta">
+              <span><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg>Beacon Yards Financial</span>
+              <span class="mono">OG-BLFB-6KKM-BBUL</span>
+              <span><svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>3 drop points</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="db-grid" id="gxKpis"></div>
+
+        <div class="cx-toolbar">
+          <label class="cx-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input id="gxSearch" type="search" placeholder="Search by guest, host, or drop point">
+          </label>
+          <div class="cx-seg" id="gxTabs" role="tablist" aria-label="Filter by status">
+            <button role="tab" aria-selected="true" class="on" data-f="all">All</button>
+            <button role="tab" aria-selected="false" data-f="active">Active</button>
+            <button role="tab" aria-selected="false" data-f="expired">Expired</button>
+          </div>
+          <button class="cx-btn" id="gxInvite">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Issue guest pass
+          </button>
+        </div>
+
+        <div class="cx-privacy">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+          <span>A guest pass is issued by an employee and is valid for one service day. Guest credit is billed separately, under GL <b>6410-GST</b>, and never sits inside a department figure.</span>
+        </div>
+
+        <div class="cx-count" id="gxCount" role="status" aria-live="polite"></div>
+
+        <div class="cx-table" id="gxHost">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Guest</th>
+                <th scope="col">Hosted by</th>
+                <th scope="col">Drop point</th>
+                <th scope="col">Visit</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="ta-r">Credit used</th>
+                <th scope="col"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="gxRows"></tbody>
+          </table>
+          <div class="cx-empty" id="gxEmpty" hidden>No guests match that search.</div>
+        </div>
+
+      </div>
+    </div>
   </div>
+
+  <div id="gxToast" class="cx-toast" hidden role="status" aria-live="polite"></div>
+
   <script src="corp-actions.js"></script>
   <script src="corp-nav.js"></script>
-  <script src="stub.js"></script>
+  <script src="guests.js"></script>
 </body>
 </html>
