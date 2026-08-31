@@ -22,7 +22,8 @@
     employees: { method:'later', file:'', departments:['Engineering','Marketing','Sales','HR'] },
     cuisines: ['Mediterranean','Asian','Healthy Options'],  // account-level: every location shares one rotation
     live: { join:'', agreed:false, events:'2', attendance:'' },
-    payment: { model:'employee', subsidyType:'fixed', subsidy:'15', pct:'75' },
+    payment: { model:'employee', subsidyType:'fixed', subsidy:'15', pct:'75',
+               guests:true, guestSubsidy:'15' },
     plan: { tier:0, rate:0 },
     billing: { email:'', contact:'', method:'', invoice:'consolidated', po:'', exempt:false }
   };
@@ -88,6 +89,7 @@
   }
   function icon(p,cls){ return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
   function money(n){ return '$' + Number(n||0).toLocaleString('en-US'); }
+  function usd(n){ return '$' + Number(n||0).toFixed(2); }
 
   // Tier is derived from headcount — never picked freely. Ranges per spec 2A.
   var TIERS = [
@@ -421,7 +423,8 @@
           + '<div class="help">Of every meal, before tax and any delivery charge. The employee pays the rest at checkout.</div></div>'
         : '<div class="field"><label>Company pays up to</label>'
           + '<div class="phone"><span class="cc">$</span>'+inp('payment.subsidy','15.00')+'</div>'
-          + '<div class="help">Per employee, per meal. Anything above this is paid by the employee at checkout.</div></div>';
+          + '<div class="help">Set the budget per employee, per order. Any amount above this limit is paid '
+          + 'by the employee at checkout. Adjustable at any time in Settings.</div></div>';
 
       body += '<div class="calc">'
           + '<div class="r"><span class="k">Sample meal</span><span class="v">$18.00</span></div>'
@@ -434,6 +437,33 @@
         body += note('warn','At 100% the company covers every meal in full, whatever it costs. There is no per-meal ceiling — consider a fixed amount if you need a predictable spend cap.');
       } else if (!isPct && (parseFloat(S.payment.subsidy)||0) > meal){
         body += note('warn','Your subsidy is higher than a typical $18 meal, so most orders will be fully covered. Unused subsidy is not carried over or refunded.');
+      }
+    }
+
+    // Guests are budgeted separately because they are billed separately — guest credit
+    // sits on its own invoice line and never inside a department figure.
+    body += '<div class="divider"></div>'
+      + '<div class="sec-label">Guests</div>'
+      + '<div class="stack">'
+      + checkRow('payment.guests', S.payment.guests,
+          'Let employees host guests',
+          'An employee issues a pass for a visitor. The pass covers one service day and then expires.')
+      + '</div>';
+
+    if (S.payment.guests){
+      var g = parseFloat(S.payment.guestSubsidy) || 0;
+      body += '<div class="field"><label>Company pays up to, per guest</label>'
+        + '<div class="phone"><span class="cc">$</span>'+inp('payment.guestSubsidy','15.00')+'</div>'
+        + '<div class="help">Per guest, per visit. Anything above this is paid by the guest at checkout. '
+        + 'Adjustable at any time in Settings.</div></div>'
+        + '<div class="calc">'
+          + '<div class="r"><span class="k">Sample guest meal</span><span class="v">$18.00</span></div>'
+          + '<div class="r"><span class="k">Company covers</span><span class="v">−'+usd(Math.min(18, g))+'</span></div>'
+          + '<div class="r em"><span class="k">Guest pays</span><span class="v">'+usd(Math.max(0, 18 - g))+'</span></div>'
+        + '</div>'
+        + note('info','Guest credit is billed on its own line, under GL <b>6410-GST</b>, and never counts inside a department total.');
+      if (g > (parseFloat(S.payment.subsidy) || 0) && S.payment.model === 'subsidy' && S.payment.subsidyType === 'fixed'){
+        body += note('warn','Your guest budget is higher than the employee budget. Visitors would be better covered than your own staff — check that is intended.');
       }
     }
 
@@ -542,6 +572,9 @@
           ]))
       + rev('Payment & Plan', 6, [
           ['Checkout mode', paymentSummary() + ' · account-wide'],
+          ['Guests', S.payment.guests
+              ? 'Allowed — company pays up to ' + usd(parseFloat(S.payment.guestSubsidy) || 0) + ' per guest, per visit'
+              : 'Not allowed on this account'],
           ['Plan', t ? (t.label + ' · ' + t.range) : 'Not selected'],
           ['Subscription', rate ? money(rate)+'/month, billed the 1st' : '—'],
           ['Delivery', t ? (t.drivers+' driver'+(t.drivers>1?'s':'')+' × $95/day, invoiced the 15th and the 30th') : '—'],
@@ -691,7 +724,7 @@
     if (t.dataset.bind){
       set(t.dataset.bind, t.value);
       // live-updating steps re-render; plain text fields don't, to keep focus
-      if (/^(program\.service|payment\.subsidy|payment\.pct|plan\.rate|company\.headcount|live\.events)$/.test(t.dataset.bind)) softRefresh(t);
+      if (/^(program\.service|payment\.subsidy|payment\.pct|payment\.guestSubsidy|plan\.rate|company\.headcount|live\.events)$/.test(t.dataset.bind)) softRefresh(t);
     } else if (t.dataset.loc !== undefined && t.dataset.lk){
       S.locations[+t.dataset.loc][t.dataset.lk] = t.value;
       if (t.dataset.lk === 'service' || t.dataset.lk === 'headcount') softRefresh(t);
