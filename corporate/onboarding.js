@@ -452,17 +452,24 @@
 
     if (S.payment.guests){
       var g = parseFloat(S.payment.guestSubsidy) || 0;
-      body += '<div class="field"><label>Company pays up to, per guest</label>'
-        + '<div class="phone"><span class="cc">$</span>'+inp('payment.guestSubsidy','15.00')+'</div>'
-        + '<div class="help">Per guest, per visit. Anything above this is paid by the guest at checkout. '
-        + 'Adjustable at any time in Settings.</div></div>'
-        + '<div class="calc">'
-          + '<div class="r"><span class="k">Sample guest meal</span><span class="v">$18.00</span></div>'
-          + '<div class="r"><span class="k">Company covers</span><span class="v">−'+usd(Math.min(18, g))+'</span></div>'
-          + '<div class="r em"><span class="k">Guest pays</span><span class="v">'+usd(Math.max(0, 18 - g))+'</span></div>'
+      // Kept compact on purpose — guests are a minor part of this decision, so this is
+      // one inline amount rather than a second worked example competing with the main choice.
+      body += '<div class="guestline">'
+        + '<label for="guestAmt">Standard guest budget</label>'
+        + '<div class="phone"><span class="cc">$</span>'
+        + '<input class="inp" id="guestAmt" data-bind="payment.guestSubsidy" value="'+esc(S.payment.guestSubsidy)+'"></div>'
+        + '<span class="guestline-out">Guest pays ' + usd(Math.max(0, 18 - g)) + ' on an $18 meal</span>'
         + '</div>'
-        + note('info','Guest credit is billed on its own line, under GL <b>6410-GST</b>, and never counts inside a department total.');
-      if (g > (parseFloat(S.payment.subsidy) || 0) && S.payment.model === 'subsidy' && S.payment.subsidyType === 'fixed'){
+        + '<div class="help">Per guest, per visit — the company-wide standard. You can raise it for an '
+        + 'individual visitor later, so a <b>VIP guest</b> can be given more without changing everyone else. '
+        + 'Billed on its own line under GL <b>6410-GST</b>, never inside a department total.</div>';
+
+      // Option A means employees buy their own lunch — so say why a guest still costs the company
+      if (S.payment.model === 'employee'){
+        body += note('info','Your employees pay for their own meals, but a <b>hosted guest is the company\'s cost</b> — the person hosting should not be out of pocket for a visitor.');
+      }
+      if (S.payment.model === 'subsidy' && S.payment.subsidyType === 'fixed'
+          && g > (parseFloat(S.payment.subsidy) || 0)){
         body += note('warn','Your guest budget is higher than the employee budget. Visitors would be better covered than your own staff — check that is intended.');
       }
     }
@@ -573,7 +580,8 @@
       + rev('Payment & Plan', 6, [
           ['Checkout mode', paymentSummary() + ' · account-wide'],
           ['Guests', S.payment.guests
-              ? 'Allowed — company pays up to ' + usd(parseFloat(S.payment.guestSubsidy) || 0) + ' per guest, per visit'
+              ? 'Allowed — ' + usd(parseFloat(S.payment.guestSubsidy) || 0)
+                + ' standard per guest, raisable per visitor'
               : 'Not allowed on this account'],
           ['Plan', t ? (t.label + ' · ' + t.range) : 'Not selected'],
           ['Subscription', rate ? money(rate)+'/month, billed the 1st' : '—'],

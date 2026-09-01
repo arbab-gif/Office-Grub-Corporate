@@ -3,20 +3,26 @@
 // is billed separately under GL 6410-GST and never appears inside a department
 // figure — which is why guests are their own screen rather than a filter on the roster.
 (function () {
+  // The corporation sets a company-wide standard and may raise it for one visitor —
+  // a VIP guest gets more without moving everyone else. null means "follow the standard".
+  var ACCOUNT_GUEST_SUBSIDY = 15.00;
+
   var GUESTS = [
     { id:1, name:'Rebecca Osei',   org:'Northgate Legal',   host:'Priya Raghunathan', drop:'Floor 3',
-      visit:'Today — Aug 31', status:'Active',  credit:15.00 },
+      visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
     { id:2, name:'Daniel Fitzroy', org:'Meridian Audit',    host:'Grant Sollazzo',    drop:'Floor 6',
-      visit:'Today — Aug 31', status:'Active',  credit:15.00 },
+      visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
     { id:3, name:'Ana Beltrán',    org:'Cortez Design',     host:'Dana Whitfield',    drop:'Floor 3',
-      visit:'Sep 2',          status:'Active',  credit:0 },
+      visit:'Sep 2',          status:'Active',  credit:0,     subsidy:50.00 },
     { id:4, name:'Ken Nakamura',   org:'Harborline Capital',host:'Marcus Oyelaran',   drop:'Floor 6',
-      visit:'Sep 3',          status:'Active',  credit:0 },
+      visit:'Sep 3',          status:'Active',  credit:0,     subsidy:null },
     { id:5, name:'Marta Silva',    org:'Northgate Legal',   host:'Rosalind Achebe',   drop:'Floor 3',
-      visit:'Aug 26',         status:'Expired', credit:15.00 },
+      visit:'Aug 26',         status:'Expired', credit:15.00, subsidy:null },
     { id:6, name:'Tobias Lund',    org:'Meridian Audit',    host:'Aisha Nkemdirim',   drop:'Braintree',
-      visit:'Aug 21',         status:'Expired', credit:15.00 }
+      visit:'Aug 21',         status:'Expired', credit:15.00, subsidy:null }
   ];
+  function subsidyOf(g){ return g.subsidy == null ? ACCOUNT_GUEST_SUBSIDY : g.subsidy; }
+  function isVip(g){ return g.subsidy != null; }
 
   // ?empty=1 shows the before-anyone-exists state without deleting the sample data
   if (/[?&]empty=1/.test(location.search)) GUESTS.length = 0;
@@ -89,9 +95,11 @@
         + '<td>' + esc(g.drop) + '</td>'
         + '<td class="mono">' + esc(g.visit) + '</td>'
         + '<td><i class="cx-status ' + g.status.toLowerCase() + '">' + g.status + '</i></td>'
+        + '<td class="ta-r cx-subs"><b class="mono">' + usd(subsidyOf(g)) + '</b>'
+          + '<em class="' + (isVip(g) ? 'over' : '') + '">' + (isVip(g) ? 'VIP' : 'Standard') + '</em></td>'
         + '<td class="ta-r mono">' + (g.credit ? usd(g.credit) : '—') + '</td>'
-        + '<td class="ta-r"><button class="cx-row-act" aria-label="Actions for ' + esc(g.name) + '">'
-          + KEBAB + '</button></td>'
+        + '<td class="ta-r"><button class="cx-row-act" data-budget="' + g.id + '"'
+          + ' aria-label="Set budget for ' + esc(g.name) + '">' + KEBAB + '</button></td>'
         + '</tr>';
     }).join('');
     empty.hidden = list.length > 0;
@@ -110,10 +118,76 @@
   document.getElementById('gxSearch').addEventListener('input', function(){
     term = this.value.trim().toLowerCase(); render();
   });
+  /* ------------------------------------------------- per-guest budget */
+  var scrim  = document.getElementById('gxScrim');
+  var dialog = document.getElementById('gxDialog');
+  var EDIT = null;
+
+  function openBudget(id){
+    EDIT = { id:id, vip:isVip(byId(id)), amount:String(subsidyOf(byId(id)).toFixed(2)) };
+    renderBudget();
+  }
+  function byId(id){ return GUESTS.filter(function(g){ return g.id === +id; })[0]; }
+
+  function renderBudget(){
+    var g = byId(EDIT.id);
+    dialog.innerHTML = '<div class="cx-dialog">'
+      + '<button class="cx-d-x cx-dialog-x" data-gclose="1" aria-label="Cancel">✕</button>'
+      + '<h3>Guest budget</h3>'
+      + '<p>What the company covers for <b>' + esc(g.name) + '</b> of ' + esc(g.org) + ', per visit.</p>'
+      + '<div class="stack" style="margin:18px 0 4px">'
+        + gchoice(false, 'Company standard',
+            usd(ACCOUNT_GUEST_SUBSIDY) + ' per guest — the amount set for the whole account.')
+        + gchoice(true, 'Set an amount for this guest',
+            'Raise it for a VIP visitor without changing the standard for everyone else.')
+      + '</div>'
+      + (EDIT.vip
+          ? '<div class="cx-d-f" style="margin-top:14px"><label>Amount per visit</label>'
+            + '<div class="cx-money"><span>$</span><input id="gxAmt" type="number" step="5" min="0" value="'
+            + esc(EDIT.amount) + '"></div>'
+            + '<div class="cx-d-help">Applies to this visitor only. Still billed under GL 6410-GST, '
+            + 'outside any department total.</div></div>'
+          : '')
+      + '<div class="cx-dialog-foot">'
+        + '<button class="cx-btn ghost" data-gclose="1">Cancel</button>'
+        + '<button class="cx-btn" data-gsave="' + EDIT.id + '">Save budget</button>'
+      + '</div></div>';
+    dialog.hidden = false; scrim.hidden = false;
+  }
+  function gchoice(vip, title, desc){
+    return '<div class="choice-lite' + (EDIT.vip === vip ? ' on' : '') + '" data-gvip="' + vip + '">'
+      + '<span class="radio"></span><span><b>' + title + '</b><em>' + desc + '</em></span></div>';
+  }
+  function closeBudget(){ dialog.hidden = true; scrim.hidden = true; EDIT = null; }
+
   document.addEventListener('click', function(e){
-    if (!e.target.closest('#gxInvite, #gxInviteBlank')) return;
-    CorpActions.toast('Guest passes are issued by an employee from their own account.');
+    var el;
+    if (e.target.closest('#gxInvite, #gxInviteBlank')){
+      CorpActions.toast('Guest passes are issued by an employee from their own account.');
+      return;
+    }
+    if ((el = e.target.closest('[data-budget]'))) return openBudget(el.dataset.budget);
+    if ((el = e.target.closest('[data-gvip]'))){
+      if (!EDIT) return;
+      EDIT.vip = el.dataset.gvip === 'true';
+      var f = document.getElementById('gxAmt'); if (f) EDIT.amount = f.value;
+      return renderBudget();
+    }
+    if (e.target.closest('[data-gclose]')) return closeBudget();
+    if ((el = e.target.closest('[data-gsave]'))){
+      if (!EDIT) return;
+      var g = byId(el.dataset.gsave);
+      var f2 = document.getElementById('gxAmt');
+      g.subsidy = EDIT.vip ? (parseFloat(f2 && f2.value) || 0) : null;
+      closeBudget(); render();
+      CorpActions.toast(g.name + ' — ' + (g.subsidy == null
+        ? 'back on the company standard, ' + usd(ACCOUNT_GUEST_SUBSIDY) + '.'
+        : 'budget set to ' + usd(g.subsidy) + ' for this visit.'));
+      return;
+    }
   });
+  scrim.addEventListener('click', closeBudget);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeBudget(); });
 
   render();
 })();

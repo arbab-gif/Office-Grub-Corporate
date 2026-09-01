@@ -116,6 +116,15 @@ select.inp{
 .choice.on .eg{background:#fff}
 .stack{display:flex;flex-direction:column;gap:10px}
 
+/* guests are a secondary decision on the payment step — one inline row, not a
+   second block competing with the main choice */
+.guestline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.guestline label{font-size:13.5px;font-weight:600;flex:none}
+.guestline .phone{width:120px;flex:none;grid-template-columns:34px 1fr}
+.guestline .phone .cc{height:42px}
+.guestline .inp{height:42px;font-size:14px}
+.guestline-out{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
 /* checkbox */
 .check{display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:2px 0}
 .check .box{width:20px;height:20px;border-radius:6px;border:1.5px solid #c8c8c8;flex:none;display:grid;place-items:center;background:#fff;margin-top:1px}
