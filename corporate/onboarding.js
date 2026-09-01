@@ -22,8 +22,7 @@
     employees: { method:'later', file:'', departments:['Engineering','Marketing','Sales','HR'] },
     cuisines: ['Mediterranean','Asian','Healthy Options'],  // account-level: every location shares one rotation
     live: { join:'', agreed:false, events:'2', attendance:'' },
-    payment: { model:'employee', subsidyType:'fixed', subsidy:'15', pct:'75',
-               guests:true, guestSubsidy:'15' },
+    payment: { model:'subsidy', subsidy:'12.00', guests:true, guestSubsidy:'8.00' },
     plan: { tier:0, rate:0 },
     billing: { email:'', contact:'', method:'', invoice:'consolidated', po:'', exempt:false }
   };
@@ -56,7 +55,7 @@
     { k:'employees', cap:'Employees' },
     { k:'cuisine',   cap:'Preferences' },
     { k:'live',      cap:'Live Kitchen' },
-    { k:'payment',   cap:'Meal Payment' },
+    { k:'payment',   cap:'Meal Subsidy' },
     { k:'plan',      cap:'Plan & Billing' },
     { k:'review',    cap:'Review' }
   ];
@@ -379,103 +378,54 @@
     return card('👨‍🍳','Add the Live Kitchen Experience','A chef-on-site lunch service, included with your plan at no extra charge.', body);
   }
 
-  // Checkout mode is account-wide (spec 8.3) and changeable later in Settings.
-  // Option B supports either a percentage of the meal or a fixed dollar cap.
+  // Meal subsidy is account-wide (spec 8.3) and changeable later in Settings.
   function subsidyOn(meal){
     if (S.payment.model !== 'subsidy') return 0;
-    return S.payment.subsidyType === 'percent'
-      ? meal * (Math.min(100, Math.max(0, parseFloat(S.payment.pct) || 0)) / 100)
-      : Math.min(meal, parseFloat(S.payment.subsidy) || 0);
+    return Math.min(meal, parseFloat(S.payment.subsidy) || 0);
   }
   function paymentSummary(){
-    if (S.payment.model !== 'subsidy') return 'Employee pays in full';
-    return S.payment.subsidyType === 'percent'
-      ? 'Company subsidised — ' + (parseFloat(S.payment.pct)||0) + '% of each meal'
-      : 'Company subsidised — $' + (parseFloat(S.payment.subsidy)||0).toFixed(2) + ' per meal';
+    return S.payment.model !== 'subsidy'
+      ? 'No meal subsidy — users pay in full'
+      : '$' + (parseFloat(S.payment.subsidy)||0).toFixed(2) + ' per meal';
   }
 
+  // "No Meal Subsidy" covers guests too, so the guest block lives inside the subsidised
+  // branch — there is no state where staff pay in full but visitors are covered.
   function stepPayment(){
-    var meal = 18, isPct = S.payment.subsidyType === 'percent';
-    var sub = subsidyOn(meal), emp = Math.max(0, meal - sub);
     var body = '<div class="stack">'
-      + choice('payment.model','employee','Option A — Employee pays in full',
-          'Each employee pays the full cost of their meal at checkout. Your company covers the delivery fees and the subscription only.',
-          '<b>Example</b><br>Meal $15.00 → employee pays <b>$15.00</b> · company pays $0.00 toward the meal')
-      + choice('payment.model','subsidy','Option B — Company subsidises',
-          'Your company contributes toward every meal — a percentage of the bill or a fixed amount. The employee covers the remainder.',
-          '<b>Example</b><br>Meal $18.00 − subsidy $15.00 → employee pays <b>$3.00</b>')
+      + choice('payment.model','none','No Meal Subsidy',
+          'Employees and guests pay the full meal cost. Company covers subscription and delivery fees.','')
+      + choice('payment.model','subsidy','Company Provides Meal Subsidy',
+          'Company contributes toward each meal. Users pay any remaining balance.','')
       + '</div>';
 
     if (S.payment.model === 'subsidy') {
       body += '<div class="divider"></div>'
-        + '<div class="sec-label">How the subsidy is calculated</div>'
+        + '<div class="field"><label>Employee Subsidy</label>'
+          + '<div class="phone"><span class="cc">$</span>'+inp('payment.subsidy','12.00')+'</div>'
+          + '<div class="help">Employees receive this amount toward every meal.</div></div>'
+
+        + '<div class="divider"></div>'
         + '<div class="stack">'
-        + choice('payment.subsidyType','percent','Percentage of each meal',
-            'The company pays a share of whatever the meal costs. Scales automatically with price.','')
-        + choice('payment.subsidyType','fixed','Fixed amount per meal',
-            'The company pays up to a set amount. Anything above it is the employee\'s.','')
+        + checkRow('payment.guests', S.payment.guests, 'Guest Meals',
+            'Guests are users on your account, like employees — they order from the same menu.')
         + '</div>';
 
-      body += isPct
-        ? '<div class="field"><label>Company pays</label>'
-          + '<div class="phone" style="grid-template-columns:1fr 52px">'+inp('payment.pct','75','number')
-          + '<span class="cc" style="border-left:0;border-right:1px solid var(--line);border-radius:0 var(--radius-field) var(--radius-field) 0">%</span></div>'
-          + '<div class="help">Of every meal, before tax and any delivery charge. The employee pays the rest at checkout.</div></div>'
-        : '<div class="field"><label>Company pays up to</label>'
-          + '<div class="phone"><span class="cc">$</span>'+inp('payment.subsidy','15.00')+'</div>'
-          + '<div class="help">Set the budget per employee, per order. Any amount above this limit is paid '
-          + 'by the employee at checkout. Adjustable at any time in Settings.</div></div>';
+      if (S.payment.guests){
+        body += '<div class="field"><label>Guest Subsidy</label>'
+          + '<div class="phone"><span class="cc">$</span>'+inp('payment.guestSubsidy','8.00')+'</div>'
+          + '<div class="help">Guests receive this amount toward every meal. Billed on its own line under '
+          + 'GL <b>6410-GST</b>, never inside a department total. You can raise it for an individual '
+          + 'visitor later.</div></div>';
 
-      body += '<div class="calc">'
-          + '<div class="r"><span class="k">Sample meal</span><span class="v">$18.00</span></div>'
-          + '<div class="r"><span class="k">Company subsidy'+(isPct ? ' — ' + (parseFloat(S.payment.pct)||0) + '%' : '')+'</span>'
-            + '<span class="v">−$'+sub.toFixed(2)+'</span></div>'
-          + '<div class="r em"><span class="k">Employee pays</span><span class="v">$'+emp.toFixed(2)+'</span></div>'
-        + '</div>';
-
-      if (isPct && (parseFloat(S.payment.pct)||0) >= 100){
-        body += note('warn','At 100% the company covers every meal in full, whatever it costs. There is no per-meal ceiling — consider a fixed amount if you need a predictable spend cap.');
-      } else if (!isPct && (parseFloat(S.payment.subsidy)||0) > meal){
-        body += note('warn','Your subsidy is higher than a typical $18 meal, so most orders will be fully covered. Unused subsidy is not carried over or refunded.');
+        if ((parseFloat(S.payment.guestSubsidy)||0) > (parseFloat(S.payment.subsidy)||0)){
+          body += note('warn','Your guest subsidy is higher than the employee one. Visitors would be better covered than your own staff — check that is intended.');
+        }
       }
     }
 
-    // Guests are budgeted separately because they are billed separately — guest credit
-    // sits on its own invoice line and never inside a department figure.
-    body += '<div class="divider"></div>'
-      + '<div class="sec-label">Guests</div>'
-      + '<div class="stack">'
-      + checkRow('payment.guests', S.payment.guests,
-          'Do you have guests coming into the office you want to subsidise?',
-          'A guest is a user on your account, like an employee — they order from the same menu. Turn this on to give them a budget.')
-      + '</div>';
-
-    if (S.payment.guests){
-      var g = parseFloat(S.payment.guestSubsidy) || 0;
-      // Kept compact on purpose — guests are a minor part of this decision, so this is
-      // one inline amount rather than a second worked example competing with the main choice.
-      body += '<div class="guestline">'
-        + '<label for="guestAmt">Standard guest budget</label>'
-        + '<div class="phone"><span class="cc">$</span>'
-        + '<input class="inp" id="guestAmt" data-bind="payment.guestSubsidy" value="'+esc(S.payment.guestSubsidy)+'"></div>'
-        + '<span class="guestline-out">Guest pays ' + usd(Math.max(0, 18 - g)) + ' on an $18 meal</span>'
-        + '</div>'
-        + '<div class="help">Per guest, per visit — the company-wide standard. You can raise it for an '
-        + 'individual visitor later, so a <b>VIP guest</b> can be given more without changing everyone else. '
-        + 'Billed on its own line under GL <b>6410-GST</b>, never inside a department total.</div>';
-
-      // Option A means employees buy their own lunch — so say why a guest still costs the company
-      if (S.payment.model === 'employee'){
-        body += note('info','Your employees pay for their own meals, but a <b>guest\'s meal is the company\'s cost</b> — a visitor is not going to be asked to pay at your office.');
-      }
-      if (S.payment.model === 'subsidy' && S.payment.subsidyType === 'fixed'
-          && g > (parseFloat(S.payment.subsidy) || 0)){
-        body += note('warn','Your guest budget is higher than the employee budget. Visitors would be better covered than your own staff — check that is intended.');
-      }
-    }
-
-    body += note('info','This applies to the <b>whole account</b>, every location included. You can change it at any time from Settings — it takes effect on new orders, never on orders already placed.');
-    return card('💳','Choose How Meals Are Paid','Set the checkout model your employees will see.', body);
+    body += note('info','<b>You can update subsidy settings anytime.</b> Manage employee and guest subsidy rules later from Settings.');
+    return card('💳','Meal Subsidy','Choose how your company covers meal costs.', body);
   }
 
   function stepPlan(){
@@ -578,7 +528,7 @@
                 : S.live.agreed ? 'Accepted v1.2 — e-signature sent after approval' : 'Not accepted']
           ]))
       + rev('Payment & Plan', 6, [
-          ['Checkout mode', paymentSummary() + ' · account-wide'],
+          ['Meal subsidy', paymentSummary() + ' · account-wide'],
           ['Guests', S.payment.guests
               ? 'Allowed — ' + usd(parseFloat(S.payment.guestSubsidy) || 0)
                 + ' standard per guest, raisable per visitor'
