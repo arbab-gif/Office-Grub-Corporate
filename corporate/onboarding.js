@@ -446,8 +446,8 @@
       + '<div class="sec-label">Guests</div>'
       + '<div class="stack">'
       + checkRow('payment.guests', S.payment.guests,
-          'Let employees host guests',
-          'An employee issues a pass for a visitor. The pass covers one service day and then expires.')
+          'Do you have guests coming into the office you want to subsidise?',
+          'A guest is a user on your account, like an employee — they order from the same menu. Turn this on to give them a budget.')
       + '</div>';
 
     if (S.payment.guests){
@@ -466,7 +466,7 @@
 
       // Option A means employees buy their own lunch — so say why a guest still costs the company
       if (S.payment.model === 'employee'){
-        body += note('info','Your employees pay for their own meals, but a <b>hosted guest is the company\'s cost</b> — the person hosting should not be out of pocket for a visitor.');
+        body += note('info','Your employees pay for their own meals, but a <b>guest\'s meal is the company\'s cost</b> — a visitor is not going to be asked to pay at your office.');
       }
       if (S.payment.model === 'subsidy' && S.payment.subsidyType === 'fixed'
           && g > (parseFloat(S.payment.subsidy) || 0)){

@@ -7,19 +7,21 @@
   // a VIP guest gets more without moving everyone else. null means "follow the standard".
   var ACCOUNT_GUEST_SUBSIDY = 15.00;
 
+  // A guest is a user on the account, like an employee — they are added, they order
+  // from the same menu, and they carry their own budget. There is no host.
   var GUESTS = [
-    { id:1, name:'Rebecca Osei',   org:'Northgate Legal',   host:'Priya Raghunathan', drop:'Floor 3',
-      visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
-    { id:2, name:'Daniel Fitzroy', org:'Meridian Audit',    host:'Grant Sollazzo',    drop:'Floor 6',
-      visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
-    { id:3, name:'Ana Beltrán',    org:'Cortez Design',     host:'Dana Whitfield',    drop:'Floor 3',
-      visit:'Sep 2',          status:'Active',  credit:0,     subsidy:50.00 },
-    { id:4, name:'Ken Nakamura',   org:'Harborline Capital',host:'Marcus Oyelaran',   drop:'Floor 6',
-      visit:'Sep 3',          status:'Active',  credit:0,     subsidy:null },
-    { id:5, name:'Marta Silva',    org:'Northgate Legal',   host:'Rosalind Achebe',   drop:'Floor 3',
-      visit:'Aug 26',         status:'Expired', credit:15.00, subsidy:null },
-    { id:6, name:'Tobias Lund',    org:'Meridian Audit',    host:'Aisha Nkemdirim',   drop:'Braintree',
-      visit:'Aug 21',         status:'Expired', credit:15.00, subsidy:null }
+    { id:1, name:'Rebecca Osei',   email:'r.osei@northgatelegal.com',      org:'Northgate Legal',
+      drop:'Floor 3',   visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
+    { id:2, name:'Daniel Fitzroy', email:'d.fitzroy@meridianaudit.com',    org:'Meridian Audit',
+      drop:'Floor 6',   visit:'Today — Aug 31', status:'Active',  credit:15.00, subsidy:null },
+    { id:3, name:'Ana Beltrán',    email:'ana@cortezdesign.com',           org:'Cortez Design',
+      drop:'Floor 3',   visit:'Sep 2',          status:'Active',  credit:0,     subsidy:50.00 },
+    { id:4, name:'Ken Nakamura',   email:'k.nakamura@harborline.com',      org:'Harborline Capital',
+      drop:'Floor 6',   visit:'Sep 3',          status:'Active',  credit:0,     subsidy:null },
+    { id:5, name:'Marta Silva',    email:'m.silva@northgatelegal.com',     org:'Northgate Legal',
+      drop:'Floor 3',   visit:'Aug 26',         status:'Expired', credit:15.00, subsidy:null },
+    { id:6, name:'Tobias Lund',    email:'t.lund@meridianaudit.com',       org:'Meridian Audit',
+      drop:'Braintree', visit:'Aug 21',         status:'Expired', credit:15.00, subsidy:null }
   ];
   function subsidyOf(g){ return g.subsidy == null ? ACCOUNT_GUEST_SUBSIDY : g.subsidy; }
   function isVip(g){ return g.subsidy != null; }
@@ -44,7 +46,7 @@
   function matches(g){
     if (filter !== 'all' && g.status.toLowerCase() !== filter) return false;
     if (!term) return true;
-    return (g.name + ' ' + g.org + ' ' + g.host + ' ' + g.drop).toLowerCase().indexOf(term) > -1;
+    return (g.name + ' ' + g.org + ' ' + g.email + ' ' + g.drop).toLowerCase().indexOf(term) > -1;
   }
 
   function renderKpis(){
@@ -53,8 +55,8 @@
     kpis.innerHTML =
         kpi('Active guests', String(active), 'Passes valid for an upcoming service day')
       + kpi('Guest credit this period', usd(spent), 'Billed separately, under GL 6410-GST')
-      + kpi('Hosts', String(new Set(GUESTS.map(function(g){ return g.host; })).size),
-            'Employees who have issued a pass');
+      + kpi('On a raised budget', String(GUESTS.filter(isVip).length),
+            'Guests given more than the ' + usd(ACCOUNT_GUEST_SUBSIDY) + ' standard');
   }
   function kpi(k, v, m){
     return '<div class="cx-kpi col-4"><div class="cx-k">' + k + '</div>'
@@ -70,14 +72,14 @@
         '<div class="cx-blank-mark"><svg viewBox="0 0 24 24">'
       + '<circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></div>'
       + '<h2>No guests yet</h2>'
-      + '<p>Nobody has hosted a visitor on this account. An employee issues a pass, '
-      + 'and the guest orders on the day of their visit.</p>'
+      + '<p>No visitors have been added to this account. A guest is a user like an '
+      + 'employee — they order from the same menu, on their own budget.</p>'
       + '<button class="cx-btn" id="gxInviteBlank">'
-        + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Issue guest pass</button>'
+        + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add a guest</button>'
       + '<div class="cx-blank-steps">'
-        + step(1,'An employee hosts','The pass is issued against the host, so every visit has someone accountable.')
-        + step(2,'Valid for one day','A pass covers the service day of the visit and then expires on its own.')
-        + step(3,'Billed separately','Guest credit sits on its own invoice line and never inside a department total.')
+        + step(1,'You add them','Name, work email and the building they are visiting.')
+        + step(2,'They order','From the same menu as your team, on the day of their visit.')
+        + step(3,'Billed separately','Guest credit sits on its own invoice line, never inside a department total.')
       + '</div>';
   }
   function step(n, t, d){
@@ -90,8 +92,8 @@
     var list = GUESTS.filter(matches);
     rows.innerHTML = list.map(function(g){
       return '<tr' + (g.status === 'Expired' ? ' class="off"' : '') + '>'
-        + '<th scope="row" class="cx-emp"><b>' + esc(g.name) + '</b><em>' + esc(g.org) + '</em></th>'
-        + '<td>' + esc(g.host) + '</td>'
+        + '<th scope="row" class="cx-emp"><b>' + esc(g.name) + '</b><em>' + esc(g.email) + '</em></th>'
+        + '<td>' + esc(g.org) + '</td>'
         + '<td>' + esc(g.drop) + '</td>'
         + '<td class="mono">' + esc(g.visit) + '</td>'
         + '<td><i class="cx-status ' + g.status.toLowerCase() + '">' + g.status + '</i></td>'
@@ -163,7 +165,7 @@
   document.addEventListener('click', function(e){
     var el;
     if (e.target.closest('#gxInvite, #gxInviteBlank')){
-      CorpActions.toast('Guest passes are issued by an employee from their own account.');
+      CorpActions.toast('Adding a guest is not wired up in this prototype.');
       return;
     }
     if ((el = e.target.closest('[data-budget]'))) return openBudget(el.dataset.budget);

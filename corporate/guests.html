@@ -35,7 +35,7 @@
         <div class="cx-toolbar">
           <label class="cx-search">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-            <input id="gxSearch" type="search" placeholder="Search by guest, host, or drop point">
+            <input id="gxSearch" type="search" placeholder="Search by guest, organisation, or drop point">
           </label>
           <div class="cx-seg" id="gxTabs" role="tablist" aria-label="Filter by status">
             <button role="tab" aria-selected="true" class="on" data-f="all">All</button>
@@ -43,13 +43,13 @@
             <button role="tab" aria-selected="false" data-f="expired">Expired</button>
           </div>
           <button class="cx-btn" id="gxInvite">
-            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Issue guest pass
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add a guest
           </button>
         </div>
 
         <div class="cx-privacy">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
-          <span>A guest pass is issued by an employee and is valid for one service day. Guest credit is billed separately, under GL <b>6410-GST</b>, and never sits inside a department figure.</span>
+          <span>A guest is a user on your account, like an employee — they order from the same menu on the day of their visit. Guest credit is billed separately, under GL <b>6410-GST</b>, and never sits inside a department figure.</span>
         </div>
 
         <div class="cx-count" id="gxCount" role="status" aria-live="polite"></div>
@@ -59,7 +59,7 @@
             <thead>
               <tr>
                 <th scope="col">Guest</th>
-                <th scope="col">Hosted by</th>
+                <th scope="col">Organisation</th>
                 <th scope="col">Drop point</th>
                 <th scope="col">Visit</th>
                 <th scope="col">Status</th>
